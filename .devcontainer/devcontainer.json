@@ -1,0 +1,41 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the
+// README at: https://github.com/devcontainers/templates/tree/main/src/java
+{
+	"name": "Devcontainer-bankwizz-frontend",
+	// Or use a Dockerfile or Docker Compose file. More info: https://containers.dev/guide/dockerfile
+	"image": "mcr.microsoft.com/devcontainers/base:jammy",
+
+	"features": {
+		"ghcr.io/devcontainers/features/docker-in-docker:1": {},
+        "ghcr.io/devcontainers/features/github-cli:1": {},
+		"ghcr.io/devcontainers-contrib/features/zsh-plugins:0": {
+            "plugins" : "common-aliases gh git git-flow git-prompt sdk zsh-autosuggestions zsh-syntax-highlighting",
+            "omzPlugins" : "https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-syntax-highlighting.git"
+        },
+		"ghcr.io/devcontainers/features/node:1": {
+			"version" : "18"
+		}
+	},
+	
+	"remoteUser": "vscode",
+
+	"containerEnv": { 
+        "USER_GITHUB_LOGIN": "${localEnv:USER_GITHUB_LOGIN}", 
+        "USER_GITHUB_KEY": "${localEnv:USER_GITHUB_KEY}",
+        "SONAR_TOKEN": "${localEnv:SONAR_TOKEN}",
+        "GH_TOKEN": "${localEnv:USER_GITHUB_KEY}"
+    }, 
+	
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	// "forwardPorts": [],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "java -version",
+
+	// Configure tool-specific properties.
+	// "customizations": {},
+
+	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// "remoteUser": "root"
+}
