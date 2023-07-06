@@ -18,17 +18,13 @@
     "USER_GITHUB_KEY": "${localEnv:USER_GITHUB_KEY}",
     "GH_TOKEN": "${localEnv:USER_GITHUB_KEY}"
   },
-  "forwardPorts": [
-    3000
-  ],
+  "forwardPorts": [3000],
   "customizations": {
     "vscode": {
       "settings": {
         "terminal.integrated.defaultProfile.linux": "zsh"
       },
-      "extensions": [
-        "ms-azuretools.vscode-docker"
-      ]
+      "extensions": ["ms-azuretools.vscode-docker"]
     }
   }
 }

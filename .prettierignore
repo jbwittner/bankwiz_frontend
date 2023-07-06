@@ -2,6 +2,3 @@ build
 coverage
 .next
 node_modules
-.devcontainer
-.github
-.vscode
