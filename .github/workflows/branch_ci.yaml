@@ -5,7 +5,7 @@ on:
       - master
       - develop
 env:
-  NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  USER_GITHUB_KEY: ${{ secrets.GITHUB_TOKEN }}
   CI: true
   NEXT_TELEMETRY_DISABLED: 1
 jobs:
@@ -21,7 +21,6 @@ jobs:
         with:
           node-version: 18
           cache: 'npm'
-          registry-url: 'https://npm.pkg.github.com'
       - name: NPM Clean install
         run: npm install
       - name: NPM Run lint
