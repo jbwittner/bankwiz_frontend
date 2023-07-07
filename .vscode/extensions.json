@@ -1,3 +1,6 @@
 {
-  "recommendations": ["ms-azuretools.vscode-docker"]
+  "recommendations": [
+    "ms-azuretools.vscode-docker",
+    "sonarsource.sonarlint-vscode"
+  ]
 }

@@ -1,4 +1,8 @@
 {
   "editor.tabSize": 2,
-  "eslint.format.enable": true
+  "eslint.format.enable": true,
+  "sonarlint.connectedMode.project": {
+    "connectionId": "jbwittner-sonar",
+    "projectKey": "jbwittner_bankwiz_frontend"
+  }
 }

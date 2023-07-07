@@ -1,11 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import {
-  signIn,
-  getSession,
-  getCsrfToken,
-} from 'next-auth/react';
+import { signIn, getSession, getCsrfToken } from 'next-auth/react';
 import axios from 'axios';
 
 const GetRequestButton: React.FC = () => {
