@@ -3,7 +3,17 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Requirements
-To work on this project, it is necessary to define two environment variables: `USER_GITHUB_LOGIN` and `USER_GITHUB_KEY`. The `USER_GITHUB_LOGIN` variable should be set with your GitHub login, which is your GitHub username. The `USER_GITHUB_KEY` variable should be set with a Personal Access Token that has the required `read:packages` scope. This token grants access to GitHub packages. Make sure to keep the Personal Access Token confidential and avoid sharing it with unauthorized individuals. By properly configuring these environment variables, your development environment will be able to securely access GitHub using your credentials.
+To work on this project, it is necessary to define three environment variables: `USER_GITHUB_LOGIN`, `USER_GITHUB_KEY`, and `SONAR_TOKEN`.
+
+The `USER_GITHUB_LOGIN` variable should be set with your GitHub login, which is your GitHub username.
+
+The `USER_GITHUB_KEY` variable should be set with a Personal Access Token that has the required `read:packages` scope. This token grants access to GitHub packages.
+
+The `SONAR_TOKEN` variable should be set with your SonarCloud token. This will allow you to push analysis results from your local machine to SonarCloud.
+
+Ensure to keep these tokens and your Personal Access Token confidential and avoid sharing them with unauthorized individuals. By correctly setting these environment variables, your development environment will be able to securely access GitHub and SonarCloud using your credentials.
+
+**Important note:** These environment variables need to be set either on the host machine (in case of using DevContainer) or directly on the machine where you develop.
 
 ## Development environment
 To ensure a controlled development environment, a DevContainer has been provided for the project. The DevContainer includes a preconfigured development environment with the necessary tools and dependencies. It helps to standardize the development environment across different machines and ensures that all developers have a consistent setup.
