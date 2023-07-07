@@ -26,7 +26,10 @@
       "settings": {
         "terminal.integrated.defaultProfile.linux": "zsh"
       },
-      "extensions": ["ms-azuretools.vscode-docker"]
+      "extensions": [
+        "ms-azuretools.vscode-docker",
+        "sonarsource.sonarlint-vscode"
+      ]
     }
   }
 }
