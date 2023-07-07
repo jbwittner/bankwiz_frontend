@@ -24,6 +24,14 @@ const GetRequestButton: React.FC = () => {
     }
   };
 
+  const handleClickStatus = async () => {
+    try {
+      await axios.get('/api/status');
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   async function myFunction() {
     const session = await getSession();
     console.log(session);
@@ -40,6 +48,7 @@ const GetRequestButton: React.FC = () => {
       <button onClick={() => myFunction()}>myFunction</button>
       <button onClick={handleClickLogin}>Make GET Request</button>
       <button onClick={handleClickToken}>getToken</button>
+      <button onClick={handleClickStatus}>getStatus</button>
       {data && <p>{data}</p>}
     </div>
   );
