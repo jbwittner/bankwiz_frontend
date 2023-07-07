@@ -1,8 +1,9 @@
 [![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_frontend&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_frontend) [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_frontend&metric=coverage)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_frontend) [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_frontend&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_frontend) [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_frontend&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_frontend) [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_frontend&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_frontend) [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_frontend&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_frontend) [![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_frontend&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_frontend) [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=jbwittner_bankwiz_frontend&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=jbwittner_bankwiz_frontend)
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+BankWiz Server is a banking-related server application. This README provides instructions for setting up and maintaining the project.
 
 ## Requirements
+
 To work on this project, it is necessary to define three environment variables: `USER_GITHUB_LOGIN`, `USER_GITHUB_KEY`, and `SONAR_TOKEN`.
 
 The `USER_GITHUB_LOGIN` variable should be set with your GitHub login, which is your GitHub username.
@@ -16,11 +17,13 @@ Ensure to keep these tokens and your Personal Access Token confidential and avoi
 **Important note:** These environment variables need to be set either on the host machine (in case of using DevContainer) or directly on the machine where you develop.
 
 ## Development environment
+
 To ensure a controlled development environment, a DevContainer has been provided for the project. The DevContainer includes a preconfigured development environment with the necessary tools and dependencies. It helps to standardize the development environment across different machines and ensures that all developers have a consistent setup.
 
 By using the provided DevContainer, you can be confident that your development environment is properly configured, including the required environment variables. This helps to streamline the development process and ensures that everyone working on the project has a consistent and controlled environment.
 
 ## Authentication Configuration
+
 This project uses Auth0 for authentication. Provide a .env file (.env.local for development, .env.production for production) in the project root with the following variables:
 
 ```bash
@@ -33,16 +36,19 @@ AUTH0_CLIENT_SECRET=your_auth0_client_secret
 This project has both ESLint and Prettier configured. These tools can automatically highlight and fix many common programming errors and stylistic issues.
 
 - **ESLint Check**: To run the linter, use the lint script:
+
 ```bash
 npm run lint
 ```
 
 - **Prettier Check**: To check if your code is formatted according to Prettier's rules, use the prettier script:
+
 ```bash
 npm run prettier
 ```
 
 - **Prettier Auto-fix**: To automatically fix any formatting errors that Prettier can handle, use the prettier:fix script:
+
 ```bash
 npm run prettier:fix
 ```
