@@ -12,7 +12,7 @@ export async function GET(req: NextRequest) {
     headers: { 'Authorization': token.accessToken },
   };
 
-  const resultPublic = await fetch("http://localhost:8080/status/public");
+  const resultPublic = await fetch("http://127.0.0.1:8080/status/public");
   console.log("resultPublic", resultPublic)
   /*
   const resultPrivate = await fetch("http://localhost:8080/status/private", opts);
