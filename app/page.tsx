@@ -28,7 +28,7 @@ export default function Home() {
           </a>
         </div>
       </div>
-      <GetRequestButton/>
+      <GetRequestButton />
 
       <div className={styles.center}>
         <Image

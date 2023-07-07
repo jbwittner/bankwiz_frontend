@@ -1,7 +1,13 @@
-"use client";
+'use client';
 
 import React, { useState } from 'react';
-import { useSession, signIn, signOut, getSession, getCsrfToken } from "next-auth/react"
+import {
+  useSession,
+  signIn,
+  signOut,
+  getSession,
+  getCsrfToken,
+} from 'next-auth/react';
 import axios from 'axios';
 
 const GetRequestButton: React.FC = () => {
@@ -25,10 +31,10 @@ const GetRequestButton: React.FC = () => {
   };
 
   async function myFunction() {
-    const session = await getSession()
-    console.log(session)
-    const csrfToken = await getCsrfToken()
-    console.log(csrfToken)
+    const session = await getSession();
+    console.log(session);
+    const csrfToken = await getCsrfToken();
+    console.log(csrfToken);
 
     /* ... */
   }
