@@ -1,8 +1,6 @@
 // This is an example of how to read a JSON Web Token from an API route
-import { getServerSession } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/authoptions';
 
 export async function GET(req: NextRequest) {
   const token = await getToken({
@@ -17,11 +15,13 @@ export async function GET(req: NextRequest) {
 
   const resultPublic = await fetch('http://127.0.0.1:8080/status/public');
   console.log('resultPublic', resultPublic);
-  /*
-  const resultPrivate = await fetch("http://localhost:8080/status/private", opts);
-  console.log("resultPrivate", resultPrivate)
-  const resultAdmin = await fetch("http://localhost:8080/status/admin", opts);
-  console.log("resultAdmin", resultAdmin)
-  */
+  const resultPrivate = await fetch(
+    'http://localhost:8080/status/private',
+    opts,
+  );
+  console.log('resultPrivate', resultPrivate);
+  const resultAdmin = await fetch('http://localhost:8080/status/admin', opts);
+  console.log('resultAdmin', resultAdmin);
+
   return NextResponse.json({ message: 'Hello World' }, { status: 200 });
 }
