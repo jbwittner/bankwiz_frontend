@@ -53,6 +53,14 @@ npm run prettier
 npm run prettier:fix
 ```
 
+## OpenAPI Library
+
+This project utilizes the **@jbwittner/bankwiz_openapi-client** library for communication with the application's API. The library is designed to interact with the API endpoints and abstracts the intricacies of API communication. It provides an easy-to-use interface for sending HTTP requests to the server, handling responses, and converting between JavaScript objects and the data formats used by the API.
+
+The library comes from the repository https://github.com/jbwittner/bankwiz_openapi. It's crucial to familiarize yourself with this library to understand how it facilitates communication between the application and its API. Using this library will allow you to focus more on developing the application's features, as the low-level details of API communication are handled for you.
+
+Remember to always keep the library updated to the latest version to incorporate any improvements or bug fixes that have been made.
+
 ## Getting Started
 
 First, run the development server:
