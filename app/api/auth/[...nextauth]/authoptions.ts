@@ -21,13 +21,13 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, account, user }) {
-      console.log("===== jwt start =====")
-      console.log("account", account)
+      console.log('===== jwt start =====');
+      console.log('account', account);
       if (user) token.id = user.id;
       if (account) token.id_token = account.id_token;
       if (account) token.accessToken = account.access_token;
-      console.log("token", token)
-      console.log("===== jwt end =====")
+      console.log('token', token);
+      console.log('===== jwt end =====');
       return token;
     },
   },

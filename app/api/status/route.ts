@@ -5,15 +5,18 @@ import { NextRequest, NextResponse } from 'next/server';
 import { authOptions } from '../auth/[...nextauth]/authoptions';
 
 export async function GET(req: NextRequest) {
-  const token = await getToken({ req, secret: process.env.AUTH0_CLIENT_SECRET ?? '' });
+  const token = await getToken({
+    req,
+    secret: process.env.AUTH0_CLIENT_SECRET ?? '',
+  });
   const opts: RequestInit = {
     method: 'GET',
     // @ts-ignore
-    headers: { 'Authorization': token.accessToken },
+    headers: { Authorization: token.accessToken },
   };
 
-  const resultPublic = await fetch("http://127.0.0.1:8080/status/public");
-  console.log("resultPublic", resultPublic)
+  const resultPublic = await fetch('http://127.0.0.1:8080/status/public');
+  console.log('resultPublic', resultPublic);
   /*
   const resultPrivate = await fetch("http://localhost:8080/status/private", opts);
   console.log("resultPrivate", resultPrivate)
