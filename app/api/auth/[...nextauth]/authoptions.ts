@@ -5,10 +5,9 @@ export const authOptions: NextAuthOptions = {
   secret: 'secret',
   providers: [
     Auth0Provider({
-      clientId: 'Ft19Fj18hCfT5gBF1sUjGgLzLTkoFtZz',
-      clientSecret:
-        'Y32vrdclwYuCh8wEbDn2lOM15XDRaNfResRBcVGubTaU9MmUfHGufQHj_RTdCGU6',
-      issuer: 'https://bankwiz-dev.eu.auth0.com',
+      clientId: process.env.AUTH0_CLIENT_ID ?? "",
+      clientSecret: process.env.AUTH0_CLIENT_SECRET ?? "",
+      issuer: process.env.AUTH0_ISSUER ?? '',
     }),
     // ...add more providers here
   ],
