@@ -18,8 +18,7 @@ const GetRequestButton: React.FC = () => {
 
   const handleClickToken = async () => {
     try {
-      const response = await axios.get('/api/token');
-      setData(response.data);
+      await axios.get('/api/token');
     } catch (error) {
       console.error(error);
     }

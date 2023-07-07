@@ -1,8 +1,9 @@
-import NextAuth from "next-auth"
+import NextAuth, { NextAuthOptions } from "next-auth"
 import Auth0Provider from "next-auth/providers/auth0";
 
 
-const handler = NextAuth({
+export const authOptions: NextAuthOptions = {
+  secret: "secret",
   providers: [
     Auth0Provider({
       clientId: "Ft19Fj18hCfT5gBF1sUjGgLzLTkoFtZz",
@@ -14,19 +15,30 @@ const handler = NextAuth({
 
   callbacks: {
     async session({ session, token, user }) {
-      return session;
-    },
-    async jwt({ token, user, account, profile }) {
-      if (user) {
-        token.id = user.id;
-      }
-      if (account) {
-        token.accessToken = account.access_token;
-      }
-      return token;
-    },
-  },
+      // Send properties to the client, like an access_token and user id from a provider.
+      // @ts-ignore
+      session.accessToken = token.accessToken
 
-})
+      // @ts-ignore
+      session.user.id = token.id
+      
+      return session
+
+    },
+    async jwt({ token, account, profile }) {
+      console.log("token : ", token)
+      console.log("account : ", account)
+      console.log("profile : ", profile)
+      // Persist the OAuth access_token and or the user id to the token right after signin
+      if (account) {
+        token.accessToken = account.access_token
+      }
+      return token
+    }
+  
+  },
+}
+
+const handler = NextAuth(authOptions)
 
 export { handler as GET, handler as POST }
