@@ -2,9 +2,7 @@
 
 import React, { useState } from 'react';
 import {
-  useSession,
   signIn,
-  signOut,
   getSession,
   getCsrfToken,
 } from 'next-auth/react';

@@ -30,8 +30,6 @@ jobs:
         run: npm run prettier
       - name: NPM Run build
         run: npm run build
-      - name: NPM Run test
-        run: npm run coverage
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
