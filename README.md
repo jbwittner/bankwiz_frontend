@@ -2,16 +2,47 @@
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
+## Requirements
+To work on this project, it is necessary to define two environment variables: `USER_GITHUB_LOGIN` and `USER_GITHUB_KEY`. The `USER_GITHUB_LOGIN` variable should be set with your GitHub login, which is your GitHub username. The `USER_GITHUB_KEY` variable should be set with a Personal Access Token that has the required `read:packages` scope. This token grants access to GitHub packages. Make sure to keep the Personal Access Token confidential and avoid sharing it with unauthorized individuals. By properly configuring these environment variables, your development environment will be able to securely access GitHub using your credentials.
+
+## Development environment
+To ensure a controlled development environment, a DevContainer has been provided for the project. The DevContainer includes a preconfigured development environment with the necessary tools and dependencies. It helps to standardize the development environment across different machines and ensures that all developers have a consistent setup.
+
+By using the provided DevContainer, you can be confident that your development environment is properly configured, including the required environment variables. This helps to streamline the development process and ensures that everyone working on the project has a consistent and controlled environment.
+
+## Authentication Configuration
+This project uses Auth0 for authentication. Provide a .env file (.env.local for development, .env.production for production) in the project root with the following variables:
+
+```bash
+AUTH0_CLIENT_ID=your_auth0_client_id
+AUTH0_CLIENT_SECRET=your_auth0_client_secret
+```
+
+## Code Quality
+
+This project has both ESLint and Prettier configured. These tools can automatically highlight and fix many common programming errors and stylistic issues.
+
+- **ESLint Check**: To run the linter, use the lint script:
+```bash
+npm run lint
+```
+
+- **Prettier Check**: To check if your code is formatted according to Prettier's rules, use the prettier script:
+```bash
+npm run prettier
+```
+
+- **Prettier Auto-fix**: To automatically fix any formatting errors that Prettier can handle, use the prettier:fix script:
+```bash
+npm run prettier:fix
+```
+
 ## Getting Started
 
 First, run the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
@@ -19,18 +50,3 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.

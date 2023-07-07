@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { signIn, getSession, getCsrfToken } from 'next-auth/react';
+import { signIn, getSession, getCsrfToken, signOut } from 'next-auth/react';
 import axios from 'axios';
 
 const GetRequestButton: React.FC = () => {
@@ -36,6 +36,7 @@ const GetRequestButton: React.FC = () => {
   return (
     <div>
       <button onClick={() => signIn('auth0')}>Sign in</button>
+      <button onClick={() => signOut()}>Sign out</button>
       <button onClick={() => myFunction()}>myFunction</button>
       <button onClick={handleClickLogin}>Make GET Request</button>
       <button onClick={handleClickToken}>getToken</button>
