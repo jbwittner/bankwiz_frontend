@@ -7,10 +7,12 @@ export async function GET(req: NextRequest) {
     req,
     secret: process.env.AUTH0_CLIENT_SECRET ?? '',
   });
+    // @ts-ignore
+  console.log("token.accessToken", token.accessToken)
   const opts: RequestInit = {
     method: 'GET',
     // @ts-ignore
-    headers: { Authorization: token.accessToken },
+    headers: { Authorization: "Bearer " + token.accessToken },
   };
 
   const resultPublic = await fetch('http://127.0.0.1:8080/status/public');
