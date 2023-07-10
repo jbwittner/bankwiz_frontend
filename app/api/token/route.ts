@@ -11,7 +11,10 @@ export async function GET(req: NextRequest) {
   // @ts-ignore
   console.log('accessToken', session?.accessToken);
   console.log('==== after session =====');
-  const token = await getToken({ req, secret: 'secret' });
+  const token = await getToken({
+    req,
+    secret: process.env.AUTH0_CLIENT_SECRET ?? '',
+  });
   console.log('==== before token =====');
   console.log('token', token);
   console.log('==== after token =====');

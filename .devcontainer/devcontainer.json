@@ -20,7 +20,7 @@
     "GH_TOKEN": "${localEnv:USER_GITHUB_KEY}"
   },
   "onCreateCommand": "wget -O ~/sonar-scanner-cli.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-4.7.0.2747-linux.zip && unzip ~/sonar-scanner-cli.zip -d ~/ && echo 'export PATH=$PATH:/home/vscode/sonar-scanner-4.7.0.2747-linux/bin'>>/home/vscode/.zshrc",
-  "forwardPorts": [3000],
+  "runArgs": ["--network=host"],
   "customizations": {
     "vscode": {
       "settings": {
