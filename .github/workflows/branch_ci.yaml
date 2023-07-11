@@ -21,15 +21,15 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 18
-          cache: 'npm'
-      - name: NPM Clean install
-        run: npm install
-      - name: NPM Run lint
-        run: npm run lint
-      - name: NPM Run prettier
-        run: npm run prettier
-      - name: NPM Run build
-        run: npm run build
+          cache: 'pnpm'
+      - name: PNPM Clean install
+        run: pnpm install
+      - name: PNPM Run lint
+        run: pnpm run lint
+      - name: PNPM Run prettier
+        run: pnpm run prettier
+      - name: PNPM Run build
+        run: pnpm run build
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
