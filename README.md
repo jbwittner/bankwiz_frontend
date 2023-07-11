@@ -38,19 +38,19 @@ This project has both ESLint and Prettier configured. These tools can automatica
 - **ESLint Check**: To run the linter, use the lint script:
 
 ```bash
-npm run lint
+pnpmrun lint
 ```
 
 - **Prettier Check**: To check if your code is formatted according to Prettier's rules, use the prettier script:
 
 ```bash
-npm run prettier
+pnpmrun prettier
 ```
 
 - **Prettier Auto-fix**: To automatically fix any formatting errors that Prettier can handle, use the prettier:fix script:
 
 ```bash
-npm run prettier:fix
+pnpmrun prettier:fix
 ```
 
 ## OpenAPI Library
@@ -66,7 +66,7 @@ Remember to always keep the library updated to the latest version to incorporate
 First, run the development server:
 
 ```bash
-npm run dev
+pnpmrun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
