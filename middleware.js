@@ -1,5 +1,4 @@
-import { withAuth } from "next-auth/middleware"
-
+import { withAuth } from 'next-auth/middleware';
 
 export default withAuth(
   function middleware(req) {
@@ -8,12 +7,12 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ token }) => {
-        if(token) {
-          return true
+        if (token) {
+          return true;
         }
-        },
+      },
     },
-  }
-)
+  },
+);
 
-export const config = { matcher: ["/home"] }
+export const config = { matcher: ['/home'] };
