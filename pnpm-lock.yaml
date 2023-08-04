@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@jbwittner/bankwiz_openapi-client':
-    specifier: 0.2.0
-    version: 0.2.0
+    specifier: 0.2.6
+    version: 0.2.6
   axios:
     specifier: ^1.4.0
     version: 1.4.0
@@ -120,8 +120,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@jbwittner/bankwiz_openapi-client@0.2.0:
-    resolution: {integrity: sha512-eyTsD3o5/MKhPdtASukCd/eZLCugI60rr0MUFuBUzRKoPXWH28EAwV/TwblvC15qkvCpZNP4QWGHN9h9KzA+iw==, tarball: https://npm.pkg.github.com/download/@jbwittner/bankwiz_openapi-client/0.2.0/8cd687ee7ad17ce1aad3129fa2487995972db6e3}
+  /@jbwittner/bankwiz_openapi-client@0.2.6:
+    resolution: {integrity: sha512-YdHod0Izu4I0bwuVHQDIKmmg5se3lwRn3BQYe4haPG95C3EVEazsqgwWv29sQ+J18Zgb77zBtGdOmtnuDq2DOA==, tarball: https://npm.pkg.github.com/download/@jbwittner/bankwiz_openapi-client/0.2.6/fb9332ef54f2cc515712138fe38af1fe78e77540}
     dependencies:
       axios: 0.27.2
     transitivePeerDependencies:
