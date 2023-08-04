@@ -1,14 +1,27 @@
-'use client';
-
-import Image from 'next/image';
-import GetRequestButton from './ButtonCallGet';
-import { pino } from 'pino';
-import React, { useEffect } from 'react';
+import React from 'react';
+import { signIn, getSession } from "next-auth/react";
+import { redirect, useRouter } from 'next/navigation'
 
 export default function LandingPage() {
+
+  const checkLogin =async () => {
+    const session = await getSession();
+    if(!session){
+      signIn('auth0', {
+        callbackUrl: '/home',
+      })
+    } else {
+      redirect("/home")
+    }
+  }
+
   return (
     <React.Fragment>
-      <GetRequestButton></GetRequestButton>
+      <button
+        onClick={checkLogin}
+      >
+        Sign in
+      </button>
     </React.Fragment>
   );
 }
