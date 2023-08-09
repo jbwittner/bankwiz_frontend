@@ -1,17 +1,21 @@
+'use client'
+
 import React from 'react';
 import { signIn, getSession } from "next-auth/react";
 import { redirect, useRouter } from 'next/navigation'
 
 export default function LandingPage() {
 
+  const router = useRouter()
+
   const checkLogin =async () => {
     const session = await getSession();
     if(!session){
       signIn('auth0', {
-        callbackUrl: '/home',
+        callbackUrl: '/app/home',
       })
     } else {
-      redirect("/home")
+      router.push("/app/home")
     }
   }
 
