@@ -16,12 +16,6 @@ Ensure to keep these tokens and your Personal Access Token confidential and avoi
 
 **Important note:** These environment variables need to be set either on the host machine (in case of using DevContainer) or directly on the machine where you develop.
 
-## Development environment
-
-To ensure a controlled development environment, a DevContainer has been provided for the project. The DevContainer includes a preconfigured development environment with the necessary tools and dependencies. It helps to standardize the development environment across different machines and ensures that all developers have a consistent setup.
-
-By using the provided DevContainer, you can be confident that your development environment is properly configured, including the required environment variables. This helps to streamline the development process and ensures that everyone working on the project has a consistent and controlled environment.
-
 ## Authentication Configuration
 
 This project uses Auth0 for authentication. Provide a .env file (.env.local for development, .env.production for production) in the project root with the following variables:

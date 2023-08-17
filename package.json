@@ -11,7 +11,10 @@
     "prettier:fix": "prettier --write ."
   },
   "dependencies": {
+    "@emotion/react": "^11.11.1",
+    "@emotion/styled": "^11.11.0",
     "@jbwittner/bankwiz_openapi-client": "0.2.6",
+    "@mui/material": "^5.14.3",
     "axios": "^1.4.0",
     "next": "13.4.8",
     "next-auth": "^4.22.1",
