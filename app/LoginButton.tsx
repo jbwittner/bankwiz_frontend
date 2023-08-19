@@ -4,11 +4,10 @@ import React from 'react';
 import { signIn, getSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import Button from '@mui/material/Button';
-import logger from '@/tools/logger';
+import applogger from '@/tools/logger';
 
 export default function LoginButton() {
-  const child = logger.child({ child: 'child_a' });
-  logger.info('hello world from client');
+  const child = applogger.childPageLogger('LoginButton');
   child.info('hello world from client');
 
   const router = useRouter();
@@ -30,13 +29,11 @@ export default function LoginButton() {
   };
 
   const checkLog = () => {
-    logger.info('clivk checkLog');
-    logger.warn('test warn 1', toto);
     child.info('clivk checkLog');
-    child.warn('test warn 1', toto);
+    child.warn('test warn 1 %o', toto);
+    child.warn({ toto });
   };
 
-  logger.warn('test warn 2', toto);
   child.warn('test warn 2', toto);
 
   return (
