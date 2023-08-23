@@ -36,7 +36,7 @@ export const authOptions: NextAuthOptions = {
         logger.debug({user}, "Callbacks - jwt - user")
       }
 
-      logger.debug({token}, "Callbacks - jwt - token")
+      logger.info({token}, "Callbacks - jwt - token")
 
       if (user) token.id = user.id;
       if (account) token.idToken = account.id_token;
