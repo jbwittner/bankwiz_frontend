@@ -1,5 +1,8 @@
+import applogger from '@/tools/logger';
 import { NextAuthOptions } from 'next-auth';
 import Auth0Provider from 'next-auth/providers/auth0';
+
+const logger = applogger.childApiLogger('AuthOptions');
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -20,13 +23,25 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, account, user }) {
-      console.log('===== jwt start =====');
-      console.log('account', account);
+
+      if(account === undefined){
+        logger.debug("Callbacks - jwt - account is undefined")
+      } else {
+        logger.debug({account}, "Callbacks - jwt - account")
+      }
+
+      if(user === undefined){
+        logger.debug("Callbacks - jwt - user is undefined")
+      } else {
+        logger.debug({user}, "Callbacks - jwt - user")
+      }
+
+      logger.debug({token}, "Callbacks - jwt - token")
+
       if (user) token.id = user.id;
-      if (account) token.id_token = account.id_token;
+      if (account) token.idToken = account.id_token;
       if (account) token.accessToken = account.access_token;
-      console.log('token', token);
-      console.log('===== jwt end =====');
+
       return token;
     },
   },

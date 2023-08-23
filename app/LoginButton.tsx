@@ -7,42 +7,28 @@ import Button from '@mui/material/Button';
 import applogger from '@/tools/logger';
 
 export default function LoginButton() {
-  const child = applogger.childPageLogger('LoginButton');
-  child.info('hello world from client');
+  const child = applogger.childComponentLogger('LoginButton');
 
   const router = useRouter();
 
-  const toto = {
-    tata: 'tptp',
-    titre: 'tcoutche',
-  };
-
   const checkLogin = async () => {
+    child.info("Get session")
     const session = await getSession();
     if (!session) {
+      child.info("Session null")
       signIn('auth0', {
         callbackUrl: '/app/home',
       });
     } else {
+      child.info("Session not null")
       router.push('/app/home');
     }
   };
-
-  const checkLog = () => {
-    child.info('clivk checkLog');
-    child.warn('test warn 1 %o', toto);
-    child.warn({ toto });
-  };
-
-  child.warn('test warn 2', toto);
 
   return (
     <React.Fragment>
       <Button variant="contained" onClick={checkLogin}>
         Sign in
-      </Button>
-      <Button variant="contained" onClick={checkLog}>
-        test
       </Button>
     </React.Fragment>
   );
