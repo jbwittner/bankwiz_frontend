@@ -12,15 +12,15 @@ export default function LoginButton() {
   const router = useRouter();
 
   const checkLogin = async () => {
-    child.info("Get session")
+    child.info('Get session');
     const session = await getSession();
     if (!session) {
-      child.info("Session null")
+      child.info('Session null');
       signIn('auth0', {
         callbackUrl: '/app/home',
       });
     } else {
-      child.info("Session not null")
+      child.info('Session not null');
       router.push('/app/home');
     }
   };

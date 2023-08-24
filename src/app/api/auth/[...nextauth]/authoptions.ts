@@ -23,20 +23,19 @@ export const authOptions: NextAuthOptions = {
 
   callbacks: {
     async jwt({ token, account, user }) {
-
-      if(account === undefined){
-        logger.debug("Callbacks - jwt - account is undefined")
+      if (account === undefined) {
+        logger.debug('Callbacks - jwt - account is undefined');
       } else {
-        logger.debug({account}, "Callbacks - jwt - account")
+        logger.debug({ account }, 'Callbacks - jwt - account');
       }
 
-      if(user === undefined){
-        logger.debug("Callbacks - jwt - user is undefined")
+      if (user === undefined) {
+        logger.debug('Callbacks - jwt - user is undefined');
       } else {
-        logger.debug({user}, "Callbacks - jwt - user")
+        logger.debug({ user }, 'Callbacks - jwt - user');
       }
 
-      logger.info({token}, "Callbacks - jwt - token")
+      logger.info({ token }, 'Callbacks - jwt - token');
 
       if (user) token.id = user.id;
       if (account) token.idToken = account.id_token;

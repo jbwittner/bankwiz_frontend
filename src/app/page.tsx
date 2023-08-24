@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import styles from './page.module.css'
-import LoginButton from '@/components/LoginButton'
+import Image from 'next/image';
+import styles from './page.module.css';
+import LoginButton from '@/components/LoginButton';
 
 export default function Home() {
   return (
@@ -94,5 +94,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
