@@ -17,11 +17,11 @@ export default function LoginButton() {
     if (!session) {
       child.info('Session null');
       signIn('auth0', {
-        callbackUrl: '/app/home',
+        callbackUrl: '/home',
       });
     } else {
       child.info('Session not null');
-      router.push('/app/home');
+      router.push('/home');
     }
   };
 
