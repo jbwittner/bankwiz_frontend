@@ -1,4 +1,4 @@
-import applogger from '@/tools/logger';
+import applogger from '@/tools/AppLogger';
 import { NextAuthOptions } from 'next-auth';
 import Auth0Provider from 'next-auth/providers/auth0';
 

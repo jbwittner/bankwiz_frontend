@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import { pino } from 'pino';
 import React, { useEffect } from 'react';
 
 export default function LandingPage() {
