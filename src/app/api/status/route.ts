@@ -8,8 +8,6 @@ export async function GET(req: NextRequest) {
     secret: process.env.NEXTAUTH_SECRET ?? '',
   });
 
-  // @ts-ignore
-  console.log('token', token);
   const opts: RequestInit = {
     method: 'GET',
     // @ts-ignore
@@ -17,7 +15,6 @@ export async function GET(req: NextRequest) {
   };
 
   await fetch('http://127.0.0.1:8080/status/public');
-
   await fetch('http://localhost:8080/user/checkregistration', opts);
   await fetch('http://localhost:8080/status/private', opts);
   await fetch('http://localhost:8080/status/admin', opts);
