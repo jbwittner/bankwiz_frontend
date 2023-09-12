@@ -1,4 +1,5 @@
 import { withAuth } from 'next-auth/middleware';
+import jwt from 'jsonwebtoken';
 
 export default withAuth(
   function middleware(req) {
@@ -15,5 +16,4 @@ export default withAuth(
   },
 );
 
-export const config = { matcher: ["/app/:path*"] }
-
+export const config = { matcher: ['/app/:path*'] };

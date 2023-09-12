@@ -5,9 +5,9 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   const token = await getToken({
     req,
-    secret: process.env.NEXTAUTH_SECRET ?? ''
+    secret: process.env.NEXTAUTH_SECRET ?? '',
   });
-  
+
   // @ts-ignore
   console.log('token', token);
   const opts: RequestInit = {
@@ -15,22 +15,12 @@ export async function GET(req: NextRequest) {
     // @ts-ignore
     headers: { Authorization: 'Bearer ' + token.accessToken },
   };
-  
-  const resultPublic = await fetch('http://127.0.0.1:8080/status/public');
 
-  const checkregistration = await fetch(
-    'http://localhost:8080/user/checkregistration',
-    opts,
-  );
-  
-  //console.log('resultPublic', resultPublic);
-  const resultPrivate = await fetch(
-    'http://localhost:8080/status/private',
-    opts,
-  );
-  //console.log('resultPrivate', resultPrivate);
-  const resultAdmin = await fetch('http://localhost:8080/status/admin', opts);
-  //console.log('resultAdmin', resultAdmin);
+  await fetch('http://127.0.0.1:8080/status/public');
+
+  await fetch('http://localhost:8080/user/checkregistration', opts);
+  await fetch('http://localhost:8080/status/private', opts);
+  await fetch('http://localhost:8080/status/admin', opts);
 
   return NextResponse.json({ message: 'Hello World' }, { status: 200 });
 }

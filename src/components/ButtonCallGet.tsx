@@ -44,7 +44,9 @@ const GetRequestButton: React.FC = () => {
   return (
     <div>
       <button onClick={() => signOut()}>Sign out</button>
-      <button onClick={() => getSessiongetCsrfToken()}>getSessiongetCsrfToken</button>
+      <button onClick={() => getSessiongetCsrfToken()}>
+        getSessiongetCsrfToken
+      </button>
       <button onClick={statusPublic}>statusPublic</button>
       <button onClick={apiToken}>apiToken</button>
       <button onClick={apiStatus}>apiStatus</button>

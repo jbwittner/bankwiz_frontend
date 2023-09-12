@@ -21,7 +21,7 @@ export const authOptions: NextAuthOptions = {
     // ...add more providers here
   ],
   session: {
-    strategy: "jwt"
+    strategy: 'jwt',
   },
   callbacks: {
     async jwt({ token, account, user }) {
@@ -44,6 +44,6 @@ export const authOptions: NextAuthOptions = {
       if (account) token.accessToken = account.access_token;
 
       return token;
-    }
+    },
   },
 };
