@@ -7,11 +7,8 @@ export default withAuth(
   {
     callbacks: {
       authorized: ({ token }) => {
-        console.log("///////token///////")
-        console.log(token)
-        console.log("///////token///////")
         if (token) {
-          return token;
+          return true;
         }
       },
     },

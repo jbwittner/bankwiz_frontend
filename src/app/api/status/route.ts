@@ -5,7 +5,7 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   const token = await getToken({
     req,
-    secret: process.env.AUTH0_CLIENT_SECRET ?? ''
+    secret: process.env.NEXTAUTH_SECRET ?? ''
   });
   
   // @ts-ignore
@@ -16,7 +16,6 @@ export async function GET(req: NextRequest) {
     headers: { Authorization: 'Bearer ' + token.accessToken },
   };
   
-
   const resultPublic = await fetch('http://127.0.0.1:8080/status/public');
 
   const checkregistration = await fetch(

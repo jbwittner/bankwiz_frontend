@@ -20,7 +20,9 @@ export const authOptions: NextAuthOptions = {
     }),
     // ...add more providers here
   ],
-
+  session: {
+    strategy: "jwt"
+  },
   callbacks: {
     async jwt({ token, account, user }) {
       if (account === undefined) {
@@ -41,17 +43,7 @@ export const authOptions: NextAuthOptions = {
       if (account) token.idToken = account.id_token;
       if (account) token.accessToken = account.access_token;
 
-      console.log("///////jwt///////")
-      console.log(token)
-      console.log("///////jwt///////")
-
       return token;
-    },
-    async session({ session, token, user }) {
-      return {
-        ...session,
-        accessToken: token.accessToken
-      };
-    },
+    }
   },
 };

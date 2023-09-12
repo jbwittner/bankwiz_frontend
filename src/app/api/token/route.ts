@@ -13,7 +13,7 @@ export async function GET(req: NextRequest) {
   console.log('==== after session =====');
   const token = await getToken({
     req,
-    secret: process.env.AUTH0_CLIENT_SECRET ?? '',
+    secret: process.env.NEXTAUTH_SECRET ?? '',
   });
   console.log('==== before token =====');
   console.log('token', token);
