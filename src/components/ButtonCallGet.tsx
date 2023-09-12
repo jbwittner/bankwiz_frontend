@@ -7,7 +7,7 @@ import axios from 'axios';
 const GetRequestButton: React.FC = () => {
   const [data, setData] = useState<string | null>(null);
 
-  const handleClickLogin = async () => {
+  const statusPublic = async () => {
     try {
       const response = await axios.get('http://localhost:8080/status/public');
       setData(response.data);
@@ -16,7 +16,7 @@ const GetRequestButton: React.FC = () => {
     }
   };
 
-  const handleClickToken = async () => {
+  const apiToken = async () => {
     try {
       await axios.get('/api/token');
     } catch (error) {
@@ -24,7 +24,7 @@ const GetRequestButton: React.FC = () => {
     }
   };
 
-  const handleClickStatus = async () => {
+  const apiStatus = async () => {
     try {
       await axios.get('/api/status');
     } catch (error) {
@@ -32,7 +32,7 @@ const GetRequestButton: React.FC = () => {
     }
   };
 
-  async function myFunction() {
+  async function getSessiongetCsrfToken() {
     const session = await getSession();
     console.log(session);
     const csrfToken = await getCsrfToken();
@@ -43,12 +43,11 @@ const GetRequestButton: React.FC = () => {
 
   return (
     <div>
-      <button onClick={() => signIn('auth0')}>Sign in</button>
       <button onClick={() => signOut()}>Sign out</button>
-      <button onClick={() => myFunction()}>myFunction</button>
-      <button onClick={handleClickLogin}>Make GET Request</button>
-      <button onClick={handleClickToken}>getToken</button>
-      <button onClick={handleClickStatus}>getStatus</button>
+      <button onClick={() => getSessiongetCsrfToken()}>getSessiongetCsrfToken</button>
+      <button onClick={statusPublic}>statusPublic</button>
+      <button onClick={apiToken}>apiToken</button>
+      <button onClick={apiStatus}>apiStatus</button>
       {data && <p>{data}</p>}
     </div>
   );
