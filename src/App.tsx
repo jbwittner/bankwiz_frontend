@@ -2,13 +2,40 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import { useAuth0 } from '@auth0/auth0-react'
 
 function App() {
   const [count, setCount] = useState(0)
+  const {
+    loginWithPopup,
+    logout,
+    getAccessTokenSilently,
+    user,
+    isAuthenticated
+  } = useAuth0()
+
+  const toto = () => {
+    getAccessTokenSilently()
+      .then(result => {
+        console.log(result)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  }
 
   return (
     <>
       <div>
+        <div>
+          {isAuthenticated && user && (
+            <div>
+              <img src={user.userpicture} alt={user.name} />
+              <h2>{user.name}</h2>
+              <p>{user.email}</p>
+            </div>
+          )}
+        </div>
         <a href="https://vitejs.dev" rel="noreferrer" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -24,6 +51,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
+        <button onClick={() => loginWithPopup()}>Log In</button>;
+        <button onClick={() => logout()}>Log out</button>;
+        <button onClick={() => toto()}>getToken</button>;
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
