@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
 import { useAuth0 } from '@auth0/auth0-react'
+import Button from '@mui/material/Button'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -54,9 +54,9 @@ function App() {
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
-        <button onClick={() => loginWithPopup()}>Log In</button>;
-        <button onClick={() => logout()}>Log out</button>;
-        <button onClick={() => toto()}>getToken</button>;
+        <Button onClick={() => loginWithPopup()}>Log In</Button>
+        <Button onClick={() => logout()}>Log out</Button>
+        <Button onClick={() => toto()}>getToken</Button>
       </div>
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
