@@ -1,8 +1,17 @@
 import applogger from '@/tools/AppLogger';
 import { NextAuthOptions } from 'next-auth';
 import Auth0Provider from 'next-auth/providers/auth0';
+import * as jose from 'jose';
+import { JWT } from 'next-auth/jwt';
 
 const logger = applogger.childApiLogger('AuthOptions');
+
+export interface CustomJWT extends JWT {
+  accessToken?: string | null;
+  idToken?: string | null;
+  accessTokenExpires?: number | null;
+  refreshToken?: string | null;
+}
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -12,7 +21,7 @@ export const authOptions: NextAuthOptions = {
       issuer: process.env.AUTH0_ISSUER ?? '',
       authorization: {
         params: {
-          scope: 'openid email profile',
+          scope: 'offline_access openid email profile',
           prompt: 'login',
           audience: 'Bankwiz_server',
         },
@@ -25,23 +34,32 @@ export const authOptions: NextAuthOptions = {
   },
   callbacks: {
     async jwt({ token, account, user }) {
-      if (account === undefined) {
-        logger.debug('Callbacks - jwt - account is undefined');
-      } else {
-        logger.debug({ account }, 'Callbacks - jwt - account');
+      logger.info('Callbacks - jwt - token');
+
+      const customToken: CustomJWT = token;
+
+      // Initial sign in
+      if (account && user) {
+        const access_token: string = account.access_token
+          ? account.access_token
+          : '';
+        const decodedJwt = jose.decodeJwt(access_token);
+
+        customToken.accessToken = access_token;
+        customToken.accessTokenExpires = decodedJwt.exp;
+        customToken.refreshToken = account.refresh_token;
+
+        return customToken;
       }
 
-      if (user === undefined) {
-        logger.debug('Callbacks - jwt - user is undefined');
-      } else {
-        logger.debug({ user }, 'Callbacks - jwt - user');
+      logger.warn('Checking access token expiration');
+
+      if (customToken.accessTokenExpires) {
+        console.log(customToken.accessTokenExpires);
+        if (Date.now() > customToken.accessTokenExpires * 1000) {
+          logger.warn('Expired access token');
+        }
       }
-
-      logger.info({ token }, 'Callbacks - jwt - token');
-
-      if (user) token.id = user.id;
-      if (account) token.idToken = account.id_token;
-      if (account) token.accessToken = account.access_token;
 
       return token;
     },

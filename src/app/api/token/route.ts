@@ -1,22 +1,30 @@
 // This is an example of how to read a JSON Web Token from an API route
-import { getServerSession } from 'next-auth';
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
-import { authOptions } from '../auth/[...nextauth]/authoptions';
+import { CustomJWT } from '../auth/[...nextauth]/authoptions';
+import applogger from '@/tools/AppLogger';
+
+const logger = applogger.childApiLogger('/token');
 
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(authOptions);
-  console.log('==== before session =====');
-  console.log('session', session);
-  // @ts-ignore
-  console.log('accessToken', session?.accessToken);
-  console.log('==== after session =====');
+  let resultStatus: number = 401;
+
   const token = await getToken({
     req,
     secret: process.env.NEXTAUTH_SECRET ?? '',
   });
-  console.log('==== before token =====');
-  console.log('token', token);
-  console.log('==== after token =====');
-  return NextResponse.json({ message: 'Hello World' }, { status: 200 });
+
+  if (token) {
+    const customJWT: CustomJWT = token;
+    if (customJWT.accessTokenExpires) {
+      console.log(customJWT.accessTokenExpires);
+      if (Date.now() > customJWT.accessTokenExpires * 1000) {
+        logger.warn('Expired access token');
+      } else {
+        resultStatus = 200;
+      }
+    }
+  }
+
+  return NextResponse.json({}, { status: resultStatus });
 }
