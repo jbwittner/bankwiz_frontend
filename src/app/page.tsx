@@ -1,7 +1,7 @@
+import LoginButton from '@/components/LoginButton';
 import React from 'react';
-import LoginButton from './LoginButton';
 
-export default function LandingPage() {
+export default function Home() {
   return (
     <React.Fragment>
       <LoginButton />

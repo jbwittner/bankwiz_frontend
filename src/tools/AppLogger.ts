@@ -9,6 +9,7 @@ const loggerOptions: pino.LoggerOptions = {
     },
   },
   timestamp: pino.stdTimeFunctions.isoTime,
+  redact: ['token.id_token', 'token.accessToken'],
 };
 
 const baseLogger: Logger = pino(loggerOptions);
