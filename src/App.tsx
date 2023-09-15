@@ -15,8 +15,7 @@ function App() {
   } = useAuth0()
 
   console.log(import.meta.env.VITE_AUTH0_DOMAIN) // 123
-console.log(import.meta.env.VITE_SERVER_URL) // undefined
-
+  console.log(import.meta.env.VITE_SERVER_URL) // undefined
 
   const toto = () => {
     getAccessTokenSilently()
