@@ -1,8 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Container, Typography, Button } from '@mui/material'
+import { useEffect } from 'react'
 
 function App() {
   const { loginWithPopup } = useAuth0()
+
+  useEffect(() => {})
 
   const loginProcess = async () => {
     await loginWithPopup()
