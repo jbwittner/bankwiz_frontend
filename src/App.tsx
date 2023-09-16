@@ -1,15 +1,20 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Container, Typography, Button } from '@mui/material'
 import { useEffect } from 'react'
-import { ButtonLink } from './components/Button';
+import { ButtonLink } from '@/components/Button'
+import { useNavigate } from 'react-router-dom'
 
 function App() {
   const { loginWithPopup } = useAuth0()
 
+  const navigate = useNavigate()
+
   useEffect(() => {})
 
-  const loginProcess = async () => {
-    await loginWithPopup()
+  const loginProcess = () => {
+    loginWithPopup().then(() => {
+      navigate('/home')
+    })
   }
 
   return (
