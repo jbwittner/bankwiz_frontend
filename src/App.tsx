@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Container, Typography, Button } from '@mui/material'
 import { useEffect } from 'react'
+import { ButtonLink } from './components/Button';
 
 function App() {
   const { loginWithPopup } = useAuth0()
@@ -31,6 +32,7 @@ function App() {
       >
         Get Started
       </Button>
+      <ButtonLink to="/home">Home</ButtonLink>
     </Container>
   )
 }
