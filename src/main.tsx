@@ -1,12 +1,17 @@
-import { PropsWithChildren } from 'react'
+import { ComponentType, PropsWithChildren } from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.tsx'
 import {
   AppState,
   Auth0Provider,
-  Auth0ProviderOptions
+  Auth0ProviderOptions,
+  withAuthenticationRequired
 } from '@auth0/auth0-react'
 import { BrowserRouter, useNavigate, Routes, Route } from 'react-router-dom'
+import { Users } from './Test.tsx'
+
+
+const ProtectedUsers = withAuthenticationRequired(Users);
 
 const Auth0ProviderWithRedirectCallback = ({
   children,
@@ -29,7 +34,8 @@ const AppRoute = () => {
   return (
     <Routes>
         <Route path="/" element={<App />} />
-        <Route path="/users" element={<div>Toto</div>} />
+        <Route path="/toto" element={<div>toto</div>} />
+        <Route path="/users" element={<ProtectedUsers/>} />
       </Routes>
   )
 }
