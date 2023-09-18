@@ -37,7 +37,7 @@ function App() {
       >
         Get Started
       </Button>
-      <ButtonLink to="/home">Home</ButtonLink>
+      <ButtonLink to="/users">users</ButtonLink>
     </Container>
   )
 }

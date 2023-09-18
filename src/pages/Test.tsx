@@ -1,4 +1,10 @@
-export const Users = () => {
+import React from "react";
+import { useParams } from "react-router-dom";
+
+const Users = () => {
+
+  const params = useParams();
+
   const users = [
     { name: 'jb1', email: 'toto1@email.com' },
     { name: 'jb2', email: 'toto2@email.com' },
@@ -6,6 +12,8 @@ export const Users = () => {
   ]
 
   return (
+    <React.Fragment>
+      <h2>userId is 👉️ {params.userId}</h2>
     <table className="table">
       <thead>
         <tr>
@@ -24,5 +32,8 @@ export const Users = () => {
         )}
       </tbody>
     </table>
+    </React.Fragment>
   )
 }
+
+export default Users

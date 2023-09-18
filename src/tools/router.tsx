@@ -6,10 +6,10 @@ import {
   withAuthenticationRequired
 } from '@auth0/auth0-react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
-import { Users } from '@/pages/Test.js'
 import App from '@/pages/App'
+import Users from '@/pages/Test'
 
-const ProtectedUsers = withAuthenticationRequired(Users)
+const UsersPageWithAuthentication = withAuthenticationRequired(Users)
 
 const Auth0ProviderWithRedirectCallback = ({
   children,
@@ -33,7 +33,7 @@ const AppRoute = () => {
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/toto" element={<div>toto</div>} />
-      <Route path="/users" element={<ProtectedUsers />} />
+      <Route path="/users/:userId" element={<UsersPageWithAuthentication />} />
     </Routes>
   )
 }
