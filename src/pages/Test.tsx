@@ -1,9 +1,8 @@
-
 export const Users = () => {
   const users = [
-    {name: "jb1", email: "toto1@email.com"},
-    {name: "jb2", email: "toto2@email.com"},
-    {name: "jb3", email: "toto3@email.com"},
+    { name: 'jb1', email: 'toto1@email.com' },
+    { name: 'jb2', email: 'toto2@email.com' },
+    { name: 'jb3', email: 'toto3@email.com' }
   ]
 
   return (
@@ -25,5 +24,5 @@ export const Users = () => {
         )}
       </tbody>
     </table>
-  );
+  )
 }
