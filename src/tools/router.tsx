@@ -6,7 +6,6 @@ import {
   withAuthenticationRequired
 } from '@auth0/auth0-react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
-import Users from '@/pages/Test'
 import LoginPage from '@/pages/LoginPage'
 import { HomePage } from '@/pages/HomePage'
 
@@ -30,14 +29,12 @@ const Auth0ProviderWithRedirectCallback = ({
 }
 
 const HomePageWithAuthentication = withAuthenticationRequired(HomePage)
-const UsersPageWithAuthentication = withAuthenticationRequired(Users)
 
 const AppRoute = () => {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
       <Route path="/home" element={<HomePageWithAuthentication />} />
-      <Route path="/users/:userId" element={<UsersPageWithAuthentication />} />
       <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>
   )
