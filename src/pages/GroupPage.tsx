@@ -41,7 +41,7 @@ export function GroupPage() {
   return (
     <React.Fragment>
       <GroupDialog open={modalIsOpen} onClose={onCloseModal} />
-      <TableContainer component={Paper}>
+      <TableContainer component={Paper} sx={{ maxWidth: '800px', marginRight: 'auto', marginLeft: 'auto', marginTop : '0' }}>
         <Table>
           <TableHead>
             <TableRow>
