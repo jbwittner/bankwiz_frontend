@@ -1,10 +1,10 @@
 import { Backdrop, CircularProgress } from '@mui/material'
 
-interface CustomBackdropProps {
+interface IAppBackdropProps {
   open: boolean
 }
 
-export default function CustomBackdrop(props: CustomBackdropProps) {
+export default function AppBackdrop(props: IAppBackdropProps) {
   return (
     <div>
       <Backdrop
