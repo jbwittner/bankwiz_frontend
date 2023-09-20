@@ -9,13 +9,12 @@ import { useNavigate, Routes, Route } from 'react-router-dom'
 import LoginPage from '@/pages/LoginPage'
 import { HomePage } from '@/pages/HomePage'
 import { ApplicationLayout } from '@/pages/ApplicationLayout'
+import { GroupPage } from '@/pages/GroupPage'
 
 const Auth0ProviderWithRedirectCallback = ({
   children,
   ...props
 }: PropsWithChildren<Auth0ProviderOptions>) => {
-  console.log(props)
-
   const navigate = useNavigate()
 
   const onRedirectCallback = (appState?: AppState) => {
@@ -32,6 +31,7 @@ const Auth0ProviderWithRedirectCallback = ({
 const ApplicationLayoutWithAuthentication =
   withAuthenticationRequired(ApplicationLayout)
 const HomePageWithAuthentication = withAuthenticationRequired(HomePage)
+const GroupPageWithAuthentication = withAuthenticationRequired(GroupPage)
 
 const AppRoute = () => {
   return (
@@ -39,6 +39,7 @@ const AppRoute = () => {
       <Route path="/" element={<LoginPage />} />
       <Route element={<ApplicationLayoutWithAuthentication />}>
         <Route path="/home" element={<HomePageWithAuthentication />} />
+        <Route path="/group" element={<GroupPageWithAuthentication />} />
       </Route>
       <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>

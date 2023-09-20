@@ -2,10 +2,6 @@ import ReactDOM from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { AppRoute, Auth0ProviderWithRedirectCallback } from './tools/router.tsx'
 
-console.log(import.meta.env.VITE_AUTH0_DOMAIN)
-console.log(import.meta.env.VITE_AUTH0_CLIENT_ID)
-console.log(import.meta.env.VITE_AUTH0_AUDIENCE)
-
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <BrowserRouter>
     <Auth0ProviderWithRedirectCallback
