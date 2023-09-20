@@ -6,15 +6,16 @@ import {
   withAuthenticationRequired
 } from '@auth0/auth0-react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
-import App from '@/pages/App'
 import Users from '@/pages/Test'
-
-const UsersPageWithAuthentication = withAuthenticationRequired(Users)
+import LoginPage from '@/pages/LoginPage'
+import { HomePage } from '@/pages/HomePage'
 
 const Auth0ProviderWithRedirectCallback = ({
   children,
   ...props
 }: PropsWithChildren<Auth0ProviderOptions>) => {
+  console.log(props)
+
   const navigate = useNavigate()
 
   const onRedirectCallback = (appState?: AppState) => {
@@ -28,12 +29,16 @@ const Auth0ProviderWithRedirectCallback = ({
   )
 }
 
+const HomePageWithAuthentication = withAuthenticationRequired(HomePage)
+const UsersPageWithAuthentication = withAuthenticationRequired(Users)
+
 const AppRoute = () => {
   return (
     <Routes>
-      <Route path="/" element={<App />} />
-      <Route path="/toto" element={<div>toto</div>} />
+      <Route path="/" element={<LoginPage />} />
+      <Route path="/home" element={<HomePageWithAuthentication />} />
       <Route path="/users/:userId" element={<UsersPageWithAuthentication />} />
+      <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>
   )
 }
