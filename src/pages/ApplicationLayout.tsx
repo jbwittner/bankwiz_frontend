@@ -1,11 +1,12 @@
 import ApplicationBar from '@/components/ApplicationBar'
+import React from 'react'
 import { Outlet } from 'react-router-dom'
 
 export function ApplicationLayout() {
   return (
-    <div>
+    <React.Fragment>
       <ApplicationBar />
       <Outlet />
-    </div>
+      </React.Fragment>
   )
 }

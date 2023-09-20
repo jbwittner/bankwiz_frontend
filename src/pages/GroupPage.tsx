@@ -55,7 +55,7 @@ export function GroupPage() {
             <TableRow>
               <TableCell>Group ID</TableCell>
               <TableCell align="right">Group name</TableCell>
-              <TableCell align="right">Users number</TableCell>
+              <TableCell align="right">User count</TableCell>
               <TableCell align="right">User right</TableCell>
             </TableRow>
           </TableHead>

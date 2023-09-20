@@ -15,9 +15,23 @@ const logoutOption: LogoutOptions = {
   }
 }
 
+function stringSwitch(inputStr: string): string {
+  switch (inputStr) {
+      case "/home":
+          return "Home";
+      case "/group":
+          return "Group";
+      default:
+          return "Unknown";
+  }
+}
+
 export default function ApplicationBar() {
   const { logout } = useAuth0()
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false)
+
+  const label = stringSwitch(window.location.pathname)
+
 
   const logoutProcess = () => {
     logout(logoutOption)
@@ -43,7 +57,7 @@ export default function ApplicationBar() {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              News
+              {label}
             </Typography>
             <Button color="inherit" onClick={logoutProcess}>
               Logout
