@@ -1,5 +1,5 @@
 import GroupDialog from '@/components/Modal'
-import { useGroupGetGroups } from '@/tools/callapi'
+import { useGroupGetGroups } from '@/tools/hooks/apihooks/groupapihook'
 import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
 
@@ -11,11 +11,8 @@ export function GroupPage() {
     getGroups()
   }, [])
 
-  useEffect(() => {
-    console.log(groupsDTO)
-  }, [groupsDTO])
-
   const onCloseModal = () => {
+    getGroups()
     setModalIsOpen(false)
   }
 

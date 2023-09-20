@@ -1,20 +1,16 @@
+import { useCreateGroup } from '@/tools/hooks/apihooks/groupapihook'
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Modal,
   TextField
 } from '@mui/material'
 import React, { useEffect } from 'react'
 import {
-  Path,
   useForm,
-  UseFormRegister,
-  SubmitHandler,
   Controller
 } from 'react-hook-form'
 
@@ -29,12 +25,12 @@ interface IGroupCreationForm {
 
 export default function GroupDialog(props: DialogProps) {
   const [open, setOpen] = React.useState(props.open)
+  const {createGroup} = useCreateGroup();
 
   const {
     handleSubmit,
     control,
     formState: { errors },
-    reset
   } = useForm<IGroupCreationForm>({
     defaultValues: { GroupName: '' }
   })
@@ -46,9 +42,11 @@ export default function GroupDialog(props: DialogProps) {
     props.onClose()
   }
 
-  const submit = (data: IGroupCreationForm) => {
-    console.log(data)
-    reset()
+  const submit = async (data: IGroupCreationForm) => {
+    await createGroup({
+      groupName: data.GroupName
+    })
+    handleClose()
   }
 
   return (

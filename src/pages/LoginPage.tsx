@@ -3,14 +3,14 @@ import { Container, Typography, Button, Paper, Avatar } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import { useUserCheckRegistration } from '@/tools/callapi'
 import CustomBackdrop from '@/components/Backdrop'
+import { useUserCheckRegistration } from '@/tools/hooks/apihooks/userapihook'
 
 function LoginPage() {
   const [openBackdrtop, setOpenBackdrtop] = React.useState(false)
 
   const { loginWithPopup, isAuthenticated } = useAuth0()
-  const { callCheckRegistration } = useUserCheckRegistration()
+  const { checkRegistration } = useUserCheckRegistration()
 
   const navigate = useNavigate()
 
@@ -24,7 +24,7 @@ function LoginPage() {
   const loginProcess = () => {
     setOpenBackdrtop(true)
     loginWithPopup().then(() => {
-      callCheckRegistration().then(() => {
+      checkRegistration().then(() => {
         navigate('/home')
       })
     })
