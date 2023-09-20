@@ -9,10 +9,7 @@ import {
   TextField
 } from '@mui/material'
 import React, { useEffect } from 'react'
-import {
-  useForm,
-  Controller
-} from 'react-hook-form'
+import { useForm, Controller } from 'react-hook-form'
 
 interface DialogProps {
   open: boolean
@@ -25,12 +22,13 @@ interface IGroupCreationForm {
 
 export default function GroupDialog(props: DialogProps) {
   const [open, setOpen] = React.useState(props.open)
-  const {createGroup} = useCreateGroup();
+  const { createGroup } = useCreateGroup()
 
   const {
     handleSubmit,
     control,
     formState: { errors },
+    reset
   } = useForm<IGroupCreationForm>({
     defaultValues: { GroupName: '' }
   })
@@ -46,6 +44,7 @@ export default function GroupDialog(props: DialogProps) {
     await createGroup({
       groupName: data.GroupName
     })
+    reset()
     handleClose()
   }
 

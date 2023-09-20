@@ -1,4 +1,8 @@
-import { GroupApi, GroupCreationRequest, GroupDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import {
+  GroupApi,
+  GroupCreationRequest,
+  GroupDTO
+} from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useApiConfiguration } from './configurationapihooks'
 import { useState } from 'react'
 
@@ -26,7 +30,7 @@ const useCreateGroup = () => {
   const createGroup = async (groupCreationRequest: GroupCreationRequest) => {
     const configuration = await getConfiguration()
     const groupApi = new GroupApi(configuration)
-    const groupDTO = await groupApi.createGroup({groupCreationRequest})
+    const groupDTO = await groupApi.createGroup({ groupCreationRequest })
     setGroupDTO(groupDTO)
   }
 
