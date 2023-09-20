@@ -2,7 +2,6 @@ import GroupDialog from '@/components/Modal'
 import { useGroupGetGroups } from '@/tools/hooks/apihooks/groupapihook'
 import { useUserGetCurrentUserInfo } from '@/tools/hooks/apihooks/userapihook'
 import {
-  Button,
   Fab,
   Paper,
   Table,
@@ -14,7 +13,6 @@ import {
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
-import { useTheme } from '@mui/material/styles'
 
 const style = {
   margin: 0,

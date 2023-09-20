@@ -5,7 +5,7 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  DialogTitle,
+  DialogTitle
 } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
@@ -61,7 +61,7 @@ export default function GroupDialog(props: IGroupDialogProps) {
             name="GroupName"
             label="Group name"
             required
-            error={errors.GroupName?.type === "required"}
+            error={errors.GroupName?.type === 'required'}
           />
         </form>
       </DialogContent>

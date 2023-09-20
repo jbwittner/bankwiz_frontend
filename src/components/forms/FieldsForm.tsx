@@ -1,17 +1,17 @@
-import {
-  TextField
-} from '@mui/material'
-import { Controller, Control } from 'react-hook-form'
+import { TextField } from '@mui/material'
+import { Controller, Control, FieldValues, Path } from 'react-hook-form'
 
-interface ITextFieldFormProps {
-  control: Control<any, any>
-  name: string
+interface ITextFieldFormProps<T extends FieldValues = FieldValues> {
+  control: Control<T>
+  name: Path<T>
   error?: boolean
   required?: boolean
   label: string
 }
 
-const TextFieldForm = (props: ITextFieldFormProps) => {
+const TextFieldForm = <T extends FieldValues>(
+  props: ITextFieldFormProps<T>
+) => {
   return (
     <Controller
       control={props.control}
