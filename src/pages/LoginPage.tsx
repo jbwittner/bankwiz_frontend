@@ -1,4 +1,4 @@
-import { LogoutOptions, useAuth0 } from '@auth0/auth0-react'
+import { useAuth0 } from '@auth0/auth0-react'
 import { Container, Typography, Button, Paper, Avatar } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
