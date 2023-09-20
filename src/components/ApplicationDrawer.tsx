@@ -81,15 +81,9 @@ export default function TemporaryDrawer(props: TemporaryDrawerProps) {
           text={'Group'}
           onClick={() => goToPage('/group')}
         />
-        <DrawerButton icon={<InboxIcon />} text={'dqsd'} onClick={onClose} />
-        <DrawerButton icon={<InboxIcon />} text={'dqsd'} onClick={onClose} />
       </List>
       <Divider />
-      <List>
-        <DrawerButton icon={<InboxIcon />} text={'dqsd'} onClick={onClose} />
-        <DrawerButton icon={<InboxIcon />} text={'dqsd'} onClick={onClose} />
-        <DrawerButton icon={<InboxIcon />} text={'dqsd'} onClick={onClose} />
-      </List>
+      <List></List>
     </Box>
   )
 

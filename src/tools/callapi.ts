@@ -1,6 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import {
   Configuration,
+  GroupApi,
+  GroupDTO,
   UserApi,
   UserDTO
 } from '@jbwittner/bankwiz_openapi-client-fetch'
@@ -12,7 +14,6 @@ const useUserCheckRegistration = () => {
   const callCheckRegistration = () => {
     return getAccessTokenSilently()
       .then(token => {
-        console.log(token)
         const configuration = new Configuration({
           basePath: 'http://localhost:8080',
           accessToken: token
@@ -21,9 +22,7 @@ const useUserCheckRegistration = () => {
         const userApi = new UserApi(configuration)
         return userApi.checkRegistration()
       })
-      .then(user => {
-        return user
-      })
+      .then(user => {})
   }
 
   return {
@@ -38,7 +37,6 @@ const useUserGetCurrentUserInfo = () => {
   const callGetCurrentUserInfo = () => {
     getAccessTokenSilently()
       .then(token => {
-        console.log(token)
         const configuration = new Configuration({
           basePath: 'http://localhost:8080',
           accessToken: token
@@ -49,7 +47,6 @@ const useUserGetCurrentUserInfo = () => {
       })
       .then(user => {
         setUserDTO(user)
-        return user
       })
   }
 
@@ -59,4 +56,34 @@ const useUserGetCurrentUserInfo = () => {
   }
 }
 
-export { useUserCheckRegistration, useUserGetCurrentUserInfo }
+const useGroupGetGroups = () => {
+  const { getAccessTokenSilently } = useAuth0()
+  const [groupsDTO, setGroupsDTO] = useState<GroupDTO[]>([])
+
+  const getGroups = () => {
+    getAccessTokenSilently()
+      .then(token => {
+        const configuration = new Configuration({
+          basePath: 'http://localhost:8080',
+          accessToken: token
+        })
+
+        const groupApi = new GroupApi(configuration)
+        return groupApi.getGroups()
+      })
+      .then(group => {
+        setGroupsDTO(group)
+      })
+  }
+
+  return {
+    groupsDTO,
+    getGroups
+  }
+}
+
+export {
+  useUserCheckRegistration,
+  useUserGetCurrentUserInfo,
+  useGroupGetGroups
+}
