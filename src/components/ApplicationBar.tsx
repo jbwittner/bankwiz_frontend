@@ -17,12 +17,12 @@ const logoutOption: LogoutOptions = {
 
 function stringSwitch(inputStr: string): string {
   switch (inputStr) {
-      case "/home":
-          return "Home";
-      case "/group":
-          return "Group";
-      default:
-          return "Unknown";
+    case '/home':
+      return 'Home'
+    case '/group':
+      return 'Group'
+    default:
+      return 'Unknown'
   }
 }
 
@@ -31,7 +31,6 @@ export default function ApplicationBar() {
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false)
 
   const label = stringSwitch(window.location.pathname)
-
 
   const logoutProcess = () => {
     logout(logoutOption)

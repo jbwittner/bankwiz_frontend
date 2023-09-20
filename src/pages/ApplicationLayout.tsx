@@ -7,6 +7,6 @@ export function ApplicationLayout() {
     <React.Fragment>
       <ApplicationBar />
       <Outlet />
-      </React.Fragment>
+    </React.Fragment>
   )
 }
