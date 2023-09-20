@@ -6,12 +6,12 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  TextField
 } from '@mui/material'
 import React, { useEffect } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
+import { TextFieldForm } from './forms/FieldsForm'
 
-interface DialogProps {
+interface IGroupDialogProps {
   open: boolean
   onClose: () => void
 }
@@ -20,7 +20,7 @@ interface IGroupCreationForm {
   GroupName: string
 }
 
-export default function GroupDialog(props: DialogProps) {
+export default function GroupDialog(props: IGroupDialogProps) {
   const [open, setOpen] = React.useState(props.open)
   const { createGroup } = useCreateGroup()
 
@@ -56,18 +56,12 @@ export default function GroupDialog(props: DialogProps) {
           <DialogContentText>
             Enter the informations to create a new group
           </DialogContentText>
-          <Controller
+          <TextFieldForm
             control={control}
             name="GroupName"
-            rules={{ required: true }}
-            render={({ field }) => (
-              <TextField
-                {...field}
-                fullWidth
-                error={errors.GroupName?.type === 'required'}
-                label="Group name *"
-              />
-            )}
+            label="Group name"
+            required
+            error={errors.GroupName?.type === "required"}
           />
         </form>
       </DialogContent>

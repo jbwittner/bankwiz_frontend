@@ -10,18 +10,18 @@ import ListItemText from '@mui/material/ListItemText'
 import InboxIcon from '@mui/icons-material/MoveToInbox'
 import { useNavigate } from 'react-router-dom'
 
-interface TemporaryDrawerProps {
+interface ITemporaryDrawerProps {
   open: boolean
   onClose: () => void
 }
 
-interface DrawerButtonProps {
+interface IDrawerButtonProps {
   icon: React.ReactElement
   text: string
   onClick: () => void
 }
 
-function DrawerButton(props: DrawerButtonProps) {
+function DrawerButton(props: IDrawerButtonProps) {
   return (
     <ListItem disablePadding>
       <ListItemButton onClick={props.onClick}>
@@ -32,7 +32,7 @@ function DrawerButton(props: DrawerButtonProps) {
   )
 }
 
-export default function TemporaryDrawer(props: TemporaryDrawerProps) {
+export default function TemporaryDrawer(props: ITemporaryDrawerProps) {
   const [isOpen, setIsOpen] = React.useState(false)
   const navigate = useNavigate()
 
