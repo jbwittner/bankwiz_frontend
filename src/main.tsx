@@ -1,18 +1,22 @@
-import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import { Auth0Provider } from '@auth0/auth0-react'
+import { BrowserRouter } from 'react-router-dom'
+import { AppRoute, Auth0ProviderWithRedirectCallback } from './tools/router.tsx'
+
+console.log(import.meta.env.VITE_AUTH0_DOMAIN)
+console.log(import.meta.env.VITE_AUTH0_CLIENT_ID)
+console.log(import.meta.env.VITE_AUTH0_AUDIENCE)
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.StrictMode>
-    <Auth0Provider
+  <BrowserRouter>
+    <Auth0ProviderWithRedirectCallback
       domain={import.meta.env.VITE_AUTH0_DOMAIN}
       clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
       authorizationParams={{
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
         redirect_uri: window.location.origin
       }}
     >
-      <App />
-    </Auth0Provider>
-  </React.StrictMode>
+      <AppRoute />
+    </Auth0ProviderWithRedirectCallback>
+  </BrowserRouter>
 )
