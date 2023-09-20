@@ -8,6 +8,7 @@ import {
 import { useNavigate, Routes, Route } from 'react-router-dom'
 import LoginPage from '@/pages/LoginPage'
 import { HomePage } from '@/pages/HomePage'
+import { ApplicationLayout } from '@/pages/ApplicationLayout'
 
 const Auth0ProviderWithRedirectCallback = ({
   children,
@@ -28,13 +29,17 @@ const Auth0ProviderWithRedirectCallback = ({
   )
 }
 
+const ApplicationLayoutWithAuthentication =
+  withAuthenticationRequired(ApplicationLayout)
 const HomePageWithAuthentication = withAuthenticationRequired(HomePage)
 
 const AppRoute = () => {
   return (
     <Routes>
       <Route path="/" element={<LoginPage />} />
-      <Route path="/home" element={<HomePageWithAuthentication />} />
+      <Route element={<ApplicationLayoutWithAuthentication />}>
+        <Route path="/home" element={<HomePageWithAuthentication />} />
+      </Route>
       <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>
   )
