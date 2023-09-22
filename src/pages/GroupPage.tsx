@@ -3,16 +3,26 @@ import { useGroupGetGroups } from '@/tools/hooks/apihooks/groupapihook'
 import { useUserGetCurrentUserInfo } from '@/tools/hooks/apihooks/userapihook'
 import {
   Fab,
+  IconButton,
   Paper,
+  SxProps,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow
+  TableRow,
+  Theme
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
+import {
+  GroupAuthorizationEnum,
+  GroupDTO,
+  UserDTO
+} from '@jbwittner/bankwiz_openapi-client-fetch'
+import DeleteIcon from '@mui/icons-material/Delete'
+import { red } from '@mui/material/colors'
 
 const style = {
   margin: 0,
@@ -21,6 +31,46 @@ const style = {
   bottom: 20,
   left: 'auto',
   position: 'fixed'
+}
+
+const deleteIconSx: SxProps<Theme> = {
+  color: red[700],
+  ':disabled': { color: red[200] }
+}
+
+const groupLine = (groupDTO: GroupDTO, userDTO: UserDTO) => {
+  const authorization = groupDTO.users.find(
+    userGroupDto => userGroupDto.user.userId === userDTO.userId
+  )?.authorization
+
+  const isAdmin = authorization === GroupAuthorizationEnum.Admin
+
+  return (
+    <TableRow key={groupDTO.groupId}>
+      <TableCell component="th" scope="row">
+        {groupDTO.groupId}
+      </TableCell>
+      <TableCell align="right">{groupDTO.groupName}</TableCell>
+      <TableCell align="right">{groupDTO.users.length}</TableCell>
+      <TableCell align="right">
+        {
+          groupDTO.users.find(
+            userGroupDto => userGroupDto.user.userId === userDTO.userId
+          )?.authorization
+        }
+      </TableCell>
+      <TableCell align="center">
+        <IconButton
+          aria-label="delete"
+          size="small"
+          disabled={!isAdmin}
+          sx={deleteIconSx}
+        >
+          <DeleteIcon fontSize="inherit" />
+        </IconButton>
+      </TableCell>
+    </TableRow>
+  )
 }
 
 export function GroupPage() {
@@ -54,31 +104,16 @@ export function GroupPage() {
           <TableHead>
             <TableRow>
               <TableCell>Group ID</TableCell>
-              <TableCell align="right">Group name</TableCell>
-              <TableCell align="right">User count</TableCell>
-              <TableCell align="right">User right</TableCell>
+              <TableCell align="center">Group name</TableCell>
+              <TableCell align="center">User count</TableCell>
+              <TableCell align="center">User right</TableCell>
+              <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {groupsDTO &&
               userDTO &&
-              groupsDTO.map(group => (
-                <TableRow key={group.groupId}>
-                  <TableCell component="th" scope="row">
-                    {group.groupId}
-                  </TableCell>
-                  <TableCell align="right">{group.groupName}</TableCell>
-                  <TableCell align="right">{group.users.length}</TableCell>
-                  <TableCell align="right">
-                    {
-                      group.users.find(
-                        userGroupDto =>
-                          userGroupDto.user.userId === userDTO.userId
-                      )?.authorization
-                    }
-                  </TableCell>
-                </TableRow>
-              ))}
+              groupsDTO.map(group => groupLine(group, userDTO))}
           </TableBody>
         </Table>
       </TableContainer>
