@@ -1,5 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { Container, Typography, Button, Paper, Avatar } from '@mui/material'
+import {
+  Container,
+  Typography,
+  Button,
+  Paper,
+  Avatar,
+  useTheme
+} from '@mui/material'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -8,6 +15,7 @@ import { useUserCheckRegistration } from '@/tools/hooks/apihooks/userapihook'
 
 function LoginPage() {
   const [openBackdrtop, setOpenBackdrtop] = React.useState(false)
+  const theme = useTheme()
 
   const { loginWithPopup, isAuthenticated } = useAuth0()
   const { checkRegistration } = useUserCheckRegistration()
@@ -43,7 +51,7 @@ function LoginPage() {
             padding: '20px'
           }}
         >
-          <Avatar style={{ backgroundColor: '#f50057', marginBottom: '10px' }}>
+          <Avatar sx={{ bgcolor: theme.palette.secondary.main }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
