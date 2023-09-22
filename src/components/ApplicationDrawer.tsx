@@ -7,8 +7,10 @@ import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
 import { useNavigate } from 'react-router-dom'
+import { useTheme } from '@mui/material'
+import HomeIcon from '@mui/icons-material/Home'
+import GroupIcon from '@mui/icons-material/Group'
 
 interface ITemporaryDrawerProps {
   open: boolean
@@ -22,10 +24,15 @@ interface IDrawerButtonProps {
 }
 
 function DrawerButton(props: IDrawerButtonProps) {
+  const theme = useTheme()
+
   return (
     <ListItem disablePadding>
-      <ListItemButton onClick={props.onClick}>
-        <ListItemIcon>{props.icon}</ListItemIcon>
+      <ListItemButton
+        sx={{ '&:hover': { color: theme.palette.primary.main } }}
+        onClick={props.onClick}
+      >
+        <ListItemIcon sx={{ color: 'inherit' }}>{props.icon}</ListItemIcon>
         <ListItemText primary={props.text} />
       </ListItemButton>
     </ListItem>
@@ -47,12 +54,12 @@ export default function TemporaryDrawer({
     <Box sx={{ width: 250 }} role="presentation">
       <List>
         <DrawerButton
-          icon={<InboxIcon />}
+          icon={<HomeIcon />}
           text={'Home'}
           onClick={() => goToPage('/home')}
         />
         <DrawerButton
-          icon={<InboxIcon />}
+          icon={<GroupIcon />}
           text={'Group'}
           onClick={() => goToPage('/group')}
         />
