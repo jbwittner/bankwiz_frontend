@@ -19,6 +19,7 @@ import { GroupDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import ValidationDialog from '@/components/dialog/ValidationDialog'
 import GroupDialog from './components/GroupDialog'
 import { groupLine } from './components/GroupLine'
+import useConfirmationModal from '@/tools/hooks/component/modalhook'
 
 const style = {
   margin: 0,
@@ -30,9 +31,9 @@ const style = {
 }
 
 export function GroupPage() {
+  const { isOpen, data, openModal, closeModal, confirmAction } =
+    useConfirmationModal<GroupDTO>()
   const [modalCreateIsOpen, setModalCreateIsOpen] = useState(false)
-  const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false)
-  const [deleteGroupDTO, setDeleteGroupDTO] = useState<GroupDTO>()
   const { groupsDTO, getGroups } = useGroupGetGroups()
   const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
   const { deleteGroup } = useDeleteGroup()
@@ -42,25 +43,13 @@ export function GroupPage() {
     getCurrentUserInfo()
   }, [])
 
-  const onClickDelete = (groupDTO: GroupDTO) => {
-    setDeleteGroupDTO(groupDTO)
-    setModalDeleteIsOpen(true)
-  }
-
   const onCloseModalCreation = () => {
     getGroups()
     setModalCreateIsOpen(false)
   }
 
-  const onCloseModalDelete = () => {
-    setModalDeleteIsOpen(false)
-  }
-
-  const onValidDelete = async () => {
-    setModalDeleteIsOpen(false)
-    if (deleteGroupDTO) {
-      await deleteGroup(deleteGroupDTO.groupId)
-    }
+  const confirmActionCallback = async (data: GroupDTO) => {
+    await deleteGroup(data.groupId)
     await getGroups()
   }
 
@@ -69,10 +58,10 @@ export function GroupPage() {
       <GroupDialog open={modalCreateIsOpen} onClose={onCloseModalCreation} />
       <ValidationDialog
         titleDialog={'Deletion confirmation'}
-        textDialog={'You will delete the group ' + deleteGroupDTO?.groupName}
-        open={modalDeleteIsOpen}
-        onCancel={onCloseModalDelete}
-        onValid={onValidDelete}
+        textDialog={'You will delete the group ' + data?.groupName}
+        open={isOpen}
+        onCancel={closeModal}
+        onValid={() => confirmAction(confirmActionCallback)}
       />
       <TableContainer
         component={Paper}
@@ -96,7 +85,7 @@ export function GroupPage() {
           <TableBody>
             {groupsDTO &&
               userDTO &&
-              groupsDTO.map(group => groupLine(group, userDTO, onClickDelete))}
+              groupsDTO.map(group => groupLine(group, userDTO, openModal))}
           </TableBody>
         </Table>
       </TableContainer>
