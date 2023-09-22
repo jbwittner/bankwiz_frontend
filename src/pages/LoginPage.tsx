@@ -19,7 +19,7 @@ function LoginPage() {
       setOpenBackdrtop(true)
       navigate('/home')
     }
-  })
+  }, [isAuthenticated])
 
   const loginProcess = () => {
     setOpenBackdrtop(true)

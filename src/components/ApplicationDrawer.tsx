@@ -32,31 +32,11 @@ function DrawerButton(props: IDrawerButtonProps) {
   )
 }
 
-export default function TemporaryDrawer(props: ITemporaryDrawerProps) {
-  const [isOpen, setIsOpen] = React.useState(false)
+export default function TemporaryDrawer({
+  open,
+  onClose
+}: ITemporaryDrawerProps) {
   const navigate = useNavigate()
-
-  React.useEffect(() => {
-    setIsOpen(props.open)
-  }, [props])
-
-  const toggleDrawer =
-    (open: boolean) => (event: React.KeyboardEvent | React.MouseEvent) => {
-      if (
-        event.type === 'keydown' &&
-        ((event as React.KeyboardEvent).key === 'Tab' ||
-          (event as React.KeyboardEvent).key === 'Shift')
-      ) {
-        return
-      }
-
-      setIsOpen(open)
-    }
-
-  const onClose = () => {
-    toggleDrawer(false)
-    props.onClose()
-  }
 
   const goToPage = (url: string) => {
     onClose()
@@ -64,12 +44,7 @@ export default function TemporaryDrawer(props: ITemporaryDrawerProps) {
   }
 
   const drawerContent = () => (
-    <Box
-      sx={{ width: 250 }}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
+    <Box sx={{ width: 250 }} role="presentation">
       <List>
         <DrawerButton
           icon={<InboxIcon />}
@@ -88,7 +63,7 @@ export default function TemporaryDrawer(props: ITemporaryDrawerProps) {
   )
 
   return (
-    <Drawer anchor={'left'} open={isOpen} onClose={onClose}>
+    <Drawer anchor={'left'} open={open} onClose={onClose}>
       {drawerContent()}
     </Drawer>
   )
