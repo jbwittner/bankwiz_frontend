@@ -25,9 +25,9 @@ import {
 } from '@jbwittner/bankwiz_openapi-client-fetch'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { red } from '@mui/material/colors'
-import ValidationDialog from '@/components/dialog/GenericDialog'
+import ValidationDialog from '@/components/dialog/ValidationDialog'
 import GroupIcon from '@mui/icons-material/Group'
-import GroupDialog from '@/components/dialog/GroupDialog'
+import GroupDialog from './components/GroupDialog'
 
 const style = {
   margin: 0,

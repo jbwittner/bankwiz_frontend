@@ -8,7 +8,7 @@ import {
 import { useNavigate, Routes, Route } from 'react-router-dom'
 import LoginPage from '@/pages/LoginPage'
 import { HomePage } from '@/pages/HomePage'
-import { GroupPage } from '@/pages/GroupPage'
+import { GroupPage } from '@/pages/group/GroupPage'
 import { ApplicationLayout } from '@/components/layout/ApplicationLayout'
 
 const Auth0ProviderWithRedirectCallback = ({
