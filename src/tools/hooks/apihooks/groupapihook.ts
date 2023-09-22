@@ -1,56 +1,82 @@
 import {
-  GroupApi,
   GroupCreationRequest,
   GroupDTO
 } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { useApiConfiguration } from './configurationapihooks'
+import { useGroupApi } from './configurationapihooks'
 import { useState } from 'react'
 
 const useGroupGetGroups = () => {
-  const getConfiguration = useApiConfiguration()
+  const getApiInstance = useGroupApi()
   const [groupsDTO, setGroupsDTO] = useState<GroupDTO[] | null>(null)
+  const [error, setError] = useState<Error | null>(null)
 
   const getGroups = async () => {
-    const configuration = await getConfiguration()
-    const groupApi = new GroupApi(configuration)
-    const groupsData = await groupApi.getGroups()
-    setGroupsDTO(groupsData)
+    try {
+      const groupApi = await getApiInstance()
+      const groupsData = await groupApi.getGroups()
+      setGroupsDTO(groupsData)
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err)
+      } else {
+        setError(new Error(String(err)))
+      }
+    }
   }
 
   return {
     groupsDTO,
-    getGroups
+    getGroups,
+    error
   }
 }
 
 const useCreateGroup = () => {
-  const getConfiguration = useApiConfiguration()
+  const getApiInstance = useGroupApi()
   const [groupDTO, setGroupDTO] = useState<GroupDTO | null>(null)
+  const [error, setError] = useState<Error | null>(null)
 
   const createGroup = async (groupCreationRequest: GroupCreationRequest) => {
-    const configuration = await getConfiguration()
-    const groupApi = new GroupApi(configuration)
-    const groupDTO = await groupApi.createGroup({ groupCreationRequest })
-    setGroupDTO(groupDTO)
+    try {
+      const groupApi = await getApiInstance()
+      const group = await groupApi.createGroup({ groupCreationRequest })
+      setGroupDTO(group)
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err)
+      } else {
+        setError(new Error(String(err)))
+      }
+    }
   }
 
   return {
     groupDTO,
-    createGroup
+    createGroup,
+    error
   }
 }
 
 const useDeleteGroup = () => {
-  const getConfiguration = useApiConfiguration()
+  const getApiInstance = useGroupApi()
+  const [error, setError] = useState<Error | null>(null)
 
   const deleteGroup = async (groupId: number) => {
-    const configuration = await getConfiguration()
-    const groupApi = new GroupApi(configuration)
-    await groupApi.deleteGroup({ groupId })
+    try {
+      const groupApi = await getApiInstance()
+      await groupApi.deleteGroup({ groupId })
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err)
+      } else {
+        setError(new Error(String(err)))
+      }
+    }
   }
 
   return {
-    deleteGroup
+    deleteGroup,
+    error
   }
 }
 
