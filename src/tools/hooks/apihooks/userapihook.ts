@@ -1,5 +1,5 @@
 import { UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { useUserApi } from './configurationapihooks'
+import { displayErrorToast, useUserApi } from './configurationapihooks'
 import { useState } from 'react'
 
 const useUserCheckRegistration = () => {
@@ -26,6 +26,7 @@ const useUserGetCurrentUserInfo = () => {
       const userData = await userApi.getCurrentUserInfo()
       setUserDTO(userData)
     } catch (err) {
+      displayErrorToast('useUserGetCurrentUserInfo')
       if (err instanceof Error) {
         setError(err)
       } else {

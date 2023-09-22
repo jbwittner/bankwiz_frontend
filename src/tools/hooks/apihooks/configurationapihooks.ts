@@ -4,6 +4,12 @@ import {
   GroupApi,
   UserApi
 } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { toast } from 'react-toastify'
+
+const displayErrorToast = (hookName: string) => {
+  const errorMessage = `An error occurred in the hook: ${hookName}`
+  toast.error(errorMessage)
+}
 
 const useApiConfiguration = () => {
   const { getAccessTokenSilently } = useAuth0()
@@ -41,4 +47,4 @@ const useGroupApi = () => {
   return getApiInstance
 }
 
-export { useApiConfiguration, useUserApi, useGroupApi }
+export { displayErrorToast, useApiConfiguration, useUserApi, useGroupApi }

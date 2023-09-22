@@ -55,7 +55,11 @@ export function GroupPage() {
 
   return (
     <React.Fragment>
-      <GroupDialog open={modalCreateIsOpen} onClose={onCloseModalCreation} />
+      <GroupDialog
+        open={modalCreateIsOpen}
+        onValid={onCloseModalCreation}
+        onCancel={() => setModalCreateIsOpen(false)}
+      />
       <ValidationDialog
         titleDialog={'Deletion confirmation'}
         textDialog={'You will delete the group ' + data?.groupName}

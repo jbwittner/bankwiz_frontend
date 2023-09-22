@@ -2,7 +2,7 @@ import {
   GroupCreationRequest,
   GroupDTO
 } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { useGroupApi } from './configurationapihooks'
+import { displayErrorToast, useGroupApi } from './configurationapihooks'
 import { useState } from 'react'
 
 const useGroupGetGroups = () => {
@@ -16,6 +16,7 @@ const useGroupGetGroups = () => {
       const groupsData = await groupApi.getGroups()
       setGroupsDTO(groupsData)
     } catch (err) {
+      displayErrorToast('useGroupGetGroups')
       if (err instanceof Error) {
         setError(err)
       } else {
@@ -42,6 +43,7 @@ const useCreateGroup = () => {
       const group = await groupApi.createGroup({ groupCreationRequest })
       setGroupDTO(group)
     } catch (err) {
+      displayErrorToast('useCreateGroup')
       if (err instanceof Error) {
         setError(err)
       } else {
@@ -66,6 +68,7 @@ const useDeleteGroup = () => {
       const groupApi = await getApiInstance()
       await groupApi.deleteGroup({ groupId })
     } catch (err) {
+      displayErrorToast('useDeleteGroup')
       if (err instanceof Error) {
         setError(err)
       } else {
