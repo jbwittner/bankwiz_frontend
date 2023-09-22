@@ -10,7 +10,7 @@ import {
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import CustomBackdrop from '@/components/Backdrop'
+import CustomBackdrop from '@/components/backdrop/Backdrop'
 import { useUserCheckRegistration } from '@/tools/hooks/apihooks/userapihook'
 
 function LoginPage() {
