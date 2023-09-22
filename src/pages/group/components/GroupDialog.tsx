@@ -8,18 +8,23 @@ import {
   DialogTitle
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { TextFieldForm } from './forms/FieldsForm'
+import { TextFieldForm } from '../../../components/forms/FieldsForm'
 
 interface IGroupDialogProps {
   open: boolean
-  onClose: () => void
+  onValid: () => void
+  onCancel: () => void
 }
 
 interface IGroupCreationForm {
   GroupName: string
 }
 
-export default function GroupDialog({ open, onClose }: IGroupDialogProps) {
+export default function GroupDialog({
+  open,
+  onCancel,
+  onValid
+}: IGroupDialogProps) {
   const { createGroup } = useCreateGroup()
 
   const {
@@ -36,11 +41,11 @@ export default function GroupDialog({ open, onClose }: IGroupDialogProps) {
       groupName: data.GroupName
     })
     reset()
-    onClose()
+    onValid()
   }
 
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onCancel}>
       <DialogTitle>Create new group</DialogTitle>
       <DialogContent>
         <form id="hook-form" onSubmit={handleSubmit(submit)}>
@@ -57,7 +62,7 @@ export default function GroupDialog({ open, onClose }: IGroupDialogProps) {
         </form>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onCancel}>Cancel</Button>
         <Button type="submit" form="hook-form">
           Create groupe
         </Button>

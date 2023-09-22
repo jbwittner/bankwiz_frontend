@@ -21,17 +21,10 @@ export default function ValidationDialog({
   titleDialog
 }: IValidationDialogProps) {
   return (
-    <Dialog
-      open={open}
-      onClose={onCancel}
-      aria-labelledby="alert-dialog-title"
-      aria-describedby="alert-dialog-description"
-    >
-      <DialogTitle id="alert-dialog-title">{titleDialog}</DialogTitle>
+    <Dialog open={open} onClose={onCancel}>
+      <DialogTitle>{titleDialog}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {textDialog}
-        </DialogContentText>
+        <DialogContentText>{textDialog}</DialogContentText>
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancel} variant="contained" color="error">

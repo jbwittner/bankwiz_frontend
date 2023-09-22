@@ -1,13 +1,12 @@
-import { UserApi, UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { useApiConfiguration } from './configurationapihooks'
+import { UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { displayErrorToast, useUserApi } from './configurationapihooks'
 import { useState } from 'react'
 
 const useUserCheckRegistration = () => {
-  const getConfiguration = useApiConfiguration()
+  const getApiInstance = useUserApi()
 
   const checkRegistration = async () => {
-    const configuration = await getConfiguration()
-    const userApi = new UserApi(configuration)
+    const userApi = await getApiInstance()
     return userApi.checkRegistration()
   }
 
@@ -17,19 +16,29 @@ const useUserCheckRegistration = () => {
 }
 
 const useUserGetCurrentUserInfo = () => {
-  const getConfiguration = useApiConfiguration()
+  const getApiInstance = useUserApi()
   const [userDTO, setUserDTO] = useState<UserDTO | null>(null)
+  const [error, setError] = useState<Error | null>(null)
 
   const getCurrentUserInfo = async () => {
-    const configuration = await getConfiguration()
-    const userApi = new UserApi(configuration)
-    const userData = await userApi.getCurrentUserInfo()
-    setUserDTO(userData)
+    try {
+      const userApi = await getApiInstance()
+      const userData = await userApi.getCurrentUserInfo()
+      setUserDTO(userData)
+    } catch (err) {
+      displayErrorToast('useUserGetCurrentUserInfo')
+      if (err instanceof Error) {
+        setError(err)
+      } else {
+        setError(new Error(String(err)))
+      }
+    }
   }
 
   return {
     userDTO,
-    getCurrentUserInfo
+    getCurrentUserInfo,
+    error
   }
 }
 

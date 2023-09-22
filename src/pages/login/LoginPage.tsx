@@ -10,10 +10,10 @@ import {
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
-import CustomBackdrop from '@/components/Backdrop'
 import { useUserCheckRegistration } from '@/tools/hooks/apihooks/userapihook'
+import AppBackdrop from '@/components/backdrop/AppBackdrop'
 
-function LoginPage() {
+export function LoginPage() {
   const [openBackdrtop, setOpenBackdrtop] = React.useState(false)
   const theme = useTheme()
 
@@ -40,7 +40,7 @@ function LoginPage() {
 
   return (
     <React.Fragment>
-      <CustomBackdrop open={openBackdrtop} />
+      <AppBackdrop open={openBackdrtop} />
       <Container component="main" maxWidth="xs">
         <Paper
           elevation={3}
@@ -70,5 +70,3 @@ function LoginPage() {
     </React.Fragment>
   )
 }
-
-export default LoginPage

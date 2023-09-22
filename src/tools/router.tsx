@@ -6,10 +6,10 @@ import {
   withAuthenticationRequired
 } from '@auth0/auth0-react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
-import LoginPage from '@/pages/LoginPage'
-import { HomePage } from '@/pages/HomePage'
-import { ApplicationLayout } from '@/pages/ApplicationLayout'
-import { GroupPage } from '@/pages/GroupPage'
+import { GroupPage } from '@/pages/group/GroupPage'
+import { ApplicationLayout } from '@/components/layout/ApplicationLayout'
+import { HomePage } from '@/pages/home/HomePage'
+import { LoginPage } from '@/pages/login/LoginPage'
 
 const Auth0ProviderWithRedirectCallback = ({
   children,
