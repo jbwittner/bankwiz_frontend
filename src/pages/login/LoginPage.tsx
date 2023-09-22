@@ -13,7 +13,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useUserCheckRegistration } from '@/tools/hooks/apihooks/userapihook'
 import AppBackdrop from '@/components/backdrop/AppBackdrop'
 
-function LoginPage() {
+export function LoginPage() {
   const [openBackdrtop, setOpenBackdrtop] = React.useState(false)
   const theme = useTheme()
 
@@ -70,5 +70,3 @@ function LoginPage() {
     </React.Fragment>
   )
 }
-
-export default LoginPage
