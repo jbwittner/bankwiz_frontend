@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import MenuIcon from '@mui/icons-material/Menu'
 import { LogoutOptions, useAuth0 } from '@auth0/auth0-react'
-import TemporaryDrawer from './ApplicationDrawer'
+import TemporaryDrawer from '../ApplicationDrawer'
 import React, { useState } from 'react'
 
 const logoutOption: LogoutOptions = {

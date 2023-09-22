@@ -1,4 +1,3 @@
-import GroupDialog from '@/components/GroupDialog'
 import {
   useDeleteGroup,
   useGroupGetGroups
@@ -26,8 +25,9 @@ import {
 } from '@jbwittner/bankwiz_openapi-client-fetch'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { red } from '@mui/material/colors'
-import ValidationDialog from '@/components/GenericDialog'
+import ValidationDialog from '@/components/dialog/GenericDialog'
 import GroupIcon from '@mui/icons-material/Group'
+import GroupDialog from '@/components/dialog/GroupDialog'
 
 const style = {
   margin: 0,

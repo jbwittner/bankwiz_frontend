@@ -1,4 +1,4 @@
-import ApplicationBar from '@/components/ApplicationBar'
+import ApplicationBar from '@/components/appbar/ApplicationBar'
 import React from 'react'
 import { Outlet } from 'react-router-dom'
 

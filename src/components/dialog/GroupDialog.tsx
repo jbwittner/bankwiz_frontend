@@ -8,7 +8,7 @@ import {
   DialogTitle
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { TextFieldForm } from './forms/FieldsForm'
+import { TextFieldForm } from '../forms/FieldsForm'
 
 interface IGroupDialogProps {
   open: boolean
