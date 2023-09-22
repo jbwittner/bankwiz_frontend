@@ -21,7 +21,7 @@ import GroupDialog from './components/GroupDialog'
 import { groupLine } from './components/GroupLine'
 import useConfirmationModal from '@/tools/hooks/component/modalhook'
 
-const style = {
+const fabSx = {
   margin: 0,
   top: 'auto',
   right: 20,
@@ -96,7 +96,7 @@ export function GroupPage() {
       <Fab
         color="primary"
         aria-label="add"
-        sx={style}
+        sx={fabSx}
         onClick={() => setModalCreateIsOpen(true)}
       >
         <AddIcon />
