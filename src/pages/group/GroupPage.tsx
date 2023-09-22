@@ -5,29 +5,20 @@ import {
 import { useUserGetCurrentUserInfo } from '@/tools/hooks/apihooks/userapihook'
 import {
   Fab,
-  IconButton,
   Paper,
-  SxProps,
   Table,
   TableBody,
   TableCell,
   TableContainer,
   TableHead,
-  TableRow,
-  Theme
+  TableRow
 } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
-import {
-  GroupAuthorizationEnum,
-  GroupDTO,
-  UserDTO
-} from '@jbwittner/bankwiz_openapi-client-fetch'
-import DeleteIcon from '@mui/icons-material/Delete'
-import { red } from '@mui/material/colors'
+import { GroupDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import ValidationDialog from '@/components/dialog/ValidationDialog'
-import GroupIcon from '@mui/icons-material/Group'
 import GroupDialog from './components/GroupDialog'
+import { groupLine } from './components/GroupLine'
 
 const style = {
   margin: 0,
@@ -36,52 +27,6 @@ const style = {
   bottom: 20,
   left: 'auto',
   position: 'fixed'
-}
-
-const deleteIconSx: SxProps<Theme> = {
-  color: red[700],
-  ':disabled': { color: red[200] }
-}
-
-const groupLine = (
-  groupDTO: GroupDTO,
-  userDTO: UserDTO,
-  openDialogDelete: (groupDTO: GroupDTO) => void
-) => {
-  const authorization = groupDTO.users.find(
-    userGroupDto => userGroupDto.user.userId === userDTO.userId
-  )?.authorization
-
-  const isAdmin = authorization === GroupAuthorizationEnum.Admin
-
-  return (
-    <TableRow key={groupDTO.groupId}>
-      <TableCell>{groupDTO.groupId}</TableCell>
-      <TableCell align="center">{groupDTO.groupName}</TableCell>
-      <TableCell align="center">{groupDTO.users.length}</TableCell>
-      <TableCell align="center">
-        {
-          groupDTO.users.find(
-            userGroupDto => userGroupDto.user.userId === userDTO.userId
-          )?.authorization
-        }
-      </TableCell>
-      <TableCell align="center">
-        <IconButton
-          aria-label="delete"
-          size="small"
-          disabled={!isAdmin}
-          sx={deleteIconSx}
-          onClick={() => openDialogDelete(groupDTO)}
-        >
-          <DeleteIcon fontSize="inherit" />
-        </IconButton>
-        <IconButton aria-label="delete" size="small">
-          <GroupIcon fontSize="inherit" />
-        </IconButton>
-      </TableCell>
-    </TableRow>
-  )
 }
 
 export function GroupPage() {
