@@ -1,5 +1,8 @@
-import GroupDialog from '@/components/Modal'
-import { useGroupGetGroups } from '@/tools/hooks/apihooks/groupapihook'
+import GroupDialog from '@/components/GroupDialog'
+import {
+  useDeleteGroup,
+  useGroupGetGroups
+} from '@/tools/hooks/apihooks/groupapihook'
 import { useUserGetCurrentUserInfo } from '@/tools/hooks/apihooks/userapihook'
 import {
   Fab,
@@ -23,6 +26,8 @@ import {
 } from '@jbwittner/bankwiz_openapi-client-fetch'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { red } from '@mui/material/colors'
+import ValidationDialog from '@/components/GenericDialog'
+import GroupIcon from '@mui/icons-material/Group'
 
 const style = {
   margin: 0,
@@ -38,7 +43,11 @@ const deleteIconSx: SxProps<Theme> = {
   ':disabled': { color: red[200] }
 }
 
-const groupLine = (groupDTO: GroupDTO, userDTO: UserDTO) => {
+const groupLine = (
+  groupDTO: GroupDTO,
+  userDTO: UserDTO,
+  openDialogDelete: (groupDTO: GroupDTO) => void
+) => {
   const authorization = groupDTO.users.find(
     userGroupDto => userGroupDto.user.userId === userDTO.userId
   )?.authorization
@@ -47,12 +56,10 @@ const groupLine = (groupDTO: GroupDTO, userDTO: UserDTO) => {
 
   return (
     <TableRow key={groupDTO.groupId}>
-      <TableCell component="th" scope="row">
-        {groupDTO.groupId}
-      </TableCell>
-      <TableCell align="right">{groupDTO.groupName}</TableCell>
-      <TableCell align="right">{groupDTO.users.length}</TableCell>
-      <TableCell align="right">
+      <TableCell>{groupDTO.groupId}</TableCell>
+      <TableCell align="center">{groupDTO.groupName}</TableCell>
+      <TableCell align="center">{groupDTO.users.length}</TableCell>
+      <TableCell align="center">
         {
           groupDTO.users.find(
             userGroupDto => userGroupDto.user.userId === userDTO.userId
@@ -65,8 +72,12 @@ const groupLine = (groupDTO: GroupDTO, userDTO: UserDTO) => {
           size="small"
           disabled={!isAdmin}
           sx={deleteIconSx}
+          onClick={() => openDialogDelete(groupDTO)}
         >
           <DeleteIcon fontSize="inherit" />
+        </IconButton>
+        <IconButton aria-label="delete" size="small">
+          <GroupIcon fontSize="inherit" />
         </IconButton>
       </TableCell>
     </TableRow>
@@ -74,23 +85,50 @@ const groupLine = (groupDTO: GroupDTO, userDTO: UserDTO) => {
 }
 
 export function GroupPage() {
-  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [modalCreateIsOpen, setModalCreateIsOpen] = useState(false)
+  const [modalDeleteIsOpen, setModalDeleteIsOpen] = useState(false)
+  const [deleteGroupDTO, setDeleteGroupDTO] = useState<GroupDTO>()
   const { groupsDTO, getGroups } = useGroupGetGroups()
   const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
+  const { deleteGroup } = useDeleteGroup()
 
   useEffect(() => {
     getGroups()
     getCurrentUserInfo()
   }, [])
 
-  const onCloseModal = () => {
+  const onClickDelete = (groupDTO: GroupDTO) => {
+    setDeleteGroupDTO(groupDTO)
+    setModalDeleteIsOpen(true)
+  }
+
+  const onCloseModalCreation = () => {
     getGroups()
-    setModalIsOpen(false)
+    setModalCreateIsOpen(false)
+  }
+
+  const onCloseModalDelete = () => {
+    setModalDeleteIsOpen(false)
+  }
+
+  const onValidDelete = async () => {
+    setModalDeleteIsOpen(false)
+    if (deleteGroupDTO) {
+      await deleteGroup(deleteGroupDTO.groupId)
+    }
+    await getGroups()
   }
 
   return (
     <React.Fragment>
-      <GroupDialog open={modalIsOpen} onClose={onCloseModal} />
+      <GroupDialog open={modalCreateIsOpen} onClose={onCloseModalCreation} />
+      <ValidationDialog
+        titleDialog={'Deletion confirmation'}
+        textDialog={'You will delete the group ' + deleteGroupDTO?.groupName}
+        open={modalDeleteIsOpen}
+        onCancel={onCloseModalDelete}
+        onValid={onValidDelete}
+      />
       <TableContainer
         component={Paper}
         sx={{
@@ -113,7 +151,7 @@ export function GroupPage() {
           <TableBody>
             {groupsDTO &&
               userDTO &&
-              groupsDTO.map(group => groupLine(group, userDTO))}
+              groupsDTO.map(group => groupLine(group, userDTO, onClickDelete))}
           </TableBody>
         </Table>
       </TableContainer>
@@ -121,7 +159,7 @@ export function GroupPage() {
         color="primary"
         aria-label="add"
         sx={style}
-        onClick={() => setModalIsOpen(true)}
+        onClick={() => setModalCreateIsOpen(true)}
       >
         <AddIcon />
       </Fab>

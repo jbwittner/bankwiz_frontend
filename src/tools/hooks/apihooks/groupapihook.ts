@@ -40,4 +40,18 @@ const useCreateGroup = () => {
   }
 }
 
-export { useGroupGetGroups, useCreateGroup }
+const useDeleteGroup = () => {
+  const getConfiguration = useApiConfiguration()
+
+  const deleteGroup = async (groupId: number) => {
+    const configuration = await getConfiguration()
+    const groupApi = new GroupApi(configuration)
+    await groupApi.deleteGroup({ groupId })
+  }
+
+  return {
+    deleteGroup
+  }
+}
+
+export { useGroupGetGroups, useCreateGroup, useDeleteGroup }
