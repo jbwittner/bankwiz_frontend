@@ -6,7 +6,7 @@ import AddIcon from '@mui/icons-material/Add'
 import { GroupDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import ValidationDialog from '@/components/dialog/ValidationDialog'
 import GroupCreationDialog from './components/GroupCreationDialog'
-import { groupLine } from './components/GroupLine'
+import { GroupeLine } from './components/GroupLine'
 import useConfirmationModal from '@/tools/hooks/component/modalhook'
 import GroupUsersDialog from './components/GroupUsersDialog'
 
@@ -88,7 +88,17 @@ export function GroupPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {groupsDTO && userDTO && groupsDTO.map(group => groupLine(group, userDTO, openGroupDeletionModal, openGroupUserManagementModal))}
+            {groupsDTO &&
+              userDTO &&
+              groupsDTO.map(group => (
+                <GroupeLine
+                  key={group.groupId}
+                  groupDTO={group}
+                  userDTO={userDTO}
+                  onClickDelete={openGroupDeletionModal}
+                  onClickUsers={openGroupUserManagementModal}
+                />
+              ))}
           </TableBody>
         </Table>
       </TableContainer>

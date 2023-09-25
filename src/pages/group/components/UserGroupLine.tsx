@@ -15,7 +15,7 @@ interface ISelectAuthorizationProps {
   updateAuthorization: (authorization: GroupAuthorizationEnum) => void
 }
 
-function SelectAuthorization(data: ISelectAuthorizationProps) {
+const SelectAuthorization = (data: ISelectAuthorizationProps) => {
   const [authorization, setAuthorization] = useState(data.authorization)
 
   const handleChange = (event: SelectChangeEvent) => {

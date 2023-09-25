@@ -9,7 +9,14 @@ const deleteIconSx: SxProps<Theme> = {
   ':disabled': { color: red[200] }
 }
 
-export const groupLine = (groupDTO: GroupDTO, userDTO: UserDTO, onClickDelete: (groupDTO: GroupDTO) => void, onClickUsers: (groupDTO: GroupDTO) => void) => {
+interface IGroupeLineProps {
+  groupDTO: GroupDTO
+  userDTO: UserDTO
+  onClickDelete: (groupDTO: GroupDTO) => void
+  onClickUsers: (groupDTO: GroupDTO) => void
+}
+
+export const GroupeLine = ({ groupDTO, userDTO, onClickDelete, onClickUsers }: IGroupeLineProps) => {
   const authorization = groupDTO.users.find(userGroupDto => userGroupDto.user.userId === userDTO.userId)?.authorization
 
   const isAdmin = authorization === GroupAuthorizationEnum.Admin

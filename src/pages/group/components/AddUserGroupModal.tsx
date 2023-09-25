@@ -29,7 +29,6 @@ export function AddUserGroupModal({ open, onCancel, onSucess, group }: IAddUserG
   const { addUserToGroup } = useGroupAddUserToGroup()
 
   const submitData = async (data: IAddUserForm) => {
-    console.log('toto')
     addUserToGroup(group.groupId, { userId: data.UserId, authorization: data.Authorization }).then(() => {
       onSucess()
     })
