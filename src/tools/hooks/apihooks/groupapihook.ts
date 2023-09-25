@@ -83,4 +83,28 @@ const useDeleteGroup = () => {
   }
 }
 
-export { useGroupGetGroups, useCreateGroup, useDeleteGroup }
+const useRemoveUserFromGroup = () => {
+  const getApiInstance = useGroupApi()
+  const [error, setError] = useState<Error | null>(null)
+
+  const removeUserFromGroup = async (groupId: number, userId: number) => {
+    try {
+      const groupApi = await getApiInstance()
+      await groupApi.removeUserFromGroup({ groupId, userId })
+    } catch (err) {
+      displayErrorToast('useDeleteGroup')
+      if (err instanceof Error) {
+        setError(err)
+      } else {
+        setError(new Error(String(err)))
+      }
+    }
+  }
+
+  return {
+    removeUserFromGroup,
+    error
+  }
+}
+
+export { useGroupGetGroups, useCreateGroup, useDeleteGroup, useRemoveUserFromGroup }
