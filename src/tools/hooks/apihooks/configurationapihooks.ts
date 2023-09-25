@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { Configuration, GroupApi, UserApi } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { BankAccountApi, Configuration, GroupApi, UserApi } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { toast } from 'react-toastify'
 
 const displayErrorToast = (hookName: string) => {
@@ -43,4 +43,15 @@ const useGroupApi = () => {
   return getApiInstance
 }
 
-export { displayErrorToast, useApiConfiguration, useUserApi, useGroupApi }
+const useBankAccountApi = () => {
+  const getConfiguration = useApiConfiguration()
+
+  const getApiInstance = async () => {
+    const configuration = await getConfiguration()
+    return new BankAccountApi(configuration)
+  }
+
+  return getApiInstance
+}
+
+export { displayErrorToast, useApiConfiguration, useUserApi, useGroupApi, useBankAccountApi }

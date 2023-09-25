@@ -71,7 +71,7 @@ export function GroupPage() {
       <TableContainer
         component={Paper}
         sx={{
-          maxWidth: '800px',
+          maxWidth: '1000px',
           marginRight: 'auto',
           marginLeft: 'auto',
           marginTop: '8px'

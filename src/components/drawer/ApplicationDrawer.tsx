@@ -54,7 +54,7 @@ export default function TemporaryDrawer({ open, onClose }: ITemporaryDrawerProps
       <List>
         <DrawerButton icon={<HomeIcon />} text={'Home'} onClick={() => goToPage('/home')} />
         <DrawerButton icon={<GroupIcon />} text={'Group'} onClick={() => goToPage('/group')} />
-        <DrawerButton icon={<AccountBalanceIcon />} text={'Account'} onClick={() => goToPage('/account')} />
+        <DrawerButton icon={<AccountBalanceIcon />} text={'Bank Account'} onClick={() => goToPage('/bankaccount')} />
       </List>
       <Divider />
       <List></List>
