@@ -10,7 +10,7 @@ import {
 import { useForm } from 'react-hook-form'
 import { TextFieldForm } from '../../../components/forms/FieldsForm'
 
-interface IGroupDialogProps {
+interface IGroupCreationDialogProps {
   open: boolean
   onValid: () => void
   onCancel: () => void
@@ -20,11 +20,11 @@ interface IGroupCreationForm {
   GroupName: string
 }
 
-export default function GroupDialog({
+export default function GroupCreationDialog({
   open,
   onCancel,
   onValid
-}: IGroupDialogProps) {
+}: IGroupCreationDialogProps) {
   const { createGroup } = useCreateGroup()
 
   const {

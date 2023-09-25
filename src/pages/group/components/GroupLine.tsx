@@ -16,7 +16,8 @@ const deleteIconSx: SxProps<Theme> = {
 export const groupLine = (
   groupDTO: GroupDTO,
   userDTO: UserDTO,
-  onClickDelete: (groupDTO: GroupDTO) => void
+  onClickDelete: (groupDTO: GroupDTO) => void,
+  onClickUsers: (groupDTO: GroupDTO) => void
 ) => {
   const authorization = groupDTO.users.find(
     userGroupDto => userGroupDto.user.userId === userDTO.userId
@@ -46,7 +47,11 @@ export const groupLine = (
         >
           <DeleteIcon fontSize="inherit" />
         </IconButton>
-        <IconButton aria-label="delete" size="small">
+        <IconButton
+          aria-label="delete"
+          size="small"
+          onClick={() => onClickUsers(groupDTO)}
+        >
           <GroupIcon fontSize="inherit" />
         </IconButton>
       </TableCell>
