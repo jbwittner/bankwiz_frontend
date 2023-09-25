@@ -18,20 +18,11 @@ import {
   TableRow,
   TextField
 } from '@mui/material'
-import {
-  GroupAuthorizationEnum,
-  GroupDTO,
-  UserDTO,
-  UserGroupDTO
-} from '@jbwittner/bankwiz_openapi-client-fetch'
+import { GroupAuthorizationEnum, GroupDTO, UserDTO, UserGroupDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove'
 import { Theme } from '@emotion/react'
 import { red } from '@mui/material/colors'
-import {
-  useGroupGetGroup,
-  useGroupRemoveUserFromGroup,
-  useGroupUpdateUserInGroup
-} from '@/tools/hooks/apihooks/groupapihook'
+import { useGroupAddUserToGroup, useGroupGetGroup, useGroupRemoveUserFromGroup, useGroupUpdateUserInGroup } from '@/tools/hooks/apihooks/groupapihook'
 import { useEffect, useState } from 'react'
 
 const deleteIconSx: SxProps<Theme> = {
@@ -41,13 +32,35 @@ const deleteIconSx: SxProps<Theme> = {
 
 interface IAddUserGroupModalProps {
   open: boolean
-  onClose: () => void
+  onCancel: () => void
+  onSucess: () => void
   group: GroupDTO
 }
 
-function AddUserGroupModal({ open, onClose, group }: IAddUserGroupModalProps) {
+function AddUserGroupModal({ open, onCancel, onSucess, group }: IAddUserGroupModalProps) {
+  const [userIdToAdd, setUserIdToAdd] = useState<number | null>(null)
+  const [authorizationNewUser, setAuthorizationNewUser] = useState<GroupAuthorizationEnum | null>(null)
+
+  const { addUserToGroup } = useGroupAddUserToGroup()
+
+  const handleChangeSelect = (event: SelectChangeEvent) => {
+    setAuthorizationNewUser(event.target.value as GroupAuthorizationEnum)
+  }
+
+  const handleChangeTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setUserIdToAdd(Number(event.target.value))
+  }
+
+  const onSubmit = () => {
+    if (userIdToAdd && authorizationNewUser) {
+      addUserToGroup(group.groupId, { userId: userIdToAdd, authorization: authorizationNewUser }).then(() => {
+        onSucess()
+      })
+    }
+  }
+
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onCancel}>
       <DialogTitle>Add user to group {group.groupName}</DialogTitle>
       <DialogContent>
         <TextField
@@ -56,29 +69,21 @@ function AddUserGroupModal({ open, onClose, group }: IAddUserGroupModalProps) {
           id="outlined-basic"
           label="User ID"
           variant="outlined"
+          onChange={handleChangeTextField}
+          type="number"
         />
         <FormControl fullWidth sx={{ margin: '10px 0 0 0' }}>
           <InputLabel id="demo-simple-select-label">Authorization</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            label="Atuhorization"
-          >
-            <MenuItem value={GroupAuthorizationEnum.Admin}>
-              {GroupAuthorizationEnum.Admin}
-            </MenuItem>
-            <MenuItem value={GroupAuthorizationEnum.Read}>
-              {GroupAuthorizationEnum.Read}
-            </MenuItem>
-            <MenuItem value={GroupAuthorizationEnum.Write}>
-              {GroupAuthorizationEnum.Write}
-            </MenuItem>
+          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Atuhorization" onChange={handleChangeSelect}>
+            <MenuItem value={GroupAuthorizationEnum.Admin}>{GroupAuthorizationEnum.Admin}</MenuItem>
+            <MenuItem value={GroupAuthorizationEnum.Read}>{GroupAuthorizationEnum.Read}</MenuItem>
+            <MenuItem value={GroupAuthorizationEnum.Write}>{GroupAuthorizationEnum.Write}</MenuItem>
           </Select>
         </FormControl>
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClose}>Cancel</Button>
-        <Button type="submit" form="hook-form">
+        <Button onClick={onCancel}>Cancel</Button>
+        <Button type="submit" form="hook-form" onClick={onSubmit}>
           Add user
         </Button>
       </DialogActions>
@@ -101,21 +106,10 @@ function SelectAuthorization(data: ISelectAuthorizationProps) {
 
   return (
     <FormControl fullWidth>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        value={authorization}
-        onChange={handleChange}
-      >
-        <MenuItem value={GroupAuthorizationEnum.Admin}>
-          {GroupAuthorizationEnum.Admin}
-        </MenuItem>
-        <MenuItem value={GroupAuthorizationEnum.Read}>
-          {GroupAuthorizationEnum.Read}
-        </MenuItem>
-        <MenuItem value={GroupAuthorizationEnum.Write}>
-          {GroupAuthorizationEnum.Write}
-        </MenuItem>
+      <Select labelId="demo-simple-select-label" id="demo-simple-select" value={authorization} onChange={handleChange}>
+        <MenuItem value={GroupAuthorizationEnum.Admin}>{GroupAuthorizationEnum.Admin}</MenuItem>
+        <MenuItem value={GroupAuthorizationEnum.Read}>{GroupAuthorizationEnum.Read}</MenuItem>
+        <MenuItem value={GroupAuthorizationEnum.Write}>{GroupAuthorizationEnum.Write}</MenuItem>
       </Select>
     </FormControl>
   )
@@ -125,10 +119,7 @@ const userLine = (
   userGroupDTO: UserGroupDTO,
   currentUser: UserGroupDTO,
   onDelete: (userId: number) => Promise<void>,
-  updateAuthorization: (
-    userId: number,
-    authorization: GroupAuthorizationEnum
-  ) => void
+  updateAuthorization: (userId: number, authorization: GroupAuthorizationEnum) => void
 ) => {
   const isAdmin = currentUser.authorization === GroupAuthorizationEnum.Admin
   const isCurrentUser = userGroupDTO.user.userId === currentUser.user.userId
@@ -144,22 +135,14 @@ const userLine = (
       <TableCell align="center">{userGroupDTO.user.email}</TableCell>
       <TableCell align="center">
         {isAdmin && !isCurrentUser ? (
-          <SelectAuthorization
-            authorization={userGroupDTO.authorization}
-            updateAuthorization={onUpdateAuthorization}
-          />
+          <SelectAuthorization authorization={userGroupDTO.authorization} updateAuthorization={onUpdateAuthorization} />
         ) : (
           userGroupDTO.authorization
         )}
       </TableCell>
       <TableCell align="center">
         {/*Only administrator users can remove rights (for other users)*/}
-        <IconButton
-          size="small"
-          disabled={!(isAdmin && !isCurrentUser)}
-          sx={deleteIconSx}
-          onClick={() => onDelete(userGroupDTO.user.userId)}
-        >
+        <IconButton size="small" disabled={!(isAdmin && !isCurrentUser)} sx={deleteIconSx} onClick={() => onDelete(userGroupDTO.user.userId)}>
           <GroupRemoveIcon fontSize="inherit" />
         </IconButton>
       </TableCell>
@@ -174,17 +157,13 @@ interface IGroupCreationDialogProps {
   onClose: () => void
 }
 
-export default function GroupUsersDialog({
-  open,
-  group,
-  currentUser,
-  onClose
-}: IGroupCreationDialogProps) {
+export default function GroupUsersDialog({ open, group, currentUser, onClose }: IGroupCreationDialogProps) {
   const { groupDTO, getGroup } = useGroupGetGroup()
 
-  const currentUserGroupDto = group.users.find(
-    userGroupDto => userGroupDto.user.userId === currentUser.userId
-  )
+  const [modalAddUserIsOpen, setModalAddUserIsOpen] = useState(false)
+
+  const currentUserGroupDto = group.users.find(userGroupDto => userGroupDto.user.userId === currentUser.userId)
+  const isAdmin = currentUserGroupDto?.authorization === GroupAuthorizationEnum.Admin
 
   useEffect(() => {
     getGroup(group.groupId)
@@ -198,10 +177,7 @@ export default function GroupUsersDialog({
     await getGroup(group.groupId)
   }
 
-  const onUpdateAuthorization = (
-    userId: number,
-    authorization: GroupAuthorizationEnum
-  ) => {
+  const onUpdateAuthorization = (userId: number, authorization: GroupAuthorizationEnum) => {
     updateUserInGroup(group.groupId, userId, {
       authorization: authorization
     }).then(() => {
@@ -209,15 +185,14 @@ export default function GroupUsersDialog({
     })
   }
 
+  const onSucessAddUser = () => {
+    setModalAddUserIsOpen(false)
+    getGroup(group.groupId)
+  }
+
   return (
     <Dialog open={open} onClose={onClose} maxWidth="lg">
-      <AddUserGroupModal
-        open={true}
-        onClose={function (): void {
-          throw new Error('Function not implemented.')
-        }}
-        group={group}
-      />
+      <AddUserGroupModal open={modalAddUserIsOpen} group={group} onCancel={() => setModalAddUserIsOpen(false)} onSucess={onSucessAddUser} />
       <DialogTitle>Users group of {group.groupName}</DialogTitle>
       <DialogContent>
         <Table>
@@ -233,20 +208,13 @@ export default function GroupUsersDialog({
           <TableBody>
             {currentUserGroupDto &&
               groupDTO &&
-              groupDTO.users.map(userGroutDto =>
-                userLine(
-                  userGroutDto,
-                  currentUserGroupDto,
-                  onClickDelete,
-                  onUpdateAuthorization
-                )
-              )}
+              groupDTO.users.map(userGroutDto => userLine(userGroutDto, currentUserGroupDto, onClickDelete, onUpdateAuthorization))}
           </TableBody>
         </Table>
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>Close</Button>
-        <Button type="submit" form="hook-form">
+        <Button type="submit" form="hook-form" disabled={!isAdmin} onClick={() => setModalAddUserIsOpen(true)}>
           Add user
         </Button>
       </DialogActions>

@@ -13,13 +13,7 @@ interface IValidationDialogProps {
   titleDialog: string
 }
 
-export default function ValidationDialog({
-  open,
-  onValid,
-  onCancel,
-  textDialog,
-  titleDialog
-}: IValidationDialogProps) {
+export default function ValidationDialog({ open, onValid, onCancel, textDialog, titleDialog }: IValidationDialogProps) {
   return (
     <Dialog open={open} onClose={onCancel}>
       <DialogTitle>{titleDialog}</DialogTitle>

@@ -9,22 +9,13 @@ interface ITextFieldFormProps<T extends FieldValues = FieldValues> {
   label: string
 }
 
-const TextFieldForm = <T extends FieldValues>(
-  props: ITextFieldFormProps<T>
-) => {
+const TextFieldForm = <T extends FieldValues>(props: ITextFieldFormProps<T>) => {
   return (
     <Controller
       control={props.control}
       name={props.name}
       rules={{ required: props.required }}
-      render={({ field }) => (
-        <TextField
-          {...field}
-          fullWidth
-          error={props.error}
-          label={`${props.label}${props.required === true ? '\u00A0*' : ''}`}
-        />
-      )}
+      render={({ field }) => <TextField {...field} fullWidth error={props.error} label={`${props.label}${props.required === true ? '\u00A0*' : ''}`} />}
     />
   )
 }

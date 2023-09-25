@@ -38,21 +38,11 @@ export default function ApplicationBar() {
 
   return (
     <React.Fragment>
-      <TemporaryDrawer
-        open={drawerIsOpen}
-        onClose={() => setDrawerIsOpen(false)}
-      />
+      <TemporaryDrawer open={drawerIsOpen} onClose={() => setDrawerIsOpen(false)} />
       <Box sx={{ flexGrow: 1 }}>
         <AppBar position="static">
           <Toolbar>
-            <IconButton
-              size="large"
-              edge="start"
-              color="inherit"
-              aria-label="menu"
-              sx={{ mr: 2 }}
-              onClick={() => setDrawerIsOpen(true)}
-            >
+            <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }} onClick={() => setDrawerIsOpen(true)}>
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>

@@ -1,18 +1,6 @@
-import {
-  useGroupDeleteGroup,
-  useGroupGetGroups
-} from '@/tools/hooks/apihooks/groupapihook'
+import { useGroupDeleteGroup, useGroupGetGroups } from '@/tools/hooks/apihooks/groupapihook'
 import { useUserGetCurrentUserInfo } from '@/tools/hooks/apihooks/userapihook'
-import {
-  Fab,
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow
-} from '@mui/material'
+import { Fab, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { GroupDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
@@ -69,11 +57,7 @@ export function GroupPage() {
 
   return (
     <React.Fragment>
-      <GroupCreationDialog
-        open={modalCreateIsOpen}
-        onValid={onCloseModalCreation}
-        onCancel={() => setModalCreateIsOpen(false)}
-      />
+      <GroupCreationDialog open={modalCreateIsOpen} onValid={onCloseModalCreation} onCancel={() => setModalCreateIsOpen(false)} />
       <ValidationDialog
         titleDialog={'Deletion confirmation'}
         textDialog={'You will delete the group ' + groupToDelete?.groupName}
@@ -82,12 +66,7 @@ export function GroupPage() {
         onValid={() => confirmGroupDeletion(confirmDeleteCallback)}
       />
       {groupWithUsers && userDTO && (
-        <GroupUsersDialog
-          open={isGroupUserManagementModalOpen}
-          group={groupWithUsers}
-          currentUser={userDTO}
-          onClose={closeGroupUserManagementModal}
-        />
+        <GroupUsersDialog open={isGroupUserManagementModalOpen} group={groupWithUsers} currentUser={userDTO} onClose={closeGroupUserManagementModal} />
       )}
       <TableContainer
         component={Paper}
@@ -95,7 +74,7 @@ export function GroupPage() {
           maxWidth: '800px',
           marginRight: 'auto',
           marginLeft: 'auto',
-          marginTop: '0'
+          marginTop: '8px'
         }}
       >
         <Table>
@@ -109,25 +88,11 @@ export function GroupPage() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {groupsDTO &&
-              userDTO &&
-              groupsDTO.map(group =>
-                groupLine(
-                  group,
-                  userDTO,
-                  openGroupDeletionModal,
-                  openGroupUserManagementModal
-                )
-              )}
+            {groupsDTO && userDTO && groupsDTO.map(group => groupLine(group, userDTO, openGroupDeletionModal, openGroupUserManagementModal))}
           </TableBody>
         </Table>
       </TableContainer>
-      <Fab
-        color="primary"
-        aria-label="add"
-        sx={fabSx}
-        onClick={() => setModalCreateIsOpen(true)}
-      >
+      <Fab color="primary" aria-label="add" sx={fabSx} onClick={() => setModalCreateIsOpen(true)}>
         <AddIcon />
       </Fab>
     </React.Fragment>

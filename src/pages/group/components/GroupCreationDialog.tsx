@@ -1,11 +1,4 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle
-} from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { TextFieldForm } from '../../../components/forms/FieldsForm'
 import { useGroupCreateGroup } from '@/tools/hooks/apihooks/groupapihook'
@@ -20,11 +13,7 @@ interface IGroupCreationForm {
   GroupName: string
 }
 
-export default function GroupCreationDialog({
-  open,
-  onCancel,
-  onValid
-}: IGroupCreationDialogProps) {
+export default function GroupCreationDialog({ open, onCancel, onValid }: IGroupCreationDialogProps) {
   const { createGroup } = useGroupCreateGroup()
 
   const {
@@ -49,16 +38,8 @@ export default function GroupCreationDialog({
       <DialogTitle>Create new group</DialogTitle>
       <DialogContent>
         <form id="hook-form" onSubmit={handleSubmit(submit)}>
-          <DialogContentText>
-            Enter the informations to create a new group
-          </DialogContentText>
-          <TextFieldForm
-            control={control}
-            name="GroupName"
-            label="Group name"
-            required
-            error={errors.GroupName?.type === 'required'}
-          />
+          <DialogContentText>Enter the informations to create a new group</DialogContentText>
+          <TextFieldForm control={control} name="GroupName" label="Group name" required error={errors.GroupName?.type === 'required'} />
         </form>
       </DialogContent>
       <DialogActions>

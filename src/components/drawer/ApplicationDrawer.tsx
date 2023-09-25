@@ -40,10 +40,7 @@ function DrawerButton(props: IDrawerButtonProps) {
   )
 }
 
-export default function TemporaryDrawer({
-  open,
-  onClose
-}: ITemporaryDrawerProps) {
+export default function TemporaryDrawer({ open, onClose }: ITemporaryDrawerProps) {
   const navigate = useNavigate()
 
   const goToPage = (url: string) => {
@@ -54,16 +51,8 @@ export default function TemporaryDrawer({
   const drawerContent = () => (
     <Box sx={{ width: 250 }} role="presentation">
       <List>
-        <DrawerButton
-          icon={<HomeIcon />}
-          text={'Home'}
-          onClick={() => goToPage('/home')}
-        />
-        <DrawerButton
-          icon={<GroupIcon />}
-          text={'Group'}
-          onClick={() => goToPage('/group')}
-        />
+        <DrawerButton icon={<HomeIcon />} text={'Home'} onClick={() => goToPage('/home')} />
+        <DrawerButton icon={<GroupIcon />} text={'Group'} onClick={() => goToPage('/group')} />
       </List>
       <Divider />
       <List></List>

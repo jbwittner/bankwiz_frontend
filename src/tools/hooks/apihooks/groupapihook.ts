@@ -1,8 +1,4 @@
-import {
-  GroupCreationRequest,
-  GroupDTO,
-  UpdateUserGroupRequest
-} from '@jbwittner/bankwiz_openapi-client-fetch'
+import { AddUserGroupRequest, GroupCreationRequest, GroupDTO, UpdateUserGroupRequest } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { displayErrorToast, useGroupApi } from './configurationapihooks'
 import { useState } from 'react'
 
@@ -140,11 +136,7 @@ const useGroupUpdateUserInGroup = () => {
   const [error, setError] = useState<Error | null>(null)
   const [groupDTO, setGroupDTO] = useState<GroupDTO | null>(null)
 
-  const updateUserInGroup = async (
-    groupId: number,
-    userId: number,
-    updateUserGroupRequest: UpdateUserGroupRequest
-  ) => {
+  const updateUserInGroup = async (groupId: number, userId: number, updateUserGroupRequest: UpdateUserGroupRequest) => {
     try {
       const groupApi = await getApiInstance()
       const group = await groupApi.updateUserInGroup({
@@ -170,11 +162,42 @@ const useGroupUpdateUserInGroup = () => {
   }
 }
 
+const useGroupAddUserToGroup = () => {
+  const getApiInstance = useGroupApi()
+  const [error, setError] = useState<Error | null>(null)
+  const [groupDTO, setGroupDTO] = useState<GroupDTO | null>(null)
+
+  const addUserToGroup = async (groupId: number, addUserGroupRequest: AddUserGroupRequest) => {
+    try {
+      const groupApi = await getApiInstance()
+      const group = await groupApi.addUserToGroup({
+        groupId,
+        addUserGroupRequest
+      })
+      setGroupDTO(group)
+    } catch (err) {
+      displayErrorToast('useGroupAddUserToGroup')
+      if (err instanceof Error) {
+        setError(err)
+      } else {
+        setError(new Error(String(err)))
+      }
+    }
+  }
+
+  return {
+    groupDTO,
+    addUserToGroup,
+    error
+  }
+}
+
 export {
   useGroupGetGroups,
   useGroupCreateGroup,
   useGroupDeleteGroup,
   useGroupRemoveUserFromGroup,
   useGroupGetGroup,
-  useGroupUpdateUserInGroup
+  useGroupUpdateUserInGroup,
+  useGroupAddUserToGroup
 }
