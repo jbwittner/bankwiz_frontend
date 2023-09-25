@@ -5,6 +5,7 @@ import { GroupPage } from '@/pages/group/GroupPage'
 import { ApplicationLayout } from '@/components/layout/ApplicationLayout'
 import { HomePage } from '@/pages/home/HomePage'
 import { LoginPage } from '@/pages/login/LoginPage'
+import { AccountPage } from '@/pages/account/AccountPage'
 
 const Auth0ProviderWithRedirectCallback = ({ children, ...props }: PropsWithChildren<Auth0ProviderOptions>) => {
   const navigate = useNavigate()
@@ -23,6 +24,7 @@ const Auth0ProviderWithRedirectCallback = ({ children, ...props }: PropsWithChil
 const ApplicationLayoutWithAuthentication = withAuthenticationRequired(ApplicationLayout)
 const HomePageWithAuthentication = withAuthenticationRequired(HomePage)
 const GroupPageWithAuthentication = withAuthenticationRequired(GroupPage)
+const AccountPageWithAuthentication = withAuthenticationRequired(AccountPage)
 
 const AppRoute = () => {
   return (
@@ -31,6 +33,7 @@ const AppRoute = () => {
       <Route element={<ApplicationLayoutWithAuthentication />}>
         <Route path="/home" element={<HomePageWithAuthentication />} />
         <Route path="/group" element={<GroupPageWithAuthentication />} />
+        <Route path="/account" element={<AccountPageWithAuthentication />} />
       </Route>
       <Route path="*" element={<div>404 Not Found</div>} />
     </Routes>

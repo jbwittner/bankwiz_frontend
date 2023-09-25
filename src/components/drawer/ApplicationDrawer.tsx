@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom'
 import { SxProps, Theme, useTheme } from '@mui/material'
 import HomeIcon from '@mui/icons-material/Home'
 import GroupIcon from '@mui/icons-material/Group'
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
 
 interface ITemporaryDrawerProps {
   open: boolean
@@ -53,6 +54,7 @@ export default function TemporaryDrawer({ open, onClose }: ITemporaryDrawerProps
       <List>
         <DrawerButton icon={<HomeIcon />} text={'Home'} onClick={() => goToPage('/home')} />
         <DrawerButton icon={<GroupIcon />} text={'Group'} onClick={() => goToPage('/group')} />
+        <DrawerButton icon={<AccountBalanceIcon />} text={'Account'} onClick={() => goToPage('/account')} />
       </List>
       <Divider />
       <List></List>

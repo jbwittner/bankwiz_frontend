@@ -21,6 +21,8 @@ function stringSwitch(inputStr: string): string {
       return 'Home'
     case '/group':
       return 'Group'
+    case '/account':
+      return 'Account'
     default:
       return 'Unknown'
   }
