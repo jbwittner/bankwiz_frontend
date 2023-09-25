@@ -14,6 +14,9 @@ import {
 import { GroupAuthorizationEnum, GroupDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useGroupAddUserToGroup } from '@/tools/hooks/apihooks/groupapihook'
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { TextFieldForm } from '@/components/forms/FieldsForm'
+import { SelectFieldForm } from '@/components/forms/SelectForm'
 
 interface IAddUserGroupModalProps {
   open: boolean
@@ -22,9 +25,22 @@ interface IAddUserGroupModalProps {
   group: GroupDTO
 }
 
+interface IAddUserForm {
+  UserId: number
+  Authorization: GroupAuthorizationEnum
+}
+
 export function AddUserGroupModal({ open, onCancel, onSucess, group }: IAddUserGroupModalProps) {
   const [userIdToAdd, setUserIdToAdd] = useState<number | null>(null)
   const [authorizationNewUser, setAuthorizationNewUser] = useState<GroupAuthorizationEnum | null>(null)
+
+  const {
+    handleSubmit,
+    control,
+    formState: { errors }
+  } = useForm<IAddUserForm>({
+    defaultValues: { UserId: 5, Authorization: GroupAuthorizationEnum.Read }
+  })
 
   const { addUserToGroup } = useGroupAddUserToGroup()
 
@@ -44,27 +60,39 @@ export function AddUserGroupModal({ open, onCancel, onSucess, group }: IAddUserG
     }
   }
 
+  const submit = async (data: IAddUserForm) => {}
+
   return (
     <Dialog open={open} onClose={onCancel}>
       <DialogTitle>Add user to group {group.groupName}</DialogTitle>
       <DialogContent>
-        <TextField
-          fullWidth
-          sx={{ margin: '10px 0 0 0' }}
-          id="outlined-basic"
-          label="User ID"
-          variant="outlined"
-          onChange={handleChangeTextField}
-          type="number"
-        />
-        <FormControl fullWidth sx={{ margin: '10px 0 0 0' }}>
-          <InputLabel id="demo-simple-select-label">Authorization</InputLabel>
-          <Select labelId="demo-simple-select-label" id="demo-simple-select" label="Atuhorization" onChange={handleChangeSelect}>
+        <form id="hook-form" onSubmit={handleSubmit(submit)}>
+          <TextFieldForm
+            control={control}
+            name="UserId"
+            label="User ID"
+            type="number"
+            variant="outlined"
+            required
+            error={errors.UserId?.type === 'required'}
+            fullWidth
+            sx={{ margin: '10px 0 0 0' }}
+          />
+          <SelectFieldForm
+            control={control}
+            name="Authorization"
+            label="Authorizationaaaa"
+            variant="outlined"
+            required
+            error={errors.Authorization?.type === 'required'}
+            fullWidth
+            sx={{ margin: '10px 0 0 0' }}
+          >
             <MenuItem value={GroupAuthorizationEnum.Admin}>{GroupAuthorizationEnum.Admin}</MenuItem>
             <MenuItem value={GroupAuthorizationEnum.Read}>{GroupAuthorizationEnum.Read}</MenuItem>
             <MenuItem value={GroupAuthorizationEnum.Write}>{GroupAuthorizationEnum.Write}</MenuItem>
-          </Select>
-        </FormControl>
+          </SelectFieldForm>
+        </form>
       </DialogContent>
       <DialogActions>
         <Button onClick={onCancel}>Cancel</Button>

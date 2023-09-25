@@ -1,7 +1,7 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { useForm } from 'react-hook-form'
-import { TextFieldForm } from '../../../components/forms/FieldsForm'
 import { useGroupCreateGroup } from '@/tools/hooks/apihooks/groupapihook'
+import { TextFieldForm } from '@/components/forms/FieldsForm'
 
 interface IGroupCreationDialogProps {
   open: boolean
