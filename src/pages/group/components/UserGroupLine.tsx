@@ -34,34 +34,36 @@ function SelectAuthorization(data: ISelectAuthorizationProps) {
   )
 }
 
-export const userLine = (
-  userGroupDTO: UserGroupDTO,
-  currentUser: UserGroupDTO,
-  onDelete: (userId: number) => Promise<void>,
+interface IUserGroupLineProps {
+  userGroupDTO: UserGroupDTO
+  currentUser: UserGroupDTO
+  onDelete: (userId: number) => Promise<void>
   updateAuthorization: (userId: number, authorization: GroupAuthorizationEnum) => void
-) => {
-  const isAdmin = currentUser.authorization === GroupAuthorizationEnum.Admin
-  const isCurrentUser = userGroupDTO.user.userId === currentUser.user.userId
+}
+
+export const UserGroupLine = (props: IUserGroupLineProps) => {
+  const isAdmin = props.currentUser.authorization === GroupAuthorizationEnum.Admin
+  const isCurrentUser = props.userGroupDTO.user.userId === props.currentUser.user.userId
 
   const onUpdateAuthorization = (authorization: GroupAuthorizationEnum) => {
-    updateAuthorization(userGroupDTO.user.userId, authorization)
+    props.updateAuthorization(props.userGroupDTO.user.userId, authorization)
   }
 
   return (
-    <TableRow key={userGroupDTO.user.userId}>
-      <TableCell align="center">{userGroupDTO.user.firstName}</TableCell>
-      <TableCell align="center">{userGroupDTO.user.lastName}</TableCell>
-      <TableCell align="center">{userGroupDTO.user.email}</TableCell>
+    <TableRow key={props.userGroupDTO.user.userId}>
+      <TableCell align="center">{props.userGroupDTO.user.firstName}</TableCell>
+      <TableCell align="center">{props.userGroupDTO.user.lastName}</TableCell>
+      <TableCell align="center">{props.userGroupDTO.user.email}</TableCell>
       <TableCell align="center">
         {isAdmin && !isCurrentUser ? (
-          <SelectAuthorization authorization={userGroupDTO.authorization} updateAuthorization={onUpdateAuthorization} />
+          <SelectAuthorization authorization={props.userGroupDTO.authorization} updateAuthorization={onUpdateAuthorization} />
         ) : (
-          userGroupDTO.authorization
+          props.userGroupDTO.authorization
         )}
       </TableCell>
       <TableCell align="center">
         {/*Only administrator users can remove rights (for other users)*/}
-        <IconButton size="small" disabled={!(isAdmin && !isCurrentUser)} sx={deleteIconSx} onClick={() => onDelete(userGroupDTO.user.userId)}>
+        <IconButton size="small" disabled={!(isAdmin && !isCurrentUser)} sx={deleteIconSx} onClick={() => props.onDelete(props.userGroupDTO.user.userId)}>
           <GroupRemoveIcon fontSize="inherit" />
         </IconButton>
       </TableCell>

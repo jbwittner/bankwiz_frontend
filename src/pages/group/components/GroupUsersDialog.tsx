@@ -2,8 +2,8 @@ import { Button, Dialog, DialogActions, DialogContent, DialogTitle, Table, Table
 import { GroupAuthorizationEnum, GroupDTO, UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useGroupGetGroup, useGroupRemoveUserFromGroup, useGroupUpdateUserInGroup } from '@/tools/hooks/apihooks/groupapihook'
 import { useEffect, useState } from 'react'
-import { userLine } from './UserLine'
 import { AddUserGroupModal } from './AddUserGroupModal'
+import { UserGroupLine } from './UserGroupLine'
 
 interface IGroupCreationDialogProps {
   open: boolean
@@ -63,7 +63,15 @@ export default function GroupUsersDialog({ open, group, currentUser, onClose }: 
           <TableBody>
             {currentUserGroupDto &&
               groupDTO &&
-              groupDTO.users.map(userGroutDto => userLine(userGroutDto, currentUserGroupDto, onClickDelete, onUpdateAuthorization))}
+              groupDTO.users.map(userGroutDto => (
+                <UserGroupLine
+                  key={userGroutDto.user.userId}
+                  userGroupDTO={userGroutDto}
+                  currentUser={currentUserGroupDto}
+                  onDelete={onClickDelete}
+                  updateAuthorization={onUpdateAuthorization}
+                />
+              ))}
           </TableBody>
         </Table>
       </DialogContent>
