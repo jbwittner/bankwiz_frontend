@@ -45,40 +45,44 @@ interface IAddUserGroupModalProps {
   group: GroupDTO
 }
 
-function AddUserGroupModal({open, onClose, group}: IAddUserGroupModalProps){
-
+function AddUserGroupModal({ open, onClose, group }: IAddUserGroupModalProps) {
   return (
     <Dialog open={open} onClose={onClose}>
-    <DialogTitle>Add user to group {group.groupName}</DialogTitle>
-    <DialogContent>
-    <TextField fullWidth sx={{margin: '10px 0 0 0'}} id="outlined-basic" label="User ID" variant="outlined" />
-    <FormControl fullWidth sx={{margin: '10px 0 0 0'}}>
-      <InputLabel id="demo-simple-select-label">Authorization</InputLabel>
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        label="Atuhorization"
-      >
-        <MenuItem value={GroupAuthorizationEnum.Admin}>
-          {GroupAuthorizationEnum.Admin}
-        </MenuItem>
-        <MenuItem value={GroupAuthorizationEnum.Read}>
-          {GroupAuthorizationEnum.Read}
-        </MenuItem>
-        <MenuItem value={GroupAuthorizationEnum.Write}>
-          {GroupAuthorizationEnum.Write}
-        </MenuItem>
-      </Select>
-    </FormControl>
-    </DialogContent>
-    <DialogActions>
-      <Button onClick={onClose}>Cancel</Button>
-      <Button type="submit" form="hook-form">
-        Add user
-      </Button>
-    </DialogActions>
-  </Dialog>
-
+      <DialogTitle>Add user to group {group.groupName}</DialogTitle>
+      <DialogContent>
+        <TextField
+          fullWidth
+          sx={{ margin: '10px 0 0 0' }}
+          id="outlined-basic"
+          label="User ID"
+          variant="outlined"
+        />
+        <FormControl fullWidth sx={{ margin: '10px 0 0 0' }}>
+          <InputLabel id="demo-simple-select-label">Authorization</InputLabel>
+          <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            label="Atuhorization"
+          >
+            <MenuItem value={GroupAuthorizationEnum.Admin}>
+              {GroupAuthorizationEnum.Admin}
+            </MenuItem>
+            <MenuItem value={GroupAuthorizationEnum.Read}>
+              {GroupAuthorizationEnum.Read}
+            </MenuItem>
+            <MenuItem value={GroupAuthorizationEnum.Write}>
+              {GroupAuthorizationEnum.Write}
+            </MenuItem>
+          </Select>
+        </FormControl>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Cancel</Button>
+        <Button type="submit" form="hook-form">
+          Add user
+        </Button>
+      </DialogActions>
+    </Dialog>
   )
 }
 
@@ -207,9 +211,13 @@ export default function GroupUsersDialog({
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="lg">
-      <AddUserGroupModal open={true} onClose={function (): void {
-        throw new Error('Function not implemented.')
-      } } group={group}/>
+      <AddUserGroupModal
+        open={true}
+        onClose={function (): void {
+          throw new Error('Function not implemented.')
+        }}
+        group={group}
+      />
       <DialogTitle>Users group of {group.groupName}</DialogTitle>
       <DialogContent>
         <Table>
