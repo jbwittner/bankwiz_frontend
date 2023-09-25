@@ -36,18 +36,16 @@ export default function GroupCreationDialog({ open, onCancel, onValid }: IGroupC
   return (
     <Dialog open={open} onClose={onCancel}>
       <DialogTitle>Create new group</DialogTitle>
-      <DialogContent>
-        <form id="hook-form" onSubmit={handleSubmit(submit)}>
+      <form onSubmit={handleSubmit(submit)}>
+        <DialogContent>
           <DialogContentText>Enter the informations to create a new group</DialogContentText>
           <TextFieldForm control={control} name="GroupName" label="Group name" required error={errors.GroupName?.type === 'required'} />
-        </form>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button type="submit" form="hook-form">
-          Create groupe
-        </Button>
-      </DialogActions>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onCancel}>Cancel</Button>
+          <Button type="submit">Create groupe</Button>
+        </DialogActions>
+      </form>
     </Dialog>
   )
 }

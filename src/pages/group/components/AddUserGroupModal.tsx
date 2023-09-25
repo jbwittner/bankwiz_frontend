@@ -1,19 +1,6 @@
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogTitle,
-  FormControl,
-  InputLabel,
-  MenuItem,
-  Select,
-  SelectChangeEvent,
-  TextField
-} from '@mui/material'
+import { Button, Dialog, DialogActions, DialogContent, DialogTitle, MenuItem } from '@mui/material'
 import { GroupAuthorizationEnum, GroupDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useGroupAddUserToGroup } from '@/tools/hooks/apihooks/groupapihook'
-import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { TextFieldForm } from '@/components/forms/FieldsForm'
 import { SelectFieldForm } from '@/components/forms/SelectForm'
@@ -31,47 +18,32 @@ interface IAddUserForm {
 }
 
 export function AddUserGroupModal({ open, onCancel, onSucess, group }: IAddUserGroupModalProps) {
-  const [userIdToAdd, setUserIdToAdd] = useState<number | null>(null)
-  const [authorizationNewUser, setAuthorizationNewUser] = useState<GroupAuthorizationEnum | null>(null)
-
   const {
     handleSubmit,
     control,
     formState: { errors }
   } = useForm<IAddUserForm>({
-    defaultValues: { UserId: 5, Authorization: GroupAuthorizationEnum.Read }
+    defaultValues: { UserId: 0, Authorization: GroupAuthorizationEnum.Read }
   })
 
   const { addUserToGroup } = useGroupAddUserToGroup()
 
-  const handleChangeSelect = (event: SelectChangeEvent) => {
-    setAuthorizationNewUser(event.target.value as GroupAuthorizationEnum)
+  const submitData = async (data: IAddUserForm) => {
+    console.log('toto')
+    addUserToGroup(group.groupId, { userId: data.UserId, authorization: data.Authorization }).then(() => {
+      onSucess()
+    })
   }
-
-  const handleChangeTextField = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setUserIdToAdd(Number(event.target.value))
-  }
-
-  const onSubmit = () => {
-    if (userIdToAdd && authorizationNewUser) {
-      addUserToGroup(group.groupId, { userId: userIdToAdd, authorization: authorizationNewUser }).then(() => {
-        onSucess()
-      })
-    }
-  }
-
-  const submit = async (data: IAddUserForm) => {}
 
   return (
     <Dialog open={open} onClose={onCancel}>
       <DialogTitle>Add user to group {group.groupName}</DialogTitle>
-      <DialogContent>
-        <form id="hook-form" onSubmit={handleSubmit(submit)}>
+      <form onSubmit={handleSubmit(submitData)}>
+        <DialogContent>
           <TextFieldForm
             control={control}
             name="UserId"
             label="User ID"
-            type="number"
             variant="outlined"
             required
             error={errors.UserId?.type === 'required'}
@@ -81,7 +53,7 @@ export function AddUserGroupModal({ open, onCancel, onSucess, group }: IAddUserG
           <SelectFieldForm
             control={control}
             name="Authorization"
-            label="Authorizationaaaa"
+            label="Authorization"
             variant="outlined"
             required
             error={errors.Authorization?.type === 'required'}
@@ -92,14 +64,12 @@ export function AddUserGroupModal({ open, onCancel, onSucess, group }: IAddUserG
             <MenuItem value={GroupAuthorizationEnum.Read}>{GroupAuthorizationEnum.Read}</MenuItem>
             <MenuItem value={GroupAuthorizationEnum.Write}>{GroupAuthorizationEnum.Write}</MenuItem>
           </SelectFieldForm>
-        </form>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onCancel}>Cancel</Button>
-        <Button type="submit" form="hook-form" onClick={onSubmit}>
-          Add user
-        </Button>
-      </DialogActions>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={onCancel}>Cancel</Button>
+          <Button type="submit">Add user</Button>
+        </DialogActions>
+      </form>
     </Dialog>
   )
 }
