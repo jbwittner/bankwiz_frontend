@@ -1,4 +1,5 @@
-import { TextField } from '@mui/material'
+import { Theme } from '@emotion/react'
+import { SxProps, TextField, TextFieldVariants } from '@mui/material'
 import { Controller, Control, FieldValues, Path } from 'react-hook-form'
 
 interface ITextFieldFormProps<T extends FieldValues = FieldValues> {
@@ -7,11 +8,13 @@ interface ITextFieldFormProps<T extends FieldValues = FieldValues> {
   error?: boolean
   required?: boolean
   label: string
+  type?: string
+  fullWidth?: boolean
+  sx?: SxProps<Theme>
+  variant?: TextFieldVariants
 }
 
-const TextFieldForm = <T extends FieldValues>(
-  props: ITextFieldFormProps<T>
-) => {
+const TextFieldForm = <T extends FieldValues>(props: ITextFieldFormProps<T>) => {
   return (
     <Controller
       control={props.control}
@@ -20,8 +23,11 @@ const TextFieldForm = <T extends FieldValues>(
       render={({ field }) => (
         <TextField
           {...field}
-          fullWidth
+          type={props.type}
+          fullWidth={props.fullWidth}
           error={props.error}
+          variant={props.variant}
+          sx={props.sx}
           label={`${props.label}${props.required === true ? '\u00A0*' : ''}`}
         />
       )}

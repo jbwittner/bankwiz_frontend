@@ -1,20 +1,12 @@
 import { PropsWithChildren } from 'react'
-import {
-  AppState,
-  Auth0Provider,
-  Auth0ProviderOptions,
-  withAuthenticationRequired
-} from '@auth0/auth0-react'
+import { AppState, Auth0Provider, Auth0ProviderOptions, withAuthenticationRequired } from '@auth0/auth0-react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
 import { GroupPage } from '@/pages/group/GroupPage'
 import { ApplicationLayout } from '@/components/layout/ApplicationLayout'
 import { HomePage } from '@/pages/home/HomePage'
 import { LoginPage } from '@/pages/login/LoginPage'
 
-const Auth0ProviderWithRedirectCallback = ({
-  children,
-  ...props
-}: PropsWithChildren<Auth0ProviderOptions>) => {
+const Auth0ProviderWithRedirectCallback = ({ children, ...props }: PropsWithChildren<Auth0ProviderOptions>) => {
   const navigate = useNavigate()
 
   const onRedirectCallback = (appState?: AppState) => {
@@ -28,8 +20,7 @@ const Auth0ProviderWithRedirectCallback = ({
   )
 }
 
-const ApplicationLayoutWithAuthentication =
-  withAuthenticationRequired(ApplicationLayout)
+const ApplicationLayoutWithAuthentication = withAuthenticationRequired(ApplicationLayout)
 const HomePageWithAuthentication = withAuthenticationRequired(HomePage)
 const GroupPageWithAuthentication = withAuthenticationRequired(GroupPage)
 

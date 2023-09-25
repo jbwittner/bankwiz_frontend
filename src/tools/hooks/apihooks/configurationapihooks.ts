@@ -1,9 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import {
-  Configuration,
-  GroupApi,
-  UserApi
-} from '@jbwittner/bankwiz_openapi-client-fetch'
+import { Configuration, GroupApi, UserApi } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { toast } from 'react-toastify'
 
 const displayErrorToast = (hookName: string) => {

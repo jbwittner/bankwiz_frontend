@@ -1,12 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import {
-  Container,
-  Typography,
-  Button,
-  Paper,
-  Avatar,
-  useTheme
-} from '@mui/material'
+import { Container, Typography, Button, Paper, Avatar, useTheme } from '@mui/material'
 import React, { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
@@ -57,12 +50,7 @@ export function LoginPage() {
           <Typography component="h1" variant="h5">
             Bankwizz
           </Typography>
-          <Button
-            variant="contained"
-            color="primary"
-            style={{ marginTop: '20px' }}
-            onClick={loginProcess}
-          >
+          <Button variant="contained" color="primary" style={{ marginTop: '20px' }} onClick={loginProcess}>
             Login
           </Button>
         </Paper>
