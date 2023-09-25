@@ -4,7 +4,11 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  FormControl,
   IconButton,
+  MenuItem,
+  Select,
+  SelectChangeEvent,
   SxProps,
   Table,
   TableBody,
@@ -23,7 +27,8 @@ import { Theme } from '@emotion/react'
 import { red } from '@mui/material/colors'
 import {
   useGroupGetGroup,
-  useGroupRemoveUserFromGroup
+  useGroupRemoveUserFromGroup,
+  useGroupUpdateUserInGroup
 } from '@/tools/hooks/apihooks/groupapihook'
 import { useEffect, useState } from 'react'
 
@@ -32,19 +37,72 @@ const deleteIconSx: SxProps<Theme> = {
   ':disabled': { color: red[200] }
 }
 
+interface ISelectAuthorizationProps {
+  authorization: GroupAuthorizationEnum
+  updateAuthorization: (authorization: GroupAuthorizationEnum) => void
+}
+
+function SelectAuthorization(data: ISelectAuthorizationProps) {
+  const [authorization, setAuthorization] = useState(data.authorization)
+
+  const handleChange = (event: SelectChangeEvent) => {
+    setAuthorization(event.target.value as GroupAuthorizationEnum)
+    data.updateAuthorization(event.target.value as GroupAuthorizationEnum)
+  }
+
+  return (
+    <FormControl fullWidth>
+      <Select
+        labelId="demo-simple-select-label"
+        id="demo-simple-select"
+        value={authorization}
+        onChange={handleChange}
+      >
+        <MenuItem value={GroupAuthorizationEnum.Admin}>
+          {GroupAuthorizationEnum.Admin}
+        </MenuItem>
+        <MenuItem value={GroupAuthorizationEnum.Read}>
+          {GroupAuthorizationEnum.Read}
+        </MenuItem>
+        <MenuItem value={GroupAuthorizationEnum.Write}>
+          {GroupAuthorizationEnum.Write}
+        </MenuItem>
+      </Select>
+    </FormControl>
+  )
+}
+
 const userLine = (
   userGroupDTO: UserGroupDTO,
   currentUser: UserGroupDTO,
-  onDelete: (userId: number) => Promise<void>
+  onDelete: (userId: number) => Promise<void>,
+  updateAuthorization: (
+    userId: number,
+    authorization: GroupAuthorizationEnum
+  ) => void
 ) => {
   const isAdmin = currentUser.authorization === GroupAuthorizationEnum.Admin
   const isCurrentUser = userGroupDTO.user.userId === currentUser.user.userId
+
+  const onUpdateAuthorization = (authorization: GroupAuthorizationEnum) => {
+    updateAuthorization(userGroupDTO.user.userId, authorization)
+  }
+
   return (
     <TableRow key={userGroupDTO.user.userId}>
       <TableCell align="center">{userGroupDTO.user.firstName}</TableCell>
       <TableCell align="center">{userGroupDTO.user.lastName}</TableCell>
       <TableCell align="center">{userGroupDTO.user.email}</TableCell>
-      <TableCell align="center">{userGroupDTO.authorization}</TableCell>
+      <TableCell align="center">
+        {isAdmin && !isCurrentUser ? (
+          <SelectAuthorization
+            authorization={userGroupDTO.authorization}
+            updateAuthorization={onUpdateAuthorization}
+          />
+        ) : (
+          userGroupDTO.authorization
+        )}
+      </TableCell>
       <TableCell align="center">
         {/*Only administrator users can remove rights (for other users)*/}
         <IconButton
@@ -59,48 +117,6 @@ const userLine = (
     </TableRow>
   )
 }
-
-interface IAddUserDialogProps {
-  open: boolean
-  onClose: () => void
-}
-
-/*
-const addUserDialog = (props: IAddUserDialogProps) => {
-
-  return (
-    <Dialog open={open} onClose={onClose} maxWidth="lg">
-      <DialogTitle>Users group of {group.groupName}</DialogTitle>
-      <DialogContent>
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell align="center">First name</TableCell>
-              <TableCell align="center">Last name</TableCell>
-              <TableCell align="center">Email</TableCell>
-              <TableCell align="center">Authorization</TableCell>
-              <TableCell align="center">Actions</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {currentUserGroupDto &&
-              groupData.users.map(userGroutDto =>
-                userLine(userGroutDto, currentUserGroupDto, onClickDelete)
-              )}
-          </TableBody>
-        </Table>
-      </DialogContent>
-      <DialogActions>
-        <Button onClick={onClose}>Close</Button>
-        <Button type="submit" form="hook-form">
-          Add user
-        </Button>
-      </DialogActions>
-    </Dialog>
-  )
-
-}
-*/
 
 interface IGroupCreationDialogProps {
   open: boolean
@@ -126,10 +142,22 @@ export default function GroupUsersDialog({
   }, [group])
 
   const { removeUserFromGroup } = useGroupRemoveUserFromGroup()
+  const { updateUserInGroup } = useGroupUpdateUserInGroup()
 
   const onClickDelete = async (userId: number) => {
     await removeUserFromGroup(group.groupId, userId)
     await getGroup(group.groupId)
+  }
+
+  const onUpdateAuthorization = (
+    userId: number,
+    authorization: GroupAuthorizationEnum
+  ) => {
+    updateUserInGroup(group.groupId, userId, {
+      authorization: authorization
+    }).then(() => {
+      getGroup(group.groupId)
+    })
   }
 
   return (
@@ -150,7 +178,12 @@ export default function GroupUsersDialog({
             {currentUserGroupDto &&
               groupDTO &&
               groupDTO.users.map(userGroutDto =>
-                userLine(userGroutDto, currentUserGroupDto, onClickDelete)
+                userLine(
+                  userGroutDto,
+                  currentUserGroupDto,
+                  onClickDelete,
+                  onUpdateAuthorization
+                )
               )}
           </TableBody>
         </Table>
