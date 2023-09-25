@@ -21,7 +21,10 @@ import {
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove'
 import { Theme } from '@emotion/react'
 import { red } from '@mui/material/colors'
-import { useRemoveUserFromGroup } from '@/tools/hooks/apihooks/groupapihook'
+import {
+  useGroupGetGroup,
+  useGroupRemoveUserFromGroup
+} from '@/tools/hooks/apihooks/groupapihook'
 import { useEffect, useState } from 'react'
 
 const deleteIconSx: SxProps<Theme> = {
@@ -29,17 +32,10 @@ const deleteIconSx: SxProps<Theme> = {
   ':disabled': { color: red[200] }
 }
 
-interface IGroupCreationDialogProps {
-  open: boolean
-  group: GroupDTO
-  currentUser: UserDTO
-  onClose: () => void
-}
-
 const userLine = (
   userGroupDTO: UserGroupDTO,
   currentUser: UserGroupDTO,
-  onDelete: (userId: number) => void
+  onDelete: (userId: number) => Promise<void>
 ) => {
   const isAdmin = currentUser.authorization === GroupAuthorizationEnum.Admin
   const isCurrentUser = userGroupDTO.user.userId === currentUser.user.userId
@@ -64,36 +60,13 @@ const userLine = (
   )
 }
 
-export default function GroupUsersDialog({
-  open,
-  group,
-  currentUser,
-  onClose
-}: IGroupCreationDialogProps) {
-  const currentUserGroupDto = group.users.find(
-    userGroupDto => userGroupDto.user.userId === currentUser.userId
-  )
+interface IAddUserDialogProps {
+  open: boolean
+  onClose: () => void
+}
 
-  const [groupData, setGroupData] = useState<GroupDTO>(group)
-
-  useEffect(() => {
-    setGroupData(group)
-  }, [group])
-
-  console.log(group)
-  console.log(groupData)
-
-  const { removeUserFromGroup } = useRemoveUserFromGroup()
-
-  const onClickDelete = (userId: number) => {
-    removeUserFromGroup(group.groupId, userId).then(() => {
-      const newGroup = { ...group }
-      newGroup.users = newGroup.users.filter(
-        userGroup => userGroup.user.userId !== userId
-      )
-      setGroupData(newGroup)
-    })
-  }
+/*
+const addUserDialog = (props: IAddUserDialogProps) => {
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="lg">
@@ -112,6 +85,71 @@ export default function GroupUsersDialog({
           <TableBody>
             {currentUserGroupDto &&
               groupData.users.map(userGroutDto =>
+                userLine(userGroutDto, currentUserGroupDto, onClickDelete)
+              )}
+          </TableBody>
+        </Table>
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Close</Button>
+        <Button type="submit" form="hook-form">
+          Add user
+        </Button>
+      </DialogActions>
+    </Dialog>
+  )
+
+}
+*/
+
+interface IGroupCreationDialogProps {
+  open: boolean
+  group: GroupDTO
+  currentUser: UserDTO
+  onClose: () => void
+}
+
+export default function GroupUsersDialog({
+  open,
+  group,
+  currentUser,
+  onClose
+}: IGroupCreationDialogProps) {
+  const { groupDTO, getGroup } = useGroupGetGroup()
+
+  const currentUserGroupDto = group.users.find(
+    userGroupDto => userGroupDto.user.userId === currentUser.userId
+  )
+
+  useEffect(() => {
+    getGroup(group.groupId)
+  }, [group])
+
+  const { removeUserFromGroup } = useGroupRemoveUserFromGroup()
+
+  const onClickDelete = async (userId: number) => {
+    await removeUserFromGroup(group.groupId, userId)
+    await getGroup(group.groupId)
+  }
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="lg">
+      <DialogTitle>Users group of {group.groupName}</DialogTitle>
+      <DialogContent>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell align="center">First name</TableCell>
+              <TableCell align="center">Last name</TableCell>
+              <TableCell align="center">Email</TableCell>
+              <TableCell align="center">Authorization</TableCell>
+              <TableCell align="center">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {currentUserGroupDto &&
+              groupDTO &&
+              groupDTO.users.map(userGroutDto =>
                 userLine(userGroutDto, currentUserGroupDto, onClickDelete)
               )}
           </TableBody>

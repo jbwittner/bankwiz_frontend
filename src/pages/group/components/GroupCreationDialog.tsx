@@ -1,4 +1,3 @@
-import { useCreateGroup } from '@/tools/hooks/apihooks/groupapihook'
 import {
   Button,
   Dialog,
@@ -9,6 +8,7 @@ import {
 } from '@mui/material'
 import { useForm } from 'react-hook-form'
 import { TextFieldForm } from '../../../components/forms/FieldsForm'
+import { useGroupCreateGroup } from '@/tools/hooks/apihooks/groupapihook'
 
 interface IGroupCreationDialogProps {
   open: boolean
@@ -25,7 +25,7 @@ export default function GroupCreationDialog({
   onCancel,
   onValid
 }: IGroupCreationDialogProps) {
-  const { createGroup } = useCreateGroup()
+  const { createGroup } = useGroupCreateGroup()
 
   const {
     handleSubmit,

@@ -1,5 +1,5 @@
 import {
-  useDeleteGroup,
+  useGroupDeleteGroup,
   useGroupGetGroups
 } from '@/tools/hooks/apihooks/groupapihook'
 import { useUserGetCurrentUserInfo } from '@/tools/hooks/apihooks/userapihook'
@@ -50,7 +50,7 @@ export function GroupPage() {
   const [modalCreateIsOpen, setModalCreateIsOpen] = useState(false)
   const { groupsDTO, getGroups } = useGroupGetGroups()
   const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
-  const { deleteGroup } = useDeleteGroup()
+  const { deleteGroup } = useGroupDeleteGroup()
 
   useEffect(() => {
     getGroups()
