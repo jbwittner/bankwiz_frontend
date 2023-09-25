@@ -107,4 +107,9 @@ const useRemoveUserFromGroup = () => {
   }
 }
 
-export { useGroupGetGroups, useCreateGroup, useDeleteGroup, useRemoveUserFromGroup }
+export {
+  useGroupGetGroups,
+  useCreateGroup,
+  useDeleteGroup,
+  useRemoveUserFromGroup
+}

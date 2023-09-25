@@ -22,7 +22,7 @@ import GroupRemoveIcon from '@mui/icons-material/GroupRemove'
 import { Theme } from '@emotion/react'
 import { red } from '@mui/material/colors'
 import { useRemoveUserFromGroup } from '@/tools/hooks/apihooks/groupapihook'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const deleteIconSx: SxProps<Theme> = {
   color: red[700],
@@ -36,7 +36,11 @@ interface IGroupCreationDialogProps {
   onClose: () => void
 }
 
-const userLine = (userGroupDTO: UserGroupDTO, currentUser: UserGroupDTO, onDelete: (userId: number) => void) => {
+const userLine = (
+  userGroupDTO: UserGroupDTO,
+  currentUser: UserGroupDTO,
+  onDelete: (userId: number) => void
+) => {
   const isAdmin = currentUser.authorization === GroupAuthorizationEnum.Admin
   const isCurrentUser = userGroupDTO.user.userId === currentUser.user.userId
   return (
@@ -72,12 +76,21 @@ export default function GroupUsersDialog({
 
   const [groupData, setGroupData] = useState<GroupDTO>(group)
 
-  const {removeUserFromGroup} =useRemoveUserFromGroup()
+  useEffect(() => {
+    setGroupData(group)
+  }, [group])
+
+  console.log(group)
+  console.log(groupData)
+
+  const { removeUserFromGroup } = useRemoveUserFromGroup()
 
   const onClickDelete = (userId: number) => {
     removeUserFromGroup(group.groupId, userId).then(() => {
-      const newGroup = {... group}
-      newGroup.users = newGroup.users.filter(userGroup => userGroup.user.userId !== userId)
+      const newGroup = { ...group }
+      newGroup.users = newGroup.users.filter(
+        userGroup => userGroup.user.userId !== userId
+      )
       setGroupData(newGroup)
     })
   }
