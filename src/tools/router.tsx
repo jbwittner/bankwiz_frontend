@@ -6,6 +6,7 @@ import { ApplicationLayout } from '@/components/layout/ApplicationLayout'
 import { HomePage } from '@/pages/home/HomePage'
 import { LoginPage } from '@/pages/login/LoginPage'
 import { BankAccountPage } from '@/pages/bankaccount/BankAccountPage'
+import { GroupPage } from '@/pages/group/GroupPage'
 
 const Auth0ProviderWithRedirectCallback = ({ children, ...props }: PropsWithChildren<Auth0ProviderOptions>) => {
   const navigate = useNavigate()
@@ -23,7 +24,8 @@ const Auth0ProviderWithRedirectCallback = ({ children, ...props }: PropsWithChil
 
 const ApplicationLayoutWithAuthentication = withAuthenticationRequired(ApplicationLayout)
 const HomePageWithAuthentication = withAuthenticationRequired(HomePage)
-const GroupPageWithAuthentication = withAuthenticationRequired(GroupsPage)
+const GroupsPageWithAuthentication = withAuthenticationRequired(GroupsPage)
+const GroupPageWithAuthentication = withAuthenticationRequired(GroupPage)
 const BankAccountPageWithAuthentication = withAuthenticationRequired(BankAccountPage)
 
 const AppRoute = () => {
@@ -32,7 +34,8 @@ const AppRoute = () => {
       <Route path="/" element={<LoginPage />} />
       <Route element={<ApplicationLayoutWithAuthentication />}>
         <Route path="/home" element={<HomePageWithAuthentication />} />
-        <Route path="/groups" element={<GroupPageWithAuthentication />} />
+        <Route path="/groups" element={<GroupsPageWithAuthentication />} />
+        <Route path="/group/:groupId" element={<GroupPageWithAuthentication />} />
         <Route path="/bankaccount" element={<BankAccountPageWithAuthentication />} />
       </Route>
       <Route path="*" element={<div>404 Not Found</div>} />

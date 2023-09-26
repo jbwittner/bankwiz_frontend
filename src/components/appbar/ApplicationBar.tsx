@@ -16,6 +16,10 @@ const logoutOption: LogoutOptions = {
 }
 
 function stringSwitch(inputStr: string): string {
+  if (/^\/group\/\d+$/.test(inputStr)) {
+    return 'Group with ID'
+  }
+
   switch (inputStr) {
     case '/home':
       return 'Home'
