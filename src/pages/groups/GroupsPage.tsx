@@ -19,7 +19,7 @@ const fabSx = {
   position: 'fixed'
 }
 
-export function GroupPage() {
+export function GroupsPage() {
   const {
     isOpen: isGroupDeletionModalOpen,
     data: groupToDelete,

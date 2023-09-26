@@ -1,7 +1,7 @@
 import { PropsWithChildren } from 'react'
 import { AppState, Auth0Provider, Auth0ProviderOptions, withAuthenticationRequired } from '@auth0/auth0-react'
 import { useNavigate, Routes, Route } from 'react-router-dom'
-import { GroupPage } from '@/pages/group/GroupPage'
+import { GroupsPage } from '@/pages/groups/GroupsPage'
 import { ApplicationLayout } from '@/components/layout/ApplicationLayout'
 import { HomePage } from '@/pages/home/HomePage'
 import { LoginPage } from '@/pages/login/LoginPage'
@@ -23,7 +23,7 @@ const Auth0ProviderWithRedirectCallback = ({ children, ...props }: PropsWithChil
 
 const ApplicationLayoutWithAuthentication = withAuthenticationRequired(ApplicationLayout)
 const HomePageWithAuthentication = withAuthenticationRequired(HomePage)
-const GroupPageWithAuthentication = withAuthenticationRequired(GroupPage)
+const GroupPageWithAuthentication = withAuthenticationRequired(GroupsPage)
 const BankAccountPageWithAuthentication = withAuthenticationRequired(BankAccountPage)
 
 const AppRoute = () => {
@@ -32,7 +32,7 @@ const AppRoute = () => {
       <Route path="/" element={<LoginPage />} />
       <Route element={<ApplicationLayoutWithAuthentication />}>
         <Route path="/home" element={<HomePageWithAuthentication />} />
-        <Route path="/group" element={<GroupPageWithAuthentication />} />
+        <Route path="/groups" element={<GroupPageWithAuthentication />} />
         <Route path="/bankaccount" element={<BankAccountPageWithAuthentication />} />
       </Route>
       <Route path="*" element={<div>404 Not Found</div>} />
