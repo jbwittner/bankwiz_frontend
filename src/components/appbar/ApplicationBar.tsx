@@ -8,6 +8,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { LogoutOptions, useAuth0 } from '@auth0/auth0-react'
 import TemporaryDrawer from '../drawer/ApplicationDrawer'
 import React, { useState } from 'react'
+import { useLocation } from 'react-router-dom'
 
 const logoutOption: LogoutOptions = {
   logoutParams: {
@@ -36,7 +37,8 @@ export default function ApplicationBar() {
   const { logout } = useAuth0()
   const [drawerIsOpen, setDrawerIsOpen] = useState<boolean>(false)
 
-  const label = stringSwitch(window.location.pathname)
+  const location = useLocation()
+  const label = stringSwitch(location.pathname)
 
   const logoutProcess = () => {
     logout(logoutOption)

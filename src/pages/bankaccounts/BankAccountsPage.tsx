@@ -63,8 +63,6 @@ export const BankAccountsPage: React.FC = () => {
       })
     })
 
-    console.log(datas)
-
     setDataGrid(datas)
   }, [bankAccountsGroup])
 
