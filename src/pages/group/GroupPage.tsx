@@ -3,7 +3,7 @@ import { useGroupGetGroup } from '@/tools/hooks/apihooks/groupapihook'
 import { useUserGetCurrentUserInfo } from '@/tools/hooks/apihooks/userapihook'
 import PageWrapper from '@/tools/pagewrapper'
 import { useParams } from 'react-router-dom'
-import { GroupBasePage } from './GroupPage'
+import { GroupBasePage } from './GroupBasePage'
 
 export const GroupPage: React.FC = () => {
   const { groupId } = useParams()

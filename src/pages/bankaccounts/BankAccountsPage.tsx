@@ -42,7 +42,7 @@ interface IDataGrid {
   bankAccountIndexDTO: BankAccountIndexDTO
 }
 
-export const BankAccountPage: React.FC = () => {
+export const BankAccountsPage: React.FC = () => {
   const { data: bankAccountsGroup, getBankAccounts } = useBankAccountGetBankAccounts()
   const [dataGrid, setDataGrid] = useState<IDataGrid[]>([])
 
