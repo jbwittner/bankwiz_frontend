@@ -6,7 +6,7 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined'
 import { useUserCheckRegistration } from '@/tools/hooks/apihooks/userapihook'
 import AppBackdrop from '@/components/backdrop/AppBackdrop'
 
-export function LoginPage() {
+export const LoginPage: React.FC = () => {
   const [openBackdrtop, setOpenBackdrtop] = React.useState(false)
   const theme = useTheme()
 

@@ -19,7 +19,7 @@ const fabSx = {
   position: 'fixed'
 }
 
-export function GroupsPage() {
+export const GroupsPage: React.FC = () => {
   const {
     isOpen: isGroupDeletionModalOpen,
     data: groupToDelete,
@@ -71,7 +71,7 @@ export function GroupsPage() {
       <TableContainer
         component={Paper}
         sx={{
-          maxWidth: '1000px',
+          maxWidth: '800px',
           marginRight: 'auto',
           marginLeft: 'auto',
           marginTop: '8px'

@@ -6,12 +6,9 @@ import { theme } from './tools/theme.ts'
 import { ToastContainer } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css'
-import React from 'react'
-
-console.log("main")
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
-  <React.Fragment>
+  <BrowserRouter>
     <ToastContainer
       position="bottom-left"
       autoClose={5000}
@@ -24,9 +21,17 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       pauseOnHover
       theme="colored"
     />
-
-    <ThemeProvider theme={theme}>
-      <AppRoute />
-    </ThemeProvider>
-  </React.Fragment>
+    <Auth0ProviderWithRedirectCallback
+      domain={import.meta.env.VITE_AUTH0_DOMAIN}
+      clientId={import.meta.env.VITE_AUTH0_CLIENT_ID}
+      authorizationParams={{
+        audience: import.meta.env.VITE_AUTH0_AUDIENCE,
+        redirect_uri: window.location.origin
+      }}
+    >
+      <ThemeProvider theme={theme}>
+        <AppRoute />
+      </ThemeProvider>
+    </Auth0ProviderWithRedirectCallback>
+  </BrowserRouter>
 )
