@@ -6,8 +6,6 @@ import { useNavigate } from 'react-router-dom'
 interface IGroupeLineProps {
   groupDTO: GroupDTO
   userDTO: UserDTO
-  onClickDelete: (groupDTO: GroupDTO) => void
-  onClickUsers: (groupDTO: GroupDTO) => void
 }
 
 export const GroupeLine = ({ groupDTO, userDTO }: IGroupeLineProps) => {
