@@ -1,3 +1,3 @@
-export function HomePage() {
+export const HomePage: React.FC = () => {
   return <div>Home Page</div>
 }

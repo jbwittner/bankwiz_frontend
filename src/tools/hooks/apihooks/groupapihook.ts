@@ -114,6 +114,7 @@ const useGroupGetGroup = () => {
       const groupApi = await getApiInstance()
       const group = await groupApi.getGroup({ groupId })
       setGroupDTO(group)
+      return group
     } catch (err) {
       displayErrorToast('useGroupGetGroup')
       if (err instanceof Error) {
