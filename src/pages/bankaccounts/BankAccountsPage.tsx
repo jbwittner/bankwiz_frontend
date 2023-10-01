@@ -1,7 +1,19 @@
 import { useBankAccountGetBankAccounts } from '@/tools/hooks/apihooks/accountapihook'
 import { BankAccountIndexDTO, GroupIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { Fab } from '@mui/material'
 import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
+import React from 'react'
 import { useEffect, useState } from 'react'
+import AddIcon from '@mui/icons-material/Add'
+
+const fabSx = {
+  margin: 0,
+  top: 'auto',
+  right: 20,
+  bottom: 20,
+  left: 'auto',
+  position: 'fixed'
+}
 
 const columns: GridColDef[] = [
   {
@@ -67,25 +79,30 @@ export const BankAccountsPage: React.FC = () => {
   }, [bankAccountsGroup])
 
   return (
-    <DataGrid
-      rows={dataGrid}
-      columns={columns}
-      getRowId={row => row?.accountId}
-      initialState={{
-        pagination: {
-          paginationModel: {
-            pageSize: 10
+    <React.Fragment>
+      <DataGrid
+        rows={dataGrid}
+        columns={columns}
+        getRowId={row => row?.accountId}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 10
+            }
           }
-        }
-      }}
-      pageSizeOptions={[5, 10, 15, 20]}
-      sx={{
-        maxWidth: '800px',
-        marginRight: 'auto',
-        marginLeft: 'auto',
-        marginTop: '8px'
-      }}
-      disableRowSelectionOnClick
-    />
+        }}
+        pageSizeOptions={[5, 10, 15, 20]}
+        sx={{
+          maxWidth: '800px',
+          marginRight: 'auto',
+          marginLeft: 'auto',
+          marginTop: '8px'
+        }}
+        disableRowSelectionOnClick
+      />
+      <Fab color="primary" aria-label="add" sx={fabSx} onClick={() => console.log(true)}>
+        <AddIcon />
+      </Fab>
+    </React.Fragment>
   )
 }
