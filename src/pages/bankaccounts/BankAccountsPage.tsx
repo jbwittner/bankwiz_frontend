@@ -5,6 +5,7 @@ import { DataGrid, GridColDef, GridValueGetterParams } from '@mui/x-data-grid'
 import React from 'react'
 import { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
+import BankAccountCreationDialog from './components/BankAccountCreationDialog'
 
 const fabSx = {
   margin: 0,
@@ -55,6 +56,7 @@ interface IDataGrid {
 }
 
 export const BankAccountsPage: React.FC = () => {
+  const [modalCreateIsOpen, setModalCreateIsOpen] = useState(false)
   const { data: bankAccountsGroup, getBankAccounts } = useBankAccountGetBankAccounts()
   const [dataGrid, setDataGrid] = useState<IDataGrid[]>([])
 
@@ -78,8 +80,14 @@ export const BankAccountsPage: React.FC = () => {
     setDataGrid(datas)
   }, [bankAccountsGroup])
 
+  const onCloseModalCreation = () => {
+    getBankAccounts()
+    setModalCreateIsOpen(false)
+  }
+
   return (
     <React.Fragment>
+      <BankAccountCreationDialog open={modalCreateIsOpen} onValid={onCloseModalCreation} onCancel={() => setModalCreateIsOpen(false)} />
       <DataGrid
         rows={dataGrid}
         columns={columns}
@@ -100,7 +108,7 @@ export const BankAccountsPage: React.FC = () => {
         }}
         disableRowSelectionOnClick
       />
-      <Fab color="primary" aria-label="add" sx={fabSx} onClick={() => console.log(true)}>
+      <Fab color="primary" aria-label="add" sx={fabSx} onClick={() => setModalCreateIsOpen(true)}>
         <AddIcon />
       </Fab>
     </React.Fragment>
