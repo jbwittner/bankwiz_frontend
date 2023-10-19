@@ -7,6 +7,7 @@ const useApiConfiguration = () => {
 
   const getConfiguration = async (): Promise<Configuration> => {
     const token = await getAccessTokenSilently()
+    console.log(token)
     return new Configuration({
       basePath: 'http://localhost:8080',
       accessToken: token
