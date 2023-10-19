@@ -1,14 +1,23 @@
 import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import { useAuth0 } from '@auth0/auth0-react';
+import Profile from './Profile';
+import { useUserCheckRegistration } from './tools/hook/apihook/userapihook';
 
 function App() {
   const [count, setCount] = useState(0)
+  const { loginWithRedirect } = useAuth0();
+
+  const toto = useUserCheckRegistration();
+
 
   return (
     <>
       <div>
+        <Profile />
+      <button onClick={() => toto.checkRegistration()}>Check registration</button>
+      <button onClick={() => loginWithRedirect()}>Log In</button>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
