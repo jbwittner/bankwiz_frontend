@@ -40,8 +40,12 @@ services:
     ports:
       - '8080:8080'
     environment:
-      APPLICATION_DB_PARAM_HOST: mysql
-      APPLICATION_DB_PARAM_PORT: 3306
+      APPLICATION_DB_HOST: mysql
+      APPLICATION_DB_PORT: 3306
+      APPLICATION_DB_NAME: bankwiz_db
+      APPLICATION_DB_USER: bankwiz_user
+      APPLICATION_DB_PASSWORD: BankwizPass2023
       SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      PROFILES: development
     networks:
       - bridge
