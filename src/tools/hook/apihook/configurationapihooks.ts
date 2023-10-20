@@ -1,7 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { Configuration, UserApi } from '@jbwittner/bankwiz_openapi-client-fetch'
 
-
 const useApiConfiguration = () => {
   const { getAccessTokenSilently } = useAuth0()
 
