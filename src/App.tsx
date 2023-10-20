@@ -3,20 +3,21 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { useAuth0 } from '@auth0/auth0-react';
 import Profile from './Profile';
-import { useUserCheckRegistration } from './tools/hook/apihook/userapihook';
+import { useUserCheckRegistration, useUserGetCurrentUserInfo } from './tools/hook/apihook/userapihook';
 
 function App() {
   const [count, setCount] = useState(0)
   const { loginWithRedirect } = useAuth0();
-
   const toto = useUserCheckRegistration();
+  const tata = useUserGetCurrentUserInfo();
 
 
   return (
     <>
       <div>
         <Profile />
-      <button onClick={() => toto.checkRegistration()}>Check registration</button>
+      <button onClick={() => toto.checkRegistration()}>checkRegistration</button>
+      <button onClick={() => tata.getCurrentUserInfo()}>getCurrentUserInfo</button>
       <button onClick={() => loginWithRedirect()}>Log In</button>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
