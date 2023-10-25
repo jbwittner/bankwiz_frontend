@@ -4,6 +4,7 @@ import viteLogo from '/vite.svg'
 import { useAuth0 } from '@auth0/auth0-react'
 import Profile from './Profile'
 import { useUserCheckRegistration, useUserGetCurrentUserInfo } from './tools/hook/apihook/userapihook'
+import { Button } from '@mui/material'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -15,9 +16,9 @@ function App() {
     <>
       <div>
         <Profile />
-        <button onClick={() => toto.checkRegistration()}>checkRegistration</button>
-        <button onClick={() => tata.getCurrentUserInfo()}>getCurrentUserInfo</button>
-        <button onClick={() => loginWithRedirect()}>Log In</button>
+        <Button onClick={() => toto.checkRegistration()}>checkRegistration</Button>
+        <Button onClick={() => tata.getCurrentUserInfo()}>getCurrentUserInfo</Button>
+        <Button onClick={() => loginWithRedirect()}>Log In</Button>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
