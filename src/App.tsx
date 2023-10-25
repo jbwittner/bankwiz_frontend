@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import { useAuth0 } from '@auth0/auth0-react'
@@ -9,11 +9,9 @@ import {Outlet} from "react-router-dom";
 
 function App() {
   const [count, setCount] = useState(0)
-  const { loginWithRedirect } = useAuth0()
+  const { loginWithPopup } = useAuth0()
   const toto = useUserCheckRegistration()
   const tata = useUserGetCurrentUserInfo()
-
-  console.log("toto")
 
   return (
     <>
@@ -21,7 +19,7 @@ function App() {
         <Profile />
         <Button onClick={() => toto.checkRegistration()}>checkRegistration</Button>
         <Button onClick={() => tata.getCurrentUserInfo()}>getCurrentUserInfo</Button>
-        <Button onClick={() => loginWithRedirect()}>Log In</Button>
+        <Button onClick={() => loginWithPopup()}>Log In</Button>
         <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
