@@ -1,10 +1,9 @@
-import App from '@/App'
 import LoginPage from '@/pages/LoginPage'
 import { RootPage } from '@/pages/RootPage'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import { Button } from '@mui/material'
-import React, { PropsWithChildren } from 'react'
-import { createBrowserRouter, useNavigate } from 'react-router-dom'
+import React from 'react'
+import { createBrowserRouter, useLoaderData, useNavigate } from 'react-router-dom'
 
 interface ParentCompProps {
   component: React.ComponentType<object>
@@ -32,8 +31,12 @@ const router = createBrowserRouter([
         element: <HomePage />
       },
       {
-        path: '/test',
-        element: <TestPage />
+        path: '/test/:testId',
+        element: <TestPage />,
+        loader: async ({ params }) => {
+          console.log(params)
+          return { totoid: 5 }
+        }
       }
     ]
   },
@@ -49,17 +52,20 @@ function HomePage() {
   return (
     <>
       <h3>HomePage</h3>
-      <Button onClick={() => navigate('/test')}>gototest</Button>
+      <Button onClick={() => navigate('/test/6')}>gototest</Button>
     </>
   )
 }
 
 function TestPage() {
   const navigate = useNavigate()
+  const data = useLoaderData() as { totoid: number }
+
+  console.log('testid : ' + data.totoid)
 
   return (
     <>
-      <h3>TestPage</h3>
+      <h3>TestPage : {data.totoid}</h3>
       <Button onClick={() => navigate('/home')}>gotohome</Button>
     </>
   )
