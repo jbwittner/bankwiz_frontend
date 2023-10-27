@@ -18,20 +18,24 @@ const AuthenticationGuard: React.FC<ParentCompProps> = ({ component }) => {
 }
 
 function loading() {
-  return <div>Redirecting you to the login...</div>
+  return <div>Redirecting you to the loginddddddddddddddd...</div>
 }
 
 const router = createBrowserRouter([
   {
     path: '/',
+    element: <LoginPage />
+  },
+  {
+    path: '/app',
     element: <AuthenticationGuard component={RootPage} />,
     children: [
       {
-        path: '/home',
+        path: 'home',
         element: <HomePage />
       },
       {
-        path: '/test/:testId',
+        path: 'test/:testId',
         element: <TestPage />,
         loader: async ({ params }) => {
           console.log(params)
@@ -39,10 +43,6 @@ const router = createBrowserRouter([
         }
       }
     ]
-  },
-  {
-    path: '/login',
-    element: <LoginPage />
   }
 ])
 
@@ -52,7 +52,7 @@ function HomePage() {
   return (
     <>
       <h3>HomePage</h3>
-      <Button onClick={() => navigate('/test/6')}>gototest</Button>
+      <Button onClick={() => navigate('/app/test/6')}>gototest</Button>
     </>
   )
 }
@@ -66,7 +66,7 @@ function TestPage() {
   return (
     <>
       <h3>TestPage : {data.totoid}</h3>
-      <Button onClick={() => navigate('/home')}>gotohome</Button>
+      <Button onClick={() => navigate('/app/home')}>gotohome</Button>
     </>
   )
 }

@@ -8,7 +8,7 @@ function LoginPage() {
 
   const processLogin = async () => {
     await loginWithPopup()
-    navigate('/home')
+    navigate('/app/home')
   }
 
   return <Button onClick={() => processLogin()}>Log In</Button>
