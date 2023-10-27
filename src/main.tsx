@@ -1,8 +1,9 @@
 import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
 import { Auth0Provider } from '@auth0/auth0-react'
 import { ThemeProvider } from '@mui/material'
 import theme from './theme/index.ts'
+import { RouterProvider } from 'react-router-dom'
+import router from '@/tools/router/router.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <ThemeProvider theme={theme}>
@@ -14,7 +15,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         redirect_uri: window.location.origin
       }}
     >
-      <App />
+      <RouterProvider router={router} />
     </Auth0Provider>
   </ThemeProvider>
 )
