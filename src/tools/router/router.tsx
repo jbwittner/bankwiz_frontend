@@ -1,44 +1,68 @@
-import App from "@/App";
-import LoginPage from "@/pages/LoginPage";
-import { withAuthenticationRequired } from "@auth0/auth0-react";
-import React, { PropsWithChildren } from "react";
-import {
-  createBrowserRouter,
-} from "react-router-dom";
+import App from '@/App'
+import LoginPage from '@/pages/LoginPage'
+import { RootPage } from '@/pages/RootPage'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
+import { Button } from '@mui/material'
+import React, { PropsWithChildren } from 'react'
+import { createBrowserRouter, useNavigate } from 'react-router-dom'
 
 interface ParentCompProps {
-  component: React.ComponentType<object>;
+  component: React.ComponentType<object>
 }
 
-const AuthenticationGuard: React.FC<ParentCompProps> = ({component}) => {
+const AuthenticationGuard: React.FC<ParentCompProps> = ({ component }) => {
   const Component = withAuthenticationRequired(component, {
-    onRedirecting: () => <loading/>
-  });
+    onRedirecting: () => loading()
+  })
 
-  return <Component />;
-};
+  return <Component />
+}
 
 function loading() {
   return <div>Redirecting you to the login...</div>
 }
 
-
 const router = createBrowserRouter([
   {
-    id: "root",
-    path: "/",
-    element: <LoginPage />,
+    path: '/',
+    element: <AuthenticationGuard component={RootPage} />,
+    children: [
+      {
+        path: '/home',
+        element: <HomePage />
+      },
+      {
+        path: '/test',
+        element: <TestPage />
+      }
+    ]
   },
   {
-    path: "/home",
-    element: <AuthenticationGuard component={HomePage} />,
+    path: '/login',
+    element: <LoginPage />
   }
-]);
+])
 
 function HomePage() {
-  return <h3>HomePage</h3>;
+  const navigate = useNavigate()
+
+  return (
+    <>
+      <h3>HomePage</h3>
+      <Button onClick={() => navigate('/test')}>gototest</Button>
+    </>
+  )
 }
 
+function TestPage() {
+  const navigate = useNavigate()
 
-export default router;
+  return (
+    <>
+      <h3>TestPage</h3>
+      <Button onClick={() => navigate('/home')}>gotohome</Button>
+    </>
+  )
+}
 
+export default router

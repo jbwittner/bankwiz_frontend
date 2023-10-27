@@ -5,7 +5,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 import Profile from './Profile'
 import { useUserCheckRegistration, useUserGetCurrentUserInfo } from './tools/hook/apihook/userapihook'
 import { Button } from '@mui/material'
-import {Outlet} from "react-router-dom";
+import { Outlet } from 'react-router-dom'
 
 function App() {
   const [count, setCount] = useState(0)
@@ -35,7 +35,7 @@ function App() {
         </p>
       </div>
       <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-      <Outlet/>
+      <Outlet />
     </>
   )
 }
