@@ -7,7 +7,7 @@ networks:
 services:
   mysql:
     image: mysql:8.0.33
-    container_name: bankwiz_mysql
+    container_name: bankwiz_mysql_frontend
     ports:
       - '8306:3306'
     volumes:
@@ -24,7 +24,7 @@ services:
     depends_on:
       - mysql
     image: phpmyadmin/phpmyadmin:5.2
-    container_name: bankwiz_phpmyadmin
+    container_name: bankwiz_phpmyadmin_frontend
     ports:
       - '8180:80'
     environment:
@@ -36,7 +36,7 @@ services:
     depends_on:
       - mysql
     image: ghcr.io/jbwittner/bankwiz_server:develop-latest
-    container_name: bankwiz_server
+    container_name: bankwiz_server_frontend
     ports:
       - '8080:8080'
     environment:

@@ -22,7 +22,6 @@ This project uses Auth0 for authentication. Provide a .env file (.env.local for 
 
 ```bash
 AUTH0_CLIENT_ID=your_auth0_client_id
-AUTH0_CLIENT_SECRET=your_auth0_client_secret
 ```
 
 ## Code Quality
