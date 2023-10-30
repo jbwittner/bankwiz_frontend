@@ -1,4 +1,4 @@
-import { blue, red } from '@mui/material/colors'
+import { blue } from '@mui/material/colors'
 import { ThemeOptions, createTheme } from '@mui/material/styles'
 
 declare module '@mui/material/styles' {

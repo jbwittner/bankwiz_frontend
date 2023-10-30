@@ -3,7 +3,7 @@ import { red } from '@mui/material/colors'
 import { PropsWithChildren } from 'react'
 
 interface IButtonProps {
-  onClick: () => {}
+  onClick: () => void
 }
 
 const BaseButton = (props: PropsWithChildren<IButtonProps>) => {
