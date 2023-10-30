@@ -3,7 +3,7 @@ import { Auth0Provider } from '@auth0/auth0-react'
 import { CssBaseline, ThemeProvider } from '@mui/material'
 import theme from './theme/index.ts'
 import { RouterProvider } from 'react-router-dom'
-import router from '@/tools/router/router.tsx'
+import { router } from './tools/router/router.tsx'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Auth0Provider

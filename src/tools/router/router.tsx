@@ -3,7 +3,17 @@ import LoginPage from '@/pages/login/LoginPage'
 import { RootPage } from '@/pages/root/RootPage'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, useLocation } from 'react-router-dom'
+
+const useAppPath = () => {
+  const location = useLocation()
+  switch (location.pathname) {
+    case '/app/home':
+      return 'Home'
+    default:
+      break
+  }
+}
 
 interface ParentCompProps {
   component: React.ComponentType<object>
@@ -38,4 +48,4 @@ const router = createBrowserRouter([
   }
 ])
 
-export default router
+export { router, useAppPath }

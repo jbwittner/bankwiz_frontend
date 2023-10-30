@@ -1,10 +1,22 @@
 import { blue } from '@mui/material/colors'
 import { ThemeOptions, createTheme } from '@mui/material/styles'
 
+declare module '@mui/material/styles' {
+  interface PaletteOptions {
+    custom?: PaletteOptions['primary']
+  }
+}
+
+declare module '@mui/material/Button' {
+  interface ButtonPropsColorOverrides {
+    custom: true
+  }
+}
+
 export const theme = () => {
   const themeOptions: ThemeOptions = {
     palette: {
-      mode: 'dark',
+      mode: 'light',
       primary: {
         light: blue[300],
         main: blue[500],
