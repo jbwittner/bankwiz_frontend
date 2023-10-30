@@ -31,7 +31,7 @@ export const theme = () => {
     components: {
       MuiButton: {
         defaultProps: {
-          variant: 'outlined'
+          variant: 'contained'
         },
         styleOverrides: {
           root: {

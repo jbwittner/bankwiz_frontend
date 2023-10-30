@@ -12,7 +12,7 @@ const RootPage = () => {
   const { logout } = useAuth0()
   return (
     <div>
-      <h1>Dashboard</h1>
+      <h1>RootPage</h1>
       <Button onClick={() => logout(logoutOption)}>Logout</Button>
 
       {/* This element will render either <DashboardMessages> when the URL is
