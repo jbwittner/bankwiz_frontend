@@ -21,7 +21,7 @@ Ensure to keep these tokens and your Personal Access Token confidential and avoi
 This project uses Auth0 for authentication. Provide a .env file (.env.local for development, .env.production for production) in the project root with the following variables:
 
 ```bash
-AUTH0_CLIENT_ID=your_auth0_client_id
+VITE_AUTH0_CLIENT_ID=your_auth0_client_id
 ```
 
 ## Code Quality

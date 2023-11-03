@@ -7,6 +7,9 @@ env:
   USER_GITHUB_KEY: ${{ secrets.GITHUB_TOKEN }}
   CI: true
   NEXT_TELEMETRY_DISABLED: 1
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref }}
+  cancel-in-progress: true
 jobs:
   check-eslint:
     runs-on: ubuntu-22.04
