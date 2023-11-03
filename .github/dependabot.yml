@@ -11,3 +11,5 @@ updates:
       interval: monthly
       timezone: Europe/Paris
     open-pull-requests-limit: 100
+ignore:
+  - dependency-name: "@jbwittner/bankwiz_openapi-client-fetch"
