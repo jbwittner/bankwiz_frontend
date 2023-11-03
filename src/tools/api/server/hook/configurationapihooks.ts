@@ -8,7 +8,7 @@ const useApiConfiguration = () => {
     const token = await getAccessTokenSilently()
     return new Configuration({
       basePath: import.meta.env.VITE_SERVER_URL,
-      accessToken: "Bearer " + token
+      accessToken: 'Bearer ' + token
     })
   }
 
