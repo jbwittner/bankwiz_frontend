@@ -7,8 +7,8 @@ const useApiConfiguration = () => {
   const getConfiguration = async (): Promise<Configuration> => {
     const token = await getAccessTokenSilently()
     return new Configuration({
-      basePath: 'http://localhost:8080',
-      accessToken: token
+      basePath: import.meta.env.VITE_SERVER_URL,
+      accessToken: "Bearer " + token
     })
   }
 
