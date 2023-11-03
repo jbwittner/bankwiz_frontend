@@ -1,5 +1,5 @@
 import { BaseButton } from '@/components/Buttons'
-import { useUserGetCurrentUserInfo } from '@/tools/api/server/hook/userapihook'
+import { useUserGetCurrentUserInfo } from '@/tools/api/server/hook/userserviceapihook'
 import PageWrapper from '@/tools/router/pagewrapper'
 import { UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useEffect, useState } from 'react'

@@ -1,9 +1,9 @@
 import { UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { useUserApi } from './configurationapihooks'
+import { useUserServiceApi } from './configurationapihooks'
 import { useState } from 'react'
 
 const useUserCheckRegistration = () => {
-  const getApiInstance = useUserApi()
+  const getApiInstance = useUserServiceApi()
 
   const checkRegistration = async () => {
     const userApi = await getApiInstance()
@@ -16,7 +16,7 @@ const useUserCheckRegistration = () => {
 }
 
 const useUserGetCurrentUserInfo = () => {
-  const getApiInstance = useUserApi()
+  const getApiInstance = useUserServiceApi()
   const [userDTO, setUserDTO] = useState<UserDTO | null>(null)
   const [error, setError] = useState<Error | null>(null)
 
