@@ -1,17 +1,20 @@
 import { Box, Drawer, Toolbar } from '@mui/material'
 
 import List from '@mui/material/List'
-import Divider from '@mui/material/Divider'
 import ListItem from '@mui/material/ListItem'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
-import InboxIcon from '@mui/icons-material/MoveToInbox'
-import MailIcon from '@mui/icons-material/Mail'
+import HomeIcon from '@mui/icons-material/Home'
+import GroupsIcon from '@mui/icons-material/Groups';
+import { PropsWithChildren } from 'react'
+import { useNavigate } from 'react-router-dom'
 
-const drawerWidth = 240
+const drawerWidth = 200
 
 export const ApplicationDrawer = () => {
+  const navigate = useNavigate();
+
   return (
     <Drawer
       variant="permanent"
@@ -24,27 +27,30 @@ export const ApplicationDrawer = () => {
       <Toolbar />
       <Box sx={{ overflow: 'auto' }}>
         <List>
-          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {['All mail', 'Trash', 'Spam'].map((text, index) => (
-            <ListItem key={text} disablePadding>
-              <ListItemButton>
-                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItemButton>
-            </ListItem>
-          ))}
+          <ItemDrawer text={'Home'} onClick={() => navigate('/app/home')}>
+            <HomeIcon />
+          </ItemDrawer>
+          <ItemDrawer text={'Group'} onClick={() => navigate('/app/group')}>
+            <GroupsIcon />
+          </ItemDrawer>
         </List>
       </Box>
     </Drawer>
+  )
+}
+
+interface IitemDrawerProps {
+  text: string
+  onClick: () => void
+}
+
+const ItemDrawer = (props: PropsWithChildren<IitemDrawerProps>) => {
+  return (
+    <ListItem disablePadding>
+      <ListItemButton onClick={props.onClick}>
+        <ListItemIcon>{props.children}</ListItemIcon>
+        <ListItemText primary={props.text} />
+      </ListItemButton>
+    </ListItem>
   )
 }

@@ -8,7 +8,7 @@ interface IHomeBasePageProps {
   currentUser: UserDTO
 }
 
-const HomeBasePage = (props: IHomeBasePageProps) => {
+const GroupPagePage = (props: IHomeBasePageProps) => {
   const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
 
   return (
@@ -21,7 +21,7 @@ const HomeBasePage = (props: IHomeBasePageProps) => {
   )
 }
 
-const HomePage = () => {
+const GroupPage = () => {
   const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
   const [loading, setLoading] = useState(true)
 
@@ -33,9 +33,9 @@ const HomePage = () => {
 
   return (
     <PageWrapper loading={loading}>
-      <HomeBasePage currentUser={userDTO!} />
+      <GroupPagePage currentUser={userDTO!} />
     </PageWrapper>
   )
 }
 
-export { HomePage }
+export { GroupPage }
