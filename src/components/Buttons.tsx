@@ -7,22 +7,16 @@ interface IButtonProps {
 }
 
 const BaseButton = (props: PropsWithChildren<IButtonProps>) => {
-  return (
-    <>
-      <Button onClick={props.onClick}>{props.children}</Button>
-    </>
-  )
+  return <Button onClick={props.onClick}>{props.children}</Button>
 }
 
 interface ILogoutButtonProps extends IButtonProps {}
 
 const LogoutButton = (props: PropsWithChildren<ILogoutButtonProps>) => {
   return (
-    <>
-      <Button sx={{ color: red[200], bgcolor: red[900] }} onClick={props.onClick}>
-        {props.children}
-      </Button>
-    </>
+    <Button sx={{ color: red[200], bgcolor: red[900] }} onClick={props.onClick}>
+      {props.children}
+    </Button>
   )
 }
 

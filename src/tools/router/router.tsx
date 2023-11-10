@@ -1,3 +1,4 @@
+import { GroupPage } from '@/pages/group/GroupPage'
 import { HomePage } from '@/pages/home/HomePage'
 import LoginPage from '@/pages/login/LoginPage'
 import { RootPage } from '@/pages/root/RootPage'
@@ -10,6 +11,8 @@ const useAppPath = () => {
   switch (location.pathname) {
     case '/app/home':
       return 'Home'
+    case '/app/group':
+      return 'Group'
     default:
       break
   }
@@ -43,6 +46,10 @@ const router = createBrowserRouter([
       {
         path: 'home',
         element: <HomePage />
+      },
+      {
+        path: 'group',
+        element: <GroupPage />
       }
     ]
   }
