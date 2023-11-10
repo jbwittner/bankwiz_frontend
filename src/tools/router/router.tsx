@@ -11,8 +11,8 @@ const useAppPath = () => {
   switch (location.pathname) {
     case '/app/home':
       return 'Home'
-      case '/app/group':
-        return 'Group'
+    case '/app/group':
+      return 'Group'
     default:
       break
   }

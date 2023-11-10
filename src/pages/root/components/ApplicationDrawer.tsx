@@ -6,14 +6,14 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import HomeIcon from '@mui/icons-material/Home'
-import GroupsIcon from '@mui/icons-material/Groups';
+import GroupsIcon from '@mui/icons-material/Groups'
 import { PropsWithChildren } from 'react'
 import { useNavigate } from 'react-router-dom'
 
 const drawerWidth = 200
 
 export const ApplicationDrawer = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   return (
     <Drawer

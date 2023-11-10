@@ -1,5 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { Configuration, UserServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { Configuration, GroupServiceApi, UserServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
 
 const useApiConfiguration = () => {
   const { getAccessTokenSilently } = useAuth0()
@@ -26,4 +26,15 @@ const useUserServiceApi = () => {
   return getApiInstance
 }
 
-export { useApiConfiguration, useUserServiceApi }
+const useGroupServiceApi = () => {
+  const getConfiguration = useApiConfiguration()
+
+  const getApiInstance = async () => {
+    const configuration = await getConfiguration()
+    return new GroupServiceApi(configuration)
+  }
+
+  return getApiInstance
+}
+
+export { useApiConfiguration, useUserServiceApi, useGroupServiceApi }

@@ -9,7 +9,7 @@ interface IHomeBasePageProps {
 }
 
 const HomeBasePage = (props: IHomeBasePageProps) => {
-  const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
+  const { data: userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
 
   return (
     <div>
@@ -22,7 +22,7 @@ const HomeBasePage = (props: IHomeBasePageProps) => {
 }
 
 const HomePage = () => {
-  const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
+  const { data: userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {

@@ -1,39 +1,36 @@
-import { BaseButton } from '@/components/Buttons'
-import { useUserGetCurrentUserInfo } from '@/tools/api/server/hook/userserviceapihook'
+import { useGroupGetUserGroups } from '@/tools/api/server/hook/groupserviceapihook'
 import PageWrapper from '@/tools/router/pagewrapper'
-import { UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { GroupIndexDTO, UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useEffect, useState } from 'react'
 
-interface IHomeBasePageProps {
-  currentUser: UserDTO
+interface IGroupBasePageProps {
+  groupIndexDTO: GroupIndexDTO[]
 }
 
-const GroupPagePage = (props: IHomeBasePageProps) => {
-  const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
-
+const GroupPagePage = (props: IGroupBasePageProps) => {
   return (
     <div>
       <h1>HomePage</h1>
-      <BaseButton onClick={() => getCurrentUserInfo()}>Get current user info</BaseButton>
-      {userDTO && <div>{'userDTO : ' + userDTO.id + ' - ' + userDTO.email}</div>}
-      <div>{'props.currentUser : ' + props.currentUser.id + ' - ' + props.currentUser.email}</div>
+      {props.groupIndexDTO.map(groupIndexDTO => {
+        return <div>{groupIndexDTO.groupId + ' - ' + groupIndexDTO.groupName}</div>
+      })}
     </div>
   )
 }
 
 const GroupPage = () => {
-  const { userDTO, getCurrentUserInfo } = useUserGetCurrentUserInfo()
+  const { data, getUserGroups } = useGroupGetUserGroups()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getCurrentUserInfo().then(() => {
+    getUserGroups().then(() => {
       setLoading(false)
     })
   }, [])
 
   return (
     <PageWrapper loading={loading}>
-      <GroupPagePage currentUser={userDTO!} />
+      <GroupPagePage groupIndexDTO={data!} />
     </PageWrapper>
   )
 }

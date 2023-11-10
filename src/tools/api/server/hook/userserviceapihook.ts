@@ -6,8 +6,8 @@ const useUserCheckRegistration = () => {
   const getApiInstance = useUserServiceApi()
 
   const checkRegistration = async () => {
-    const userApi = await getApiInstance()
-    return userApi.checkRegistration()
+    const apiInstance = await getApiInstance()
+    return apiInstance.checkRegistration()
   }
 
   return {
@@ -17,14 +17,14 @@ const useUserCheckRegistration = () => {
 
 const useUserGetCurrentUserInfo = () => {
   const getApiInstance = useUserServiceApi()
-  const [userDTO, setUserDTO] = useState<UserDTO | null>(null)
+  const [data, setData] = useState<UserDTO | null>(null)
   const [error, setError] = useState<Error | null>(null)
 
   const getCurrentUserInfo = async () => {
     try {
-      const userApi = await getApiInstance()
-      const userData = await userApi.getCurrentUserInfo()
-      setUserDTO(userData)
+      const apiInstance = await getApiInstance()
+      const userData = await apiInstance.getCurrentUserInfo()
+      setData(userData)
     } catch (err) {
       if (err instanceof Error) {
         setError(err)
@@ -35,7 +35,7 @@ const useUserGetCurrentUserInfo = () => {
   }
 
   return {
-    userDTO,
+    data,
     getCurrentUserInfo,
     error
   }
