@@ -1,6 +1,6 @@
 import { useGroupGetUserGroups } from '@/tools/api/server/hook/groupserviceapihook'
 import PageWrapper from '@/tools/router/pagewrapper'
-import { GroupIndexDTO, UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { GroupIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useEffect, useState } from 'react'
 
 interface IGroupBasePageProps {
@@ -12,7 +12,7 @@ const GroupPagePage = (props: IGroupBasePageProps) => {
     <div>
       <h1>HomePage</h1>
       {props.groupIndexDTO.map(groupIndexDTO => {
-        return <div>{groupIndexDTO.groupId + ' - ' + groupIndexDTO.groupName}</div>
+        return <div key={groupIndexDTO.groupId}>{groupIndexDTO.groupId + ' - ' + groupIndexDTO.groupName}</div>
       })}
     </div>
   )
