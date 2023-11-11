@@ -29,13 +29,21 @@ const GroupsPagePage = (props: IGroupBasePageProps) => {
   const [groups, setGroups] = React.useState(props.groupIndexDTO);
   const [open, setOpen] = React.useState(false)
 
+  const { data, getUserGroups } = useGroupGetUserGroups()
+
+  const onCreate = async () =>  {
+    setOpen(false)
+    await getUserGroups()
+    setGroups(data)
+  }
+
   const close = () => {
     setOpen(false)
   }
 
   return (
     <>
-      <CreationGroupDialog open={open} handleCancel={close} handleAccept={close} />
+      <CreationGroupDialog open={open} handleCancel={close} handleAccept={onCreate} />
       <TableContainer component={Paper} sx={{ mt: '15px' }}>
         <Table sx={{ minWidth: '100%' }} aria-label="simple table">
           <TableHead>
