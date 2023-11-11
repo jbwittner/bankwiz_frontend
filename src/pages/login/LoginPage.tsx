@@ -1,4 +1,4 @@
-import { useUserCheckRegistration } from '@/tools/api/server/hook/userserviceapihook'
+import { useUserServiceApi } from '@/tools/api/server/hook/userserviceapihook'
 import { useAuth0 } from '@auth0/auth0-react'
 import { Button } from '@mui/material'
 import { useNavigate } from 'react-router-dom'
@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom'
 function LoginPage() {
   const { loginWithPopup } = useAuth0()
   const navigate = useNavigate()
-  const { checkRegistration } = useUserCheckRegistration()
+  const { checkRegistration } = useUserServiceApi()
 
   const processLogin = async () => {
     loginWithPopup()
