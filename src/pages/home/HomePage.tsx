@@ -32,7 +32,7 @@ const HomePage = () => {
   }, [])
 
   return (
-    <PageWrapper loading={loading}>
+    <PageWrapper loading={loading} xs={10}>
       <HomeBasePage currentUser={userDTO!} />
     </PageWrapper>
   )

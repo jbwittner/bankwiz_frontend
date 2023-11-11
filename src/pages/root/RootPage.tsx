@@ -8,7 +8,7 @@ const RootPage = () => {
     <Box sx={{ display: 'flex' }}>
       <ApplicationBar />
       <ApplicationDrawer />
-      <Box component="main" sx={{ flexGrow: 1, pl: '50px', pt: '0', pr: '50px' }}>
+      <Box component="main" sx={{ flexGrow: 1 }}>
         <Toolbar />
         <Outlet />
       </Box>

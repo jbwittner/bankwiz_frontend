@@ -30,7 +30,7 @@ export const ApplicationDrawer = () => {
           <ItemDrawer text={'Home'} onClick={() => navigate('/app/home')}>
             <HomeIcon />
           </ItemDrawer>
-          <ItemDrawer text={'Group'} onClick={() => navigate('/app/group')}>
+          <ItemDrawer text={'Groups'} onClick={() => navigate('/app/groups')}>
             <GroupsIcon />
           </ItemDrawer>
         </List>
