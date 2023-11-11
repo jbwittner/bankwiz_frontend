@@ -1,31 +1,22 @@
-import { GroupIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { useGroupServiceApi } from './configurationapihooks'
-import { useState } from 'react'
+import { GroupServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { useApiConfiguration } from './configurationapihooks'
 
-const useGroupGetUserGroups = () => {
-  const getApiInstance = useGroupServiceApi()
-  const [data, setData] = useState<GroupIndexDTO[]>([])
-  const [error, setError] = useState<Error | null>(null)
+const useGroupServiceApi = () => {
+  const getConfiguration = useApiConfiguration()
+
+  const getApiInstance = async () => {
+    const configuration = await getConfiguration()
+    return new GroupServiceApi(configuration)
+  }
 
   const getUserGroups = async () => {
-    try {
-      const apiInstance = await getApiInstance()
-      const data = await apiInstance.getUserGroups()
-      setData(data)
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err)
-      } else {
-        setError(new Error(String(err)))
-      }
-    }
+    const apiInstance = await getApiInstance()
+    return await apiInstance.getUserGroups()
   }
 
   return {
-    data,
-    getUserGroups,
-    error
+    getUserGroups
   }
 }
 
-export { useGroupGetUserGroups }
+export { useGroupServiceApi }

@@ -1,4 +1,4 @@
-import { useGroupGetUserGroups } from '@/tools/api/server/hook/groupserviceapihook'
+import { useGroupServiceApi } from '@/tools/api/server/hook/groupserviceapihook'
 import PageWrapper from '@/tools/router/pagewrapper'
 import { GroupIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import {
@@ -26,15 +26,14 @@ interface IGroupBasePageProps {
 }
 
 const GroupsPagePage = (props: IGroupBasePageProps) => {
-  const [groups, setGroups] = React.useState(props.groupIndexDTO);
+  const [groups, setGroups] = React.useState(props.groupIndexDTO)
   const [open, setOpen] = React.useState(false)
+  const { getUserGroups } = useGroupServiceApi()
 
-  const { data, getUserGroups } = useGroupGetUserGroups()
-
-  const onCreate = async () =>  {
-    setOpen(false)
-    await getUserGroups()
+  const onCreate = async () => {
+    const data = await getUserGroups()
     setGroups(data)
+    setOpen(false)
   }
 
   const close = () => {
@@ -100,18 +99,20 @@ const CreationGroupDialog = (props: ICreationGroupDialogProps) => {
 }
 
 const GroupsPage = () => {
-  const { data, getUserGroups } = useGroupGetUserGroups()
+  const { getUserGroups } = useGroupServiceApi()
+  const [groupDTOs, setGroupDTOs] = useState<GroupIndexDTO[]>([])
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    getUserGroups().then(() => {
+    getUserGroups().then(data => {
+      setGroupDTOs(data)
       setLoading(false)
     })
   }, [])
 
   return (
     <PageWrapper loading={loading} xs={8}>
-      <GroupsPagePage groupIndexDTO={data} />
+      <GroupsPagePage groupIndexDTO={groupDTOs} />
     </PageWrapper>
   )
 }
