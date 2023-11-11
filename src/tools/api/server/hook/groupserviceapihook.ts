@@ -10,8 +10,8 @@ const useGroupGetUserGroups = () => {
   const getUserGroups = async () => {
     try {
       const apiInstance = await getApiInstance()
-      const userData = await apiInstance.getUserGroups()
-      setData(userData)
+      const data = await apiInstance.getUserGroups()
+      setData(data)
     } catch (err) {
       if (err instanceof Error) {
         setError(err)
