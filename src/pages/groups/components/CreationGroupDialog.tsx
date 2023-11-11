@@ -13,7 +13,6 @@ interface IFormGroupCreation {
   groupName: string
 }
 
-
 export const CreationGroupDialog = (props: ICreationGroupDialogProps) => {
   const { createGroup } = useGroupServiceApi()
 
