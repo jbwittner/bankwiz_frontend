@@ -54,7 +54,7 @@ const GroupsPagePage = (props: IGroupBasePageProps) => {
           </TableBody>
         </Table>
       </TableContainer>
-      <Fab color="primary" aria-label="add" sx={{ position: 'absolute', bottom: 16, right: 16 }} onClick={() => setOpen(true)}>
+      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 16, right: 16 }} onClick={() => setOpen(true)}>
         <AddIcon />
       </Fab>
     </>
