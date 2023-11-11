@@ -99,7 +99,7 @@ const CreationGroupDialog = (props: ICreationGroupDialogProps) => {
           label="Group name"
           fullWidth
           variant="standard"
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          onChange={event => {
             setGroupName(event.target.value)
           }}
         />
