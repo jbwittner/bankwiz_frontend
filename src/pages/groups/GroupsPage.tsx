@@ -1,7 +1,7 @@
 import { useGroupGetUserGroups } from '@/tools/api/server/hook/groupserviceapihook'
 import PageWrapper from '@/tools/router/pagewrapper'
 import { GroupIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { useEffect, useState } from 'react'
 
 interface IGroupBasePageProps {
