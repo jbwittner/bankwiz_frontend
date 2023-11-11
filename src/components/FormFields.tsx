@@ -13,7 +13,7 @@ interface ITextFieldFormProps<T extends FieldValues = FieldValues> {
   sx?: SxProps<Theme>
   variant?: TextFieldVariants
   autoFocus?: boolean
-  margin?: 'dense' | 'normal' | 'none' | undefined
+  margin: 'dense' | 'normal' | 'none' | undefined
 }
 
 const TextFieldForm = <T extends FieldValues>(props: ITextFieldFormProps<T>) => {

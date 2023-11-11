@@ -34,7 +34,7 @@ export const CreationGroupDialog = (props: ICreationGroupDialogProps) => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogContent>
           <DialogContentText>Enter a groupe name to create a group</DialogContentText>
-          <TextFieldForm name="groupName" control={control} label="Group name" variant="standard" fullWidth margin="dense" />
+          <TextFieldForm name="groupName" control={control} label="Group name" variant="standard" fullWidth margin="dense" required />
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleCancel}>Cancel</Button>
