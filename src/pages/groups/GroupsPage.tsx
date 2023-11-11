@@ -28,9 +28,10 @@ interface IGroupBasePageProps {
 const GroupsPagePage = (props: IGroupBasePageProps) => {
   const [groups, setGroups] = React.useState(props.groupIndexDTO)
   const [open, setOpen] = React.useState(false)
-  const { getUserGroups } = useGroupServiceApi()
+  const { createGroup, getUserGroups } = useGroupServiceApi()
 
-  const onCreate = async () => {
+  const onCreate = async (groupName: string) => {
+    await createGroup({ groupName })
     const data = await getUserGroups()
     setGroups(data)
     setOpen(false)
@@ -42,7 +43,7 @@ const GroupsPagePage = (props: IGroupBasePageProps) => {
 
   return (
     <>
-      <CreationGroupDialog open={open} handleCancel={close} handleAccept={onCreate} />
+      <CreationGroupDialog open={open} handleCancel={close} handleCreate={onCreate} />
       <TableContainer component={Paper} sx={{ mt: '15px' }}>
         <Table sx={{ minWidth: '100%' }} aria-label="simple table">
           <TableHead>
@@ -79,20 +80,33 @@ const GroupsPagePage = (props: IGroupBasePageProps) => {
 interface ICreationGroupDialogProps {
   open: boolean
   handleCancel: () => void
-  handleAccept: () => void
+  handleCreate: (groupName: string) => void
 }
 
 const CreationGroupDialog = (props: ICreationGroupDialogProps) => {
+  const [groupName, setGroupName] = React.useState('')
+
   return (
     <Dialog open={props.open} onClose={props.handleCancel}>
-      <DialogTitle>Subscribe</DialogTitle>
+      <DialogTitle>Create group</DialogTitle>
       <DialogContent>
-        <DialogContentText>To subscribe to this website, please enter your email address here. We will send updates occasionally.</DialogContentText>
-        <TextField autoFocus margin="dense" id="name" label="Email Address" type="email" fullWidth variant="standard" />
+        <DialogContentText>Enter a groupe name to create a group</DialogContentText>
+        <TextField
+          required
+          autoFocus
+          margin="dense"
+          id="name"
+          label="Group name"
+          fullWidth
+          variant="standard"
+          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+            setGroupName(event.target.value)
+          }}
+        />
       </DialogContent>
       <DialogActions>
         <Button onClick={props.handleCancel}>Cancel</Button>
-        <Button onClick={props.handleAccept}>Accept</Button>
+        <Button onClick={() => props.handleCreate(groupName)}>Create</Button>
       </DialogActions>
     </Dialog>
   )
