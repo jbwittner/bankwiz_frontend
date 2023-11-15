@@ -5,6 +5,7 @@ import { Button, Fab, Paper, Table, TableBody, TableCell, TableContainer, TableH
 import React, { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { CreationGroupDialog } from './components/CreationGroupDialog'
+import { useNavigate } from 'react-router-dom'
 
 interface IGroupBasePageProps {
   groupIndexDTO: GroupIndexDTO[]
@@ -14,6 +15,7 @@ const GroupsPagePage = (props: IGroupBasePageProps) => {
   const [groups, setGroups] = React.useState(props.groupIndexDTO)
   const [open, setOpen] = React.useState(false)
   const { getUserGroups } = useGroupServiceApi()
+  const navigate = useNavigate()
 
   const onCreate = async () => {
     const data = await getUserGroups()
@@ -23,6 +25,10 @@ const GroupsPagePage = (props: IGroupBasePageProps) => {
 
   const close = () => {
     setOpen(false)
+  }
+
+  const onClickGroupButton = (groupId: string) => {
+    navigate('/app/group/' + groupId)
   }
 
   return (
@@ -46,7 +52,9 @@ const GroupsPagePage = (props: IGroupBasePageProps) => {
                   </TableCell>
                   <TableCell align="center">{groupIndexDTO.groupName}</TableCell>
                   <TableCell align="center">
-                    <Button variant="text">Group Page</Button>
+                    <Button variant="text" onClick={() => onClickGroupButton(groupIndexDTO.groupId)}>
+                      Group Page
+                    </Button>
                   </TableCell>
                 </TableRow>
               )
