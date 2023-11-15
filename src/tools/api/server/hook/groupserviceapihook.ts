@@ -19,9 +19,15 @@ const useGroupServiceApi = () => {
     return await apiInstance.createGroup({ groupCreationRequest })
   }
 
+  const getGroupDetails = async (groupId: string) => {
+    const apiInstance = await getApiInstance()
+    return await apiInstance.getGroupDetails({ id: groupId })
+  }
+
   return {
     getUserGroups,
-    createGroup
+    createGroup,
+    getGroupDetails
   }
 }
 

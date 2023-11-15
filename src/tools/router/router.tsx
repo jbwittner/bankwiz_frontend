@@ -1,3 +1,4 @@
+import { GroupPage } from '@/pages/group/GroupPage'
 import { GroupsPage } from '@/pages/groups/GroupsPage'
 import { HomePage } from '@/pages/home/HomePage'
 import LoginPage from '@/pages/login/LoginPage'
@@ -8,13 +9,19 @@ import { createBrowserRouter, useLocation } from 'react-router-dom'
 
 const useAppPath = () => {
   const location = useLocation()
+  const groupPathRegex = /^\/app\/group\/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}$/
+
   switch (location.pathname) {
     case '/app/home':
       return 'Home'
     case '/app/groups':
       return 'Groups'
     default:
-      break
+      if (groupPathRegex.test(location.pathname)) {
+        return 'Group'
+      }
+
+      return 'Unknown'
   }
 }
 
@@ -50,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: 'groups',
         element: <GroupsPage />
+      },
+      {
+        path: 'group/:groupId',
+        element: <GroupPage />
       }
     ]
   }
