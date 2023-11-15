@@ -2,7 +2,7 @@ import { useGroupServiceApi } from '@/tools/api/server/hook/groupserviceapihook'
 import PageWrapper from '@/tools/router/pagewrapper'
 import { GroupDetailsDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 interface IGroupBasePageProps {
@@ -10,12 +10,10 @@ interface IGroupBasePageProps {
 }
 
 const GroupBasePage = (props: IGroupBasePageProps) => {
-  const [groupDetail, setGroupDetail] = React.useState(props.groupDetailsDTO)
-
   return (
     <div>
-      <h1>{groupDetail.groupName}</h1>
-      <h3>Groupd Id : {groupDetail.id}</h3>
+      <h1>{props.groupDetailsDTO.groupName}</h1>
+      <h3>Groupd Id : {props.groupDetailsDTO.id}</h3>
       <TableContainer component={Paper} sx={{ mt: '15px' }}>
         <Table sx={{ minWidth: '100%' }} aria-label="simple table">
           <TableHead>
@@ -26,7 +24,7 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {groupDetail.usersRights.map(userRight => {
+            {props.groupDetailsDTO.usersRights.map(userRight => {
               return (
                 <TableRow key={userRight.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
