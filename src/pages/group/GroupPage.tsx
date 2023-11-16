@@ -41,6 +41,7 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
   const buttonEnabled = (userGroupRightDTO: UserGroupRightDTO) => {
     return props.userDTO.id !== userGroupRightDTO.user.id && isAdmin
   }
+
   const [open, setOpen] = useState(false)
 
   return (
