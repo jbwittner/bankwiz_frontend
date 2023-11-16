@@ -25,21 +25,8 @@ const useGroupServiceApi = () => {
   }
 
   const addUserToGroup = async (groupId: string, addUserGroupRequest: AddUserGroupRequest) => {
-    try {
-      const apiInstance = await getApiInstance()
-      return await apiInstance.addUserGroup({ groupId, addUserGroupRequest })
-    } catch (error) {
-      console.log(error)
-      if (error as ResponseError) {
-        console.log('coucou')
-        const responseError = error as ResponseError
-        const stack = responseError.stack
-        const message = responseError.message
-        const name = responseError.name
-        const response = responseError.response
-      }
-      throw error
-    }
+    const apiInstance = await getApiInstance()
+    return await apiInstance.addUserGroup({ groupId, addUserGroupRequest })
   }
 
   const deleteUserFromGroup = async (groupId: string, userId: string) => {
