@@ -43,7 +43,7 @@ export const CreationGroupDialog = (props: ICreationGroupDialogProps) => {
             name="groupName"
             control={control}
             label="Group name"
-            variant="standard"
+            variant="outlined"
             fullWidth
             margin="dense"
             required
