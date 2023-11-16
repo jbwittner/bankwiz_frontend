@@ -1,4 +1,4 @@
-import { GroupCreationRequest, GroupServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { AddUserGroupRequest, GroupCreationRequest, GroupServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useApiConfiguration } from './configurationapihooks'
 
 const useGroupServiceApi = () => {
@@ -24,10 +24,16 @@ const useGroupServiceApi = () => {
     return await apiInstance.getGroupDetails({ id: groupId })
   }
 
+  const addUserToGroup = async (groupId: string, addUserGroupRequest: AddUserGroupRequest) => {
+    const apiInstance = await getApiInstance()
+    return await apiInstance.addUserGroup({ id: groupId, addUserGroupRequest })
+  }
+
   return {
     getUserGroups,
     createGroup,
-    getGroupDetails
+    getGroupDetails,
+    addUserToGroup
   }
 }
 
