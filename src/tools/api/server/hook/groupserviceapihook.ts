@@ -1,4 +1,4 @@
-import { AddUserGroupRequest, GroupCreationRequest, GroupServiceApi, ResponseError } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { AddUserGroupRequest, GroupCreationRequest, GroupServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useApiConfiguration } from './configurationapihooks'
 
 const useGroupServiceApi = () => {
