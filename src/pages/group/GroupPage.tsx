@@ -1,25 +1,45 @@
 import { useGroupServiceApi } from '@/tools/api/server/hook/groupserviceapihook'
 import PageWrapper from '@/tools/router/pagewrapper'
-import { GroupDetailsDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
+import { GroupDetailsDTO, UserDTO, UserGroupRightDTO, UserGroupRightEnum } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { Button, IconButton, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { AddUserGroupDialog } from './components/AddUserGroupDialog'
+import { useUserServiceApi } from '@/tools/api/server/hook/userserviceapihook'
+import GroupRemoveIcon from '@mui/icons-material/GroupRemove'
+import { Theme } from '@emotion/react'
+import { red } from '@mui/material/colors'
 
 interface IGroupBasePageProps {
   groupDetailsDTO: GroupDetailsDTO
+  userDTO: UserDTO
+}
+
+const deleteIconSx: SxProps<Theme> = {
+  color: red[700],
+  ':disabled': { color: red[200] }
 }
 
 const GroupBasePage = (props: IGroupBasePageProps) => {
   const [groupDetailDTO, setGroupDetailDTO] = useState<GroupDetailsDTO>(props.groupDetailsDTO)
+  const isAdmin = props.groupDetailsDTO.usersRights.find(userGroupRight => userGroupRight.user.id === props.userDTO.id)?.right === UserGroupRightEnum.Admin
 
-  const { getGroupDetails } = useGroupServiceApi()
+  const { getGroupDetails, deleteUserFromGroup } = useGroupServiceApi()
 
-  const handleAdd = () => {
-    getGroupDetails(props.groupDetailsDTO.id).then(data => {
-      setGroupDetailDTO(data)
-      setOpen(false)
-    })
+  const handleAdd = async () => {
+    const details = await getGroupDetails(props.groupDetailsDTO.id)
+    setGroupDetailDTO(details)
+    setOpen(false)
+  }
+
+  const onClickDeleteUser = async (userGroupRightDTO: UserGroupRightDTO) => {
+    await deleteUserFromGroup(props.groupDetailsDTO.id, userGroupRightDTO.user.id)
+    const details = await getGroupDetails(props.groupDetailsDTO.id)
+    setGroupDetailDTO(details)
+  }
+
+  const buttonEnabled = (userGroupRightDTO: UserGroupRightDTO) => {
+    return props.userDTO.id !== userGroupRightDTO.user.id && isAdmin
   }
 
   const [open, setOpen] = useState(false)
@@ -37,6 +57,7 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
               <TableCell>Right ID</TableCell>
               <TableCell align="center">User email</TableCell>
               <TableCell align="center">Right</TableCell>
+              <TableCell align="center">Action</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -48,6 +69,12 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
                   </TableCell>
                   <TableCell align="center">{userRight.user.email}</TableCell>
                   <TableCell align="center">{userRight.right}</TableCell>
+                  <TableCell align="center">
+                    {/*Only administrator users can remove rights (for other users)*/}
+                    <IconButton size="small" sx={deleteIconSx} disabled={!buttonEnabled(userRight)} onClick={() => onClickDeleteUser(userRight)}>
+                      <GroupRemoveIcon fontSize="inherit" />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               )
             })}
@@ -61,13 +88,18 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
 const GroupPage = () => {
   const { groupId } = useParams()
   const { getGroupDetails } = useGroupServiceApi()
+  const { getCurrentUserInfo } = useUserServiceApi()
   const [groupDetailDTO, setGroupDetailDTO] = useState<GroupDetailsDTO>()
+  const [currentUserDTO, setCurrentUserDTO] = useState<UserDTO>()
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (groupId) {
-      getGroupDetails(groupId).then(data => {
-        setGroupDetailDTO(data)
+      const promiseCurrentUser = getCurrentUserInfo()
+      const promiseGroupDetails = getGroupDetails(groupId)
+      Promise.all([promiseCurrentUser, promiseGroupDetails]).then(data => {
+        setCurrentUserDTO(data[0])
+        setGroupDetailDTO(data[1])
         setLoading(false)
       })
     }
@@ -75,7 +107,7 @@ const GroupPage = () => {
 
   return (
     <PageWrapper loading={loading} xs={8}>
-      <GroupBasePage groupDetailsDTO={groupDetailDTO!} />
+      <GroupBasePage groupDetailsDTO={groupDetailDTO!} userDTO={currentUserDTO!} />
     </PageWrapper>
   )
 }

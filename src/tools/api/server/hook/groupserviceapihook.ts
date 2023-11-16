@@ -26,14 +26,20 @@ const useGroupServiceApi = () => {
 
   const addUserToGroup = async (groupId: string, addUserGroupRequest: AddUserGroupRequest) => {
     const apiInstance = await getApiInstance()
-    return await apiInstance.addUserGroup({ id: groupId, addUserGroupRequest })
+    return await apiInstance.addUserGroup({ groupId, addUserGroupRequest })
+  }
+
+  const deleteUserFromGroup = async (groupId: string, userId: string) => {
+    const apiInstance = await getApiInstance()
+    await apiInstance.deleteUserFromGroup({ groupId, userId })
   }
 
   return {
     getUserGroups,
     createGroup,
     getGroupDetails,
-    addUserToGroup
+    addUserToGroup,
+    deleteUserFromGroup
   }
 }
 
