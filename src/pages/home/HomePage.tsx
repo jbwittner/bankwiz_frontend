@@ -1,8 +1,9 @@
-import { BaseButton } from '@/components/Buttons'
 import { useUserServiceApi } from '@/tools/api/server/hook/userserviceapihook'
 import PageWrapper from '@/tools/router/pagewrapper'
 import { UserDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { Button } from '@mui/material'
 import { useEffect, useState } from 'react'
+import { toast } from 'react-toastify'
 
 interface IHomeBasePageProps {
   currentUser: UserDTO
@@ -20,7 +21,8 @@ const HomeBasePage = (props: IHomeBasePageProps) => {
   return (
     <div>
       <h1>HomePage</h1>
-      <BaseButton onClick={handleClick}>Get current user info</BaseButton>
+      <Button onClick={() => toast.success('Wow so easy!')}>dqsd</Button>
+      <Button onClick={handleClick}>Get current user info</Button>
       {userDTO && <div>{'userDTO : ' + userDTO.id + ' - ' + userDTO.email}</div>}
       <div>{'props.currentUser : ' + props.currentUser.id + ' - ' + props.currentUser.email}</div>
     </div>
