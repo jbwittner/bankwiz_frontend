@@ -1,4 +1,4 @@
-import { AddUserGroupRequest, GroupCreationRequest, GroupServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { AddUserGroupRequest, GroupCreationRequest, GroupServiceApi, ResponseError } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useApiConfiguration } from './configurationapihooks'
 
 const useGroupServiceApi = () => {
@@ -25,8 +25,21 @@ const useGroupServiceApi = () => {
   }
 
   const addUserToGroup = async (groupId: string, addUserGroupRequest: AddUserGroupRequest) => {
-    const apiInstance = await getApiInstance()
-    return await apiInstance.addUserGroup({ groupId, addUserGroupRequest })
+    try {
+      const apiInstance = await getApiInstance()
+      return await apiInstance.addUserGroup({ groupId, addUserGroupRequest })
+    } catch (error) {
+      console.log(error)
+      if (error as ResponseError) {
+        console.log('coucou')
+        const responseError = error as ResponseError
+        const stack = responseError.stack
+        const message = responseError.message
+        const name = responseError.name
+        const response = responseError.response
+      }
+      throw error
+    }
   }
 
   const deleteUserFromGroup = async (groupId: string, userId: string) => {

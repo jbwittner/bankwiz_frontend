@@ -6,10 +6,6 @@ interface IButtonProps {
   onClick: () => void
 }
 
-const BaseButton = (props: PropsWithChildren<IButtonProps>) => {
-  return <Button onClick={props.onClick}>{props.children}</Button>
-}
-
 interface ILogoutButtonProps extends IButtonProps {}
 
 const LogoutButton = (props: PropsWithChildren<ILogoutButtonProps>) => {
@@ -20,4 +16,4 @@ const LogoutButton = (props: PropsWithChildren<ILogoutButtonProps>) => {
   )
 }
 
-export { BaseButton, LogoutButton }
+export { LogoutButton }
