@@ -1,6 +1,5 @@
 import { LogoutOptions, useAuth0 } from '@auth0/auth0-react'
-import { AppBar, Toolbar, Typography } from '@mui/material'
-import { LogoutButton } from '@/components/Buttons'
+import { AppBar, Button, Toolbar, Typography } from '@mui/material'
 import { useAppPath } from '@/tools/router/router'
 
 const logoutOption: LogoutOptions = {
@@ -19,7 +18,7 @@ export const ApplicationBar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {pathName}
         </Typography>
-        <LogoutButton onClick={() => logout(logoutOption)}>Logout</LogoutButton>
+        <Button onClick={() => logout(logoutOption)} color="error">Logout</Button>
       </Toolbar>
     </AppBar>
   )
