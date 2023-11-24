@@ -15,8 +15,8 @@ dependencies:
     specifier: ^11.11.0
     version: 11.11.0(@emotion/react@11.11.1)(@types/react@18.2.37)(react@18.2.0)
   '@jbwittner/bankwiz_openapi-client-fetch':
-    specifier: ^0.7.0
-    version: 0.7.0
+    specifier: ^0.9.0
+    version: 0.9.0
   '@mui/icons-material':
     specifier: ^5.14.18
     version: 5.14.18(@mui/material@5.14.18)(@types/react@18.2.37)(react@18.2.0)
@@ -723,8 +723,8 @@ packages:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
     dev: true
 
-  /@jbwittner/bankwiz_openapi-client-fetch@0.7.0:
-    resolution: {integrity: sha512-UaToVmTbV3hLwWyMLdc6MveXa1XPFVtgLy7aLjRwvGGEP+YnbstuM3/csm7OTkwIU1Weot6JhnFTf5oc5d/QeQ==, tarball: https://npm.pkg.github.com/download/@jbwittner/bankwiz_openapi-client-fetch/0.7.0/26508f96f2979609612f68018cf89559ce119afd}
+  /@jbwittner/bankwiz_openapi-client-fetch@0.9.0:
+    resolution: {integrity: sha512-ylfEZUC4mLJz8iGC9Eev11VLR8QZvIYhmCNolsQtv5eliKMe7HDtxUONR2FAqYK6lu+M7r6uYlFinsJbXS3sdQ==, tarball: https://npm.pkg.github.com/download/@jbwittner/bankwiz_openapi-client-fetch/0.9.0/4ff952d864a6648893e14a5655f726d29bfb6a23}
     dev: false
 
   /@jridgewell/gen-mapping@0.3.3:

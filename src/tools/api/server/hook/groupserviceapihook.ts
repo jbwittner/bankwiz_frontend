@@ -34,12 +34,18 @@ const useGroupServiceApi = () => {
     await apiInstance.deleteUserFromGroup({ groupId, userId })
   }
 
+  const deleteGroup = async (groupId: string) => {
+    const apiInstance = await getApiInstance()
+    await apiInstance.deleteGroup({ id: groupId })
+  }
+
   return {
     getUserGroups,
     createGroup,
     getGroupDetails,
     addUserToGroup,
-    deleteUserFromGroup
+    deleteUserFromGroup,
+    deleteGroup
   }
 }
 

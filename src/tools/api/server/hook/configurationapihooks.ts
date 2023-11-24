@@ -19,10 +19,14 @@ const useApiConfiguration = () => {
 
 const customMiddleware: Middleware = {
   post: async (context: ResponseContext) => {
-    const response = await context.response.json()
-    if (response as FunctionalExceptionDTO) {
-      const functionalExceptionDTO = response as FunctionalExceptionDTO
-      toast.error(functionalExceptionDTO.message)
+    try {
+      const response = await context.response.json()
+      if (response as FunctionalExceptionDTO) {
+        const functionalExceptionDTO = response as FunctionalExceptionDTO
+        toast.error(functionalExceptionDTO.message)
+      }
+    } catch (error) {
+      console.error(error)
     }
   }
 }
