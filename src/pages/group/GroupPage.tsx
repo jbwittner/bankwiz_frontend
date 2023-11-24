@@ -23,6 +23,7 @@ const deleteIconSx: SxProps<Theme> = {
 const GroupBasePage = (props: IGroupBasePageProps) => {
   const [groupDetailDTO, setGroupDetailDTO] = useState<GroupDetailsDTO>(props.groupDetailsDTO)
   const [isOpenAddUserModal, setIsOpenAddUserModal] = useState(false)
+  const [isOpenDeleteGroupModal, setIsOpenDeleteGroupModal] = useState(false)
 
   const isAdmin = props.groupDetailsDTO.usersRights.find(userGroupRight => userGroupRight.user.id === props.userDTO.id)?.right === UserGroupRightEnum.Admin
 
@@ -44,17 +45,18 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
     return props.userDTO.id !== userGroupRightDTO.user.id && isAdmin
   }
 
-
   return (
     <div>
       <h1>{groupDetailDTO.groupName}</h1>
       <h3>Groupd Id : {groupDetailDTO.id}</h3>
-      <Grid container direction={"row"} justifyContent={"space-between"}>
+      <Grid container direction={'row'} justifyContent={'space-between'}>
         <Grid item>
           <Button onClick={() => setIsOpenAddUserModal(true)}>Add user</Button>
         </Grid>
         <Grid item>
-        <Button onClick={() => setIsOpenAddUserModal(true)} color="error">Delete group</Button>
+          <Button onClick={() => setIsOpenDeleteGroupModal(true)} color="error">
+            Delete group
+          </Button>
         </Grid>
       </Grid>
 

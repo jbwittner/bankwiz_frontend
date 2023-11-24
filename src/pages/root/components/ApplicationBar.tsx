@@ -18,7 +18,9 @@ export const ApplicationBar = () => {
         <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
           {pathName}
         </Typography>
-        <Button onClick={() => logout(logoutOption)} color="error">Logout</Button>
+        <Button onClick={() => logout(logoutOption)} color="error">
+          Logout
+        </Button>
       </Toolbar>
     </AppBar>
   )
