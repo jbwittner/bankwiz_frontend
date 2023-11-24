@@ -3,12 +3,13 @@ import PageWrapper from '@/tools/router/pagewrapper'
 import { GroupDetailsDTO, UserDTO, UserGroupRightDTO, UserGroupRightEnum } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { Button, Grid, IconButton, Paper, SxProps, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material'
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { AddUserGroupDialog } from './components/AddUserGroupDialog'
 import { useUserServiceApi } from '@/tools/api/server/hook/userserviceapihook'
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove'
 import { Theme } from '@emotion/react'
 import { red } from '@mui/material/colors'
+import { DeleteGroupDialog } from './components/DeleteGroupDialog'
 
 interface IGroupBasePageProps {
   groupDetailsDTO: GroupDetailsDTO
@@ -24,6 +25,7 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
   const [groupDetailDTO, setGroupDetailDTO] = useState<GroupDetailsDTO>(props.groupDetailsDTO)
   const [isOpenAddUserModal, setIsOpenAddUserModal] = useState(false)
   const [isOpenDeleteGroupModal, setIsOpenDeleteGroupModal] = useState(false)
+  const navigate = useNavigate()
 
   const isAdmin = props.groupDetailsDTO.usersRights.find(userGroupRight => userGroupRight.user.id === props.userDTO.id)?.right === UserGroupRightEnum.Admin
 
@@ -33,6 +35,12 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
     const details = await getGroupDetails(props.groupDetailsDTO.id)
     setGroupDetailDTO(details)
     setIsOpenAddUserModal(false)
+  }
+
+  const handleDelete = async () => {
+    console.log('jksflsdkfjsdlfkjds')
+    setIsOpenDeleteGroupModal(false)
+    navigate('/app/groups')
   }
 
   const onClickDeleteUser = async (userGroupRightDTO: UserGroupRightDTO) => {
@@ -61,6 +69,12 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
       </Grid>
 
       <AddUserGroupDialog groupId={groupDetailDTO.id} handleCancel={() => setIsOpenAddUserModal(false)} handleAdd={handleAdd} open={isOpenAddUserModal} />
+      <DeleteGroupDialog
+        groupId={groupDetailDTO.id}
+        handleCancel={() => setIsOpenDeleteGroupModal(false)}
+        handleDelete={handleDelete}
+        open={isOpenDeleteGroupModal}
+      />
       <TableContainer component={Paper} sx={{ mt: '15px' }}>
         <Table sx={{ minWidth: '100%' }} aria-label="simple table">
           <TableHead>
