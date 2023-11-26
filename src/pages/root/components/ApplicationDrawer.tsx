@@ -7,7 +7,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import HomeIcon from '@mui/icons-material/Home'
 import GroupsIcon from '@mui/icons-material/Groups'
-import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
+import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
 import { PropsWithChildren } from 'react'
 import { useNavigate } from 'react-router-dom'
 
