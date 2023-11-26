@@ -1,3 +1,4 @@
+import { BankAccountsPage } from '@/pages/bankaccounts/BankAccountsPage'
 import { GroupPage } from '@/pages/group/GroupPage'
 import { GroupsPage } from '@/pages/groups/GroupsPage'
 import { HomePage } from '@/pages/home/HomePage'
@@ -16,6 +17,8 @@ const useAppPath = () => {
       return 'Home'
     case '/app/groups':
       return 'Groups'
+    case '/app/bankaccounts':
+      return 'Bank accounts'
     default:
       if (groupPathRegex.test(location.pathname)) {
         return 'Group'
@@ -61,6 +64,10 @@ const router = createBrowserRouter([
       {
         path: 'group/:groupId',
         element: <GroupPage />
+      },
+      {
+        path: 'bankaccounts',
+        element: <BankAccountsPage />
       }
     ]
   }
