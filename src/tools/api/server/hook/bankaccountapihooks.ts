@@ -14,8 +14,14 @@ const useBankAccountServiceApi = () => {
     return await apiInstance.createBankAccount({ bankAccountCreationRequest })
   }
 
+  const getAllBankAccounts = async () => {
+    const apiInstance = await getApiInstance()
+    return await apiInstance.getAllBankAccount()
+  }
+
   return {
-    createBankAccount
+    createBankAccount,
+    getAllBankAccounts
   }
 }
 
