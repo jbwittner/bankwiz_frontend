@@ -5,7 +5,7 @@ import AddIcon from '@mui/icons-material/Add'
 import { CreationBankAccountDialog } from './components/CreationBankAccountDialog'
 import { useBankAccountServiceApi } from '@/tools/api/server/hook/bankaccountapihooks'
 import { BankAccountIndexDTO, GroupBankAccountIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
-import DeleteIcon from '@mui/icons-material/Delete';
+import DeleteIcon from '@mui/icons-material/Delete'
 import { Theme } from '@emotion/react'
 import { red } from '@mui/material/colors'
 import { DeleteBankAccountDialog } from './components/DeleteBankAccountDialog'
@@ -22,7 +22,7 @@ interface IBankAccountsBasePageProps {
 const BankAccountsBasePage = (props: IBankAccountsBasePageProps) => {
   const { getAllBankAccounts } = useBankAccountServiceApi()
   const [groupBankAccountIndexDTOs, setGroupBankAccountIndexDTOs] = useState(props.groupBankAccountIndexDTOs)
-  const [bankAccountIdToDelete, setBankAccountIdToDelete] = useState("")
+  const [bankAccountIdToDelete, setBankAccountIdToDelete] = useState('')
   const [isOpenDeleteBankAccountModal, setIsOpenDeleteBankAccountModal] = useState(false)
   const [open, setOpen] = useState(false)
 
@@ -37,12 +37,12 @@ const BankAccountsBasePage = (props: IBankAccountsBasePageProps) => {
   }
 
   const onClickDeleteBankAccount = (id: string) => {
-    setBankAccountIdToDelete(id);
+    setBankAccountIdToDelete(id)
     setIsOpenDeleteBankAccountModal(true)
   }
 
   const handleDelete = async () => {
-    const data = await getAllBankAccounts();
+    const data = await getAllBankAccounts()
     setGroupBankAccountIndexDTOs(data)
     setIsOpenDeleteBankAccountModal(false)
   }
@@ -77,10 +77,10 @@ const BankAccountsBasePage = (props: IBankAccountsBasePageProps) => {
                     <TableCell align="center">{groupBankAccountIndexDTO.groupeIndex.groupName}</TableCell>
                     <TableCell align="center">{bankAccountIndex.bankAccountName}</TableCell>
                     <TableCell align="center">
-                    <IconButton size="small" sx={deleteIconSx} onClick={() => onClickDeleteBankAccount(bankAccountIndex.bankAccountId)}>
-                    <DeleteIcon fontSize="inherit" />
-                    </IconButton>
-                  </TableCell>
+                      <IconButton size="small" sx={deleteIconSx} onClick={() => onClickDeleteBankAccount(bankAccountIndex.bankAccountId)}>
+                        <DeleteIcon fontSize="inherit" />
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 )
               })
