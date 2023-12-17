@@ -5,38 +5,21 @@ import { toast } from 'react-toastify'
 const useApiConfiguration = () => {
 
   const { getAccessTokenSilently } = useAuth0()
+  const configuration = new Configuration({
+    basePath: import.meta.env.VITE_SERVER_URL,
+    middleware: [customMiddleware]
+  })
 
-  const getBankAccountServiceApi = () => {
-    const configuration = getConfiguration()
-    const service: BankAccountServiceApi = new BankAccountServiceApi(configuration);
-    return service;
-  }
-
-  const getGroupServiceApi = () => {
-    const configuration = getConfiguration()
-    const service: GroupServiceApi = new GroupServiceApi(configuration);
-    return service;
-  }
-
-  const getUserServiceApi = () => {
-    const configuration = getConfiguration()
-    const service: UserServiceApi = new UserServiceApi(configuration);
-    return service;
-  }
+  const bankAccountServiceApi: BankAccountServiceApi = new BankAccountServiceApi(configuration);
+  const groupServiceApi: GroupServiceApi = new GroupServiceApi(configuration);
+  const userServiceApi: UserServiceApi = new UserServiceApi(configuration);
 
   const getAuthorizationHeader = async (): Promise<HeadersInit> => {
     const token = await getAccessTokenSilently()
     return {"Authorization": "Bearer " + token}
   }
 
-  const getConfiguration = (): Configuration => {
-    return new Configuration({
-      basePath: import.meta.env.VITE_SERVER_URL,
-      middleware: [customMiddleware]
-    })
-  }
-
-  return {getConfiguration, getBankAccountServiceApi, getGroupServiceApi, getUserServiceApi, getAuthorizationHeader}
+  return {bankAccountServiceApi, groupServiceApi, userServiceApi, getAuthorizationHeader}
 }
 
 const customMiddleware: Middleware = {
