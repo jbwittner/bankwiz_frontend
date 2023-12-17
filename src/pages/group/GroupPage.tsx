@@ -38,7 +38,6 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
   }
 
   const handleDelete = async () => {
-    console.log('jksflsdkfjsdlfkjds')
     setIsOpenDeleteGroupModal(false)
     navigate('/app/groups')
   }
