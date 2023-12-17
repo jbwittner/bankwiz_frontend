@@ -1,27 +1,29 @@
-import { BankAccountCreationRequest, BankAccountServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { BankAccountCreationRequest } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useApiConfiguration } from './configurationapihooks'
 
 const useBankAccountServiceApi = () => {
-  const getConfiguration = useApiConfiguration()
-
-  const getApiInstance = async () => {
-    const configuration = await getConfiguration()
-    return new BankAccountServiceApi(configuration)
-  }
+  const {getBankAccountServiceApi, getAuthorizationHeader} = useApiConfiguration()
+  const bankAccountService = getBankAccountServiceApi()
 
   const createBankAccount = async (bankAccountCreationRequest: BankAccountCreationRequest) => {
-    const apiInstance = await getApiInstance()
-    return await apiInstance.createBankAccount({ bankAccountCreationRequest })
+    const headers = await getAuthorizationHeader();
+    return await bankAccountService.createBankAccount({ bankAccountCreationRequest }, {headers})
   }
 
   const getAllBankAccounts = async () => {
-    const apiInstance = await getApiInstance()
-    return await apiInstance.getAllBankAccount()
+    const headers = await getAuthorizationHeader();
+    return await bankAccountService.getAllBankAccount({headers})
+  }
+
+  const deleteBankAccount = async (id: string) => {
+    const headers = await getAuthorizationHeader();
+    return await bankAccountService.deleteBankAccount({ id },{headers})
   }
 
   return {
     createBankAccount,
-    getAllBankAccounts
+    getAllBankAccounts,
+    deleteBankAccount
   }
 }
 

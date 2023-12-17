@@ -2,21 +2,23 @@ import { UserServiceApi } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useApiConfiguration } from './configurationapihooks'
 
 const useUserServiceApi = () => {
-  const getConfiguration = useApiConfiguration()
+  const {getConfiguration, getAuthorizationHeader} = useApiConfiguration()
 
   const getApiInstance = async () => {
-    const configuration = await getConfiguration()
+    const configuration = getConfiguration()
     return new UserServiceApi(configuration)
   }
 
   const checkRegistration = async () => {
     const apiInstance = await getApiInstance()
-    return apiInstance.checkRegistration()
+    const headers = await getAuthorizationHeader();
+    return apiInstance.checkRegistration({headers})
   }
 
   const getCurrentUserInfo = async () => {
     const apiInstance = await getApiInstance()
-    return apiInstance.getCurrentUserInfo()
+    const headers = await getAuthorizationHeader();
+    return apiInstance.getCurrentUserInfo({headers})
   }
 
   return {
