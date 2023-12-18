@@ -1,3 +1,5 @@
+import { HomePage } from '@/pages/home/HomePage'
+import LoginPage from '@/pages/login/LoginPage'
 import { RootPage } from '@/pages/root/RootPage'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
@@ -42,7 +44,7 @@ function loading() {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <div>LoginPage</div>
+    element: <LoginPage />
   },
   {
     path: '/app',
@@ -50,7 +52,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'home',
-        element: <div>home</div>
+        element: <HomePage />
       },
       {
         path: 'groups',
