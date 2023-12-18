@@ -1,4 +1,5 @@
 import { useAuth0 } from '@auth0/auth0-react'
+import { createStandaloneToast } from '@chakra-ui/react'
 import {
   BankAccountServiceApi,
   Configuration,
@@ -8,7 +9,8 @@ import {
   ResponseContext,
   UserServiceApi
 } from '@jbwittner/bankwiz_openapi-client-fetch'
-import { toast } from 'react-toastify'
+
+const { toast } = createStandaloneToast()
 
 const useApiConfiguration = () => {
   const { getAccessTokenSilently } = useAuth0()
@@ -33,9 +35,9 @@ const customMiddleware: Middleware = {
   post: async (context: ResponseContext) => {
     try {
       const response = await context.response.json()
-      if (response as FunctionalExceptionDTO) {
-        const functionalExceptionDTO = response as FunctionalExceptionDTO
-        toast.error(functionalExceptionDTO.message)
+      const functionalExceptionDTO = response as FunctionalExceptionDTO
+      if (functionalExceptionDTO.status) {
+        toast({ title: 'Error', description: functionalExceptionDTO.message, status: 'error', position: 'bottom-right' })
       }
     } catch (error) {
       console.error(error)
