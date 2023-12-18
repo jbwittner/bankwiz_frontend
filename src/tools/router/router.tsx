@@ -1,3 +1,4 @@
+import { GroupsPage } from '@/pages/groups/GroupPage'
 import { HomePage } from '@/pages/home/HomePage'
 import LoginPage from '@/pages/login/LoginPage'
 import { RootPage } from '@/pages/root/RootPage'
@@ -56,7 +57,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'groups',
-        element: <div>groups</div>
+        element: <GroupsPage />
       },
       {
         path: 'group/:groupId',

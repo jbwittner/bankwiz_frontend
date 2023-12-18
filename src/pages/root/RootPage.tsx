@@ -21,9 +21,9 @@ const RootPage = () => {
   return (
     <React.Fragment>
       <Flex bg="teal" h={'60px'} minWidth="max-content" alignItems="center" p={2}>
-        <Box>
-          <Heading>{pathName}</Heading>
-        </Box>
+        <Heading as="h1" colorScheme="blue">
+          {pathName}
+        </Heading>
         <Spacer />
         <Box>
           <Button colorScheme="red" onClick={() => logout(logoutOption)}>

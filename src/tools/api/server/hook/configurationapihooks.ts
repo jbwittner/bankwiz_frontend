@@ -25,7 +25,10 @@ const useApiConfiguration = () => {
 
   const getAuthorizationHeader = async (): Promise<HeadersInit> => {
     const token = await getAccessTokenSilently()
-    return { Authorization: 'Bearer ' + token }
+    return {
+      Authorization: 'Bearer ' + token,
+      'Content-Type': 'application/json'
+    }
   }
 
   return { bankAccountServiceApi, groupServiceApi, userServiceApi, getAuthorizationHeader }
