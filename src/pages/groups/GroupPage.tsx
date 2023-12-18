@@ -5,8 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Table, Thead, Tbody, Tfoot, Tr, Th, Td, TableCaption, TableContainer, Heading, Button, Flex, Spacer, useBoolean, IconButton } from '@chakra-ui/react'
 import { CreationGroupDialog } from './CreationGroupDialog'
-import { FaGear } from "react-icons/fa6";
-
+import { FaGear } from 'react-icons/fa6'
 
 interface IGroupBasePageProps {
   groupIndexDTO: GroupIndexDTO[]
@@ -56,12 +55,7 @@ const GroupsPagePage = (props: IGroupBasePageProps) => {
                   <Td>{group.groupId}</Td>
                   <Td>{group.groupName}</Td>
                   <Td>
-                  <IconButton
-                      colorScheme='teal'
-                      aria-label='Search database'
-                      icon={<FaGear />}
-                      onClick={() => onClickGroupButton(group.groupId)}
-                    />
+                    <IconButton colorScheme="teal" aria-label="Search database" icon={<FaGear />} onClick={() => onClickGroupButton(group.groupId)} />
                   </Td>
                 </Tr>
               )
