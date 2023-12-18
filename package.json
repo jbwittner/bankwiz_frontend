@@ -13,11 +13,11 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^2.2.4",
+    "@chakra-ui/react": "^2.8.2",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@jbwittner/bankwiz_openapi-client-fetch": "^0.12.0",
-    "@mui/icons-material": "^5.15.0",
-    "@mui/material": "^5.15.0",
+    "framer-motion": "^10.16.16",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.49.2",

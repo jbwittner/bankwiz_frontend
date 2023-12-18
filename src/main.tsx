@@ -1,12 +1,11 @@
 import ReactDOM from 'react-dom/client'
 import { Auth0Provider } from '@auth0/auth0-react'
-import { CssBaseline, ThemeProvider } from '@mui/material'
-import theme from './theme/index.ts'
 import { RouterProvider } from 'react-router-dom'
 import { router } from './tools/router/router.tsx'
 import { ToastContainer } from 'react-toastify'
 
 import 'react-toastify/dist/ReactToastify.css'
+import { ChakraProvider } from '@chakra-ui/react'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <Auth0Provider
@@ -17,8 +16,7 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       redirect_uri: window.location.origin
     }}
   >
-    <ThemeProvider theme={theme()}>
-      <CssBaseline />
+    <ChakraProvider>
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -33,6 +31,6 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
         limit={3}
       />
       <RouterProvider router={router} />
-    </ThemeProvider>
+    </ChakraProvider>
   </Auth0Provider>
 )

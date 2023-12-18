@@ -1,8 +1,3 @@
-import { BankAccountsPage } from '@/pages/bankaccounts/BankAccountsPage'
-import { GroupPage } from '@/pages/group/GroupPage'
-import { GroupsPage } from '@/pages/groups/GroupsPage'
-import { HomePage } from '@/pages/home/HomePage'
-import LoginPage from '@/pages/login/LoginPage'
 import { RootPage } from '@/pages/root/RootPage'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
@@ -47,7 +42,7 @@ function loading() {
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <LoginPage />
+    element: <div>LoginPage</div>
   },
   {
     path: '/app',
@@ -55,19 +50,19 @@ const router = createBrowserRouter([
     children: [
       {
         path: 'home',
-        element: <HomePage />
+        element: <div>home</div>
       },
       {
         path: 'groups',
-        element: <GroupsPage />
+        element: <div>groups</div>
       },
       {
         path: 'group/:groupId',
-        element: <GroupPage />
+        element: <div>group/:groupId</div>
       },
       {
         path: 'bankaccounts',
-        element: <BankAccountsPage />
+        element: <div>bankaccounts</div>
       }
     ]
   }
