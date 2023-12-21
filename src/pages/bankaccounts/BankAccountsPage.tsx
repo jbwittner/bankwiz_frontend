@@ -4,15 +4,21 @@ import { useEffect, useState } from 'react'
 import AddIcon from '@mui/icons-material/Add'
 import { CreationBankAccountDialog } from './components/CreationBankAccountDialog'
 import { useBankAccountServiceApi } from '@/tools/api/server/hook/bankaccountapihooks'
-import { GroupBankAccountIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { BankAccountIndexDTO, GroupBankAccountIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { Theme } from '@emotion/react'
-import { red } from '@mui/material/colors'
+import { grey, red } from '@mui/material/colors'
 import { DeleteBankAccountDialog } from './components/DeleteBankAccountDialog'
+import { UpdateBankAccountDialog } from './components/UpdateBankAccountDialog'
+import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications'
 
 const deleteIconSx: SxProps<Theme> = {
   color: red[700],
   ':disabled': { color: red[200] }
+}
+
+const updateIconSx: SxProps<Theme> = {
+  color: grey[700]
 }
 
 interface IBankAccountsBasePageProps {
@@ -22,22 +28,28 @@ interface IBankAccountsBasePageProps {
 const BankAccountsBasePage = (props: IBankAccountsBasePageProps) => {
   const { getAllBankAccounts } = useBankAccountServiceApi()
   const [groupBankAccountIndexDTOs, setGroupBankAccountIndexDTOs] = useState(props.groupBankAccountIndexDTOs)
-  const [bankAccountIdToDelete, setBankAccountIdToDelete] = useState('')
+  const [bankAccountIdState, setBankAccountIdState] = useState('')
+  const [bankAccount, setBankAccount] = useState<BankAccountIndexDTO>()
   const [isOpenDeleteBankAccountModal, setIsOpenDeleteBankAccountModal] = useState(false)
-  const [open, setOpen] = useState(false)
+  const [openCreationDialog, setOpenCreationDialog] = useState(false)
+  const [openUpdateDialog, setOpenUpdateDialog] = useState(false)
+  const [groupOfAccount, setGroupOfAccount] = useState('')
 
-  const onCreate = async () => {
+  const onCreateOrUpdate = async () => {
     const data = await getAllBankAccounts()
     setGroupBankAccountIndexDTOs(data)
-    setOpen(false)
+    setOpenCreationDialog(false)
+    setOpenUpdateDialog(false)
   }
 
-  const close = () => {
-    setOpen(false)
+  const onClickUpdateBankAccount = (groupId: string, bankAccountindexDTO: BankAccountIndexDTO) => {
+    setBankAccount(bankAccountindexDTO)
+    setGroupOfAccount(groupId)
+    setOpenUpdateDialog(true)
   }
 
   const onClickDeleteBankAccount = (id: string) => {
-    setBankAccountIdToDelete(id)
+    setBankAccountIdState(id)
     setIsOpenDeleteBankAccountModal(true)
   }
 
@@ -49,9 +61,18 @@ const BankAccountsBasePage = (props: IBankAccountsBasePageProps) => {
 
   return (
     <div>
-      <CreationBankAccountDialog open={open} handleCancel={close} handleCreate={onCreate} />
+      <CreationBankAccountDialog open={openCreationDialog} handleCancel={() => setOpenCreationDialog(false)} handleCreate={onCreateOrUpdate} />
+      {openUpdateDialog && (
+        <UpdateBankAccountDialog
+          groupId={groupOfAccount}
+          bankAccount={bankAccount!}
+          open={true}
+          handleCancel={() => setOpenUpdateDialog(false)}
+          handleUpdate={onCreateOrUpdate}
+        />
+      )}
       <DeleteBankAccountDialog
-        bankAccountId={bankAccountIdToDelete}
+        bankAccountId={bankAccountIdState}
         handleCancel={() => setIsOpenDeleteBankAccountModal(false)}
         handleDelete={handleDelete}
         open={isOpenDeleteBankAccountModal}
@@ -80,6 +101,13 @@ const BankAccountsBasePage = (props: IBankAccountsBasePageProps) => {
                       <IconButton size="small" sx={deleteIconSx} onClick={() => onClickDeleteBankAccount(bankAccountIndex.bankAccountId)}>
                         <DeleteIcon fontSize="inherit" />
                       </IconButton>
+                      <IconButton
+                        size="small"
+                        sx={updateIconSx}
+                        onClick={() => onClickUpdateBankAccount(groupBankAccountIndexDTO.groupeIndex.groupId, bankAccountIndex)}
+                      >
+                        <SettingsApplicationsIcon fontSize="inherit" />
+                      </IconButton>
                     </TableCell>
                   </TableRow>
                 )
@@ -89,7 +117,7 @@ const BankAccountsBasePage = (props: IBankAccountsBasePageProps) => {
         </Table>
       </TableContainer>
 
-      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 16, right: 16 }} onClick={() => setOpen(true)}>
+      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 16, right: 16 }} onClick={() => setOpenCreationDialog(true)}>
         <AddIcon />
       </Fab>
     </div>
