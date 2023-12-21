@@ -21,12 +21,12 @@ const useApiConfiguration = () => {
   const groupServiceApi: GroupServiceApi = new GroupServiceApi(configuration)
   const userServiceApi: UserServiceApi = new UserServiceApi(configuration)
 
-  const getAuthorizationHeader = async (): Promise<HeadersInit> => {
+  const getAuthorizationJsonHeader = async (): Promise<HeadersInit> => {
     const token = await getAccessTokenSilently()
-    return { Authorization: 'Bearer ' + token }
+    return { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }
   }
 
-  return { bankAccountServiceApi, groupServiceApi, userServiceApi, getAuthorizationHeader }
+  return { bankAccountServiceApi, groupServiceApi, userServiceApi, getAuthorizationJsonHeader }
 }
 
 const customMiddleware: Middleware = {

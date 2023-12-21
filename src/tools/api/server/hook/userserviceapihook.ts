@@ -1,15 +1,15 @@
 import { useApiConfiguration } from './configurationapihooks'
 
 const useUserServiceApi = () => {
-  const { userServiceApi, getAuthorizationHeader } = useApiConfiguration()
+  const { userServiceApi, getAuthorizationJsonHeader } = useApiConfiguration()
 
   const checkRegistration = async () => {
-    const headers = await getAuthorizationHeader()
+    const headers = await getAuthorizationJsonHeader()
     return userServiceApi.checkRegistration({ headers })
   }
 
   const getCurrentUserInfo = async () => {
-    const headers = await getAuthorizationHeader()
+    const headers = await getAuthorizationJsonHeader()
     return userServiceApi.getCurrentUserInfo({ headers })
   }
 
