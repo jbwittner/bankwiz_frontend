@@ -53,6 +53,7 @@ interface ISelectFieldFormProps<T extends FieldValues = FieldValues> {
   fullWidth?: boolean
   sx?: SxProps<Theme>
   variant?: TextFieldVariants
+  defaultValue?: unknown
 }
 
 const SelectFieldForm = <T extends FieldValues>({ children, ...props }: PropsWithChildren<ISelectFieldFormProps<T>>) => {
@@ -64,7 +65,14 @@ const SelectFieldForm = <T extends FieldValues>({ children, ...props }: PropsWit
         name={props.name}
         rules={{ required: props.required }}
         render={({ field }) => (
-          <Select {...field} type={props.type} error={props.error} variant={props.variant} label={`${props.label}${props.required === true ? '\u00A0*' : ''}`}>
+          <Select
+            {...field}
+            type={props.type}
+            error={props.error}
+            variant={props.variant}
+            defaultValue={props.defaultValue}
+            label={`${props.label}${props.required === true ? '\u00A0*' : ''}`}
+          >
             {children}
           </Select>
         )}

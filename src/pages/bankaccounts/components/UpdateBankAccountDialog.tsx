@@ -1,26 +1,28 @@
 import { SelectFieldForm, TextFieldForm } from '@/components/FormFields'
 import { useBankAccountServiceApi } from '@/tools/api/server/hook/bankaccountapihooks'
 import { useGroupServiceApi } from '@/tools/api/server/hook/groupserviceapihook'
-import { GroupIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { BankAccountIndexDTO, GroupIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, MenuItem } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-interface ICreationBankAccountDialogProps {
+interface IUpdateBankAccountDialogProps {
+  bankAccount: BankAccountIndexDTO
+  groupId: string
   open: boolean
   handleCancel: () => void
-  handleCreate: () => void
+  handleUpdate: () => void
 }
 
-interface IFormGroupCreation {
+interface IFormGroupUpdate {
   bankAccountName: string
   groupId: string
   baseAmount: number
 }
 
-export const CreationBankAccountDialog = (props: ICreationBankAccountDialogProps) => {
+export const UpdateBankAccountDialog = (props: IUpdateBankAccountDialogProps) => {
   const { getUserGroups } = useGroupServiceApi()
-  const { createBankAccount } = useBankAccountServiceApi()
+  const { updateBankAccount } = useBankAccountServiceApi()
   const [groups, setGroups] = useState<GroupIndexDTO[]>([])
 
   useEffect(() => {
@@ -36,22 +38,22 @@ export const CreationBankAccountDialog = (props: ICreationBankAccountDialogProps
     formState: { errors }
   } = useForm({
     defaultValues: {
-      bankAccountName: '',
-      groupId: '',
-      baseAmount: 0
+      bankAccountName: props.bankAccount.bankAccountName,
+      groupId: props.groupId,
+      baseAmount: props.bankAccount.decimalBaseAmount / 100
     }
   })
 
-  const onSubmit: SubmitHandler<IFormGroupCreation> = async data => {
+  const onSubmit: SubmitHandler<IFormGroupUpdate> = async data => {
     const decimalBaseAmount = data.baseAmount * 100
-    await createBankAccount({ bankAccountName: data.bankAccountName, groupId: data.groupId, decimalBaseAmount })
-    props.handleCreate()
+    await updateBankAccount(props.bankAccount.bankAccountId, { bankAccountName: data.bankAccountName, groupId: data.groupId, decimalBaseAmount })
+    props.handleUpdate()
     reset()
   }
 
   return (
     <Dialog open={props.open} onClose={props.handleCancel}>
-      <DialogTitle>Create bank account</DialogTitle>
+      <DialogTitle>Update bank account</DialogTitle>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogContent>
           <DialogContentText>Enter a bank account name</DialogContentText>
@@ -62,18 +64,15 @@ export const CreationBankAccountDialog = (props: ICreationBankAccountDialogProps
             variant="outlined"
             fullWidth
             margin="dense"
-            required
             error={errors.bankAccountName?.type === 'required'}
           />
           <TextFieldForm
-            type="number"
             name="baseAmount"
             control={control}
             label="Base amount"
             variant="outlined"
             fullWidth
             margin="dense"
-            required
             helperText="Maximum two decimal places."
             pattern={/^\d+(\.\d{1,2})?$/}
             error={errors.baseAmount?.type === 'required' || errors.baseAmount?.type === 'pattern'}
@@ -83,7 +82,6 @@ export const CreationBankAccountDialog = (props: ICreationBankAccountDialogProps
             name="groupId"
             label="Group"
             variant="outlined"
-            required
             error={errors.groupId?.type === 'required'}
             fullWidth
             sx={{ margin: '10px 0 0 0' }}
@@ -99,7 +97,7 @@ export const CreationBankAccountDialog = (props: ICreationBankAccountDialogProps
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleCancel}>Cancel</Button>
-          <Button type="submit">Create</Button>
+          <Button type="submit">Update</Button>
         </DialogActions>
       </form>
     </Dialog>
