@@ -49,7 +49,7 @@ const HomePage = () => {
   }, [])
 
   return (
-    <PageWrapper loading={loading} xs={10}>
+    <PageWrapper loading={loading} maxW={'1000px'}>
       <HomeBasePage currentUser={userDTO!} />
     </PageWrapper>
   )

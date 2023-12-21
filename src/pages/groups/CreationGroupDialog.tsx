@@ -59,6 +59,9 @@ export const CreationGroupDialog = (props: ICreationGroupDialogProps) => {
                 required: 'This is required',
                 minLength: { value: 4, message: 'Minimum length should be 4' }
               })}
+              pl={"16px"}
+              ml={"24px"}
+              width={"100%"}
             />
           </FormControl>
 
