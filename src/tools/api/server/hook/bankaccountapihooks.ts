@@ -1,4 +1,4 @@
-import { BankAccountCreationRequest, BankAccountUpdateRequest } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { BankAccountUpdateRequest, BankAccountCreationRequest } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useApiConfiguration } from './configurationapihooks'
 
 const useBankAccountServiceApi = () => {
