@@ -21,7 +21,8 @@
     "noFallthroughCasesInSwitch": true,
 
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@jbwittner/bankwiz_openapi-client-fetch": ["./node_modules/@jbwittner/bankwiz_openapi-client-fetch"]
     }
   },
   "include": ["src"],
