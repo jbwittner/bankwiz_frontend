@@ -4,6 +4,8 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "testing": "docker run --rm -v $$PWD:/local --user $$(id -u):$$(id -g) openapitools/openapi-generator-cli:v7.0.1 generate -i http://localhost:8080/v3/api-docs -g typescript-fetch -o /openapi --additional-properties=npmName=@jbwittner/bankwiz_openapi-client-fetch --additional-properties=npmRepository=https://github.com/jbwittner/bankwiz_openapi --additional-properties=withSeparateModelsAndApi=true --additional-properties=apiPackage=api --additional-properties=modelPackage=model --additional-properties=supportsES6=true --additional-properties=withInterfaces=true",
+    "generate:fetch-client": "openapi-generator-cli generate -i openapi.yaml -g typescript-fetch -o ./generation/fetch_client --additional-properties=npmName=@jbwittner/bankwiz_openapi-client-fetch --additional-properties=npmRepository=https://github.com/jbwittner/bankwiz_openapi --additional-properties=withSeparateModelsAndApi=true --additional-properties=apiPackage=api --additional-properties=modelPackage=model --additional-properties=supportsES6=true --additional-properties=withInterfaces=true",
     "dev": "vite --mode dev",
     "build": "tsc && vite build",
     "lint": "eslint . --ext js,ts,tsx --report-unused-disable-directives --max-warnings 0",
