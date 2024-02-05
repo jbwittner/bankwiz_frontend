@@ -28,9 +28,5 @@ generate-openapi:
 build-openapi:
 	npm install --prefix $(GENERATED_DIR_FETCH) && npm run build --prefix $(GENERATED_DIR_FETCH)
 
-.PHONY: install-openapi
-install-java:
-	mvn clean install -f $(GENERATED_DIR_JAVA)/pom.xml
-
 .PHONY: all
 all: clean-openapi generate-openapi build-openapi

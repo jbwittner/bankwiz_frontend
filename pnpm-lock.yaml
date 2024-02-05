@@ -23,9 +23,6 @@ dependencies:
   '@mui/material':
     specifier: ^5.15.0
     version: 5.15.7(@emotion/react@11.11.3)(@emotion/styled@11.11.0)(@types/react@18.2.53)(react-dom@18.2.0)(react@18.2.0)
-  dist:
-    specifier: link:openapi/dist
-    version: link:openapi/dist
   react:
     specifier: ^18.2.0
     version: 18.2.0
