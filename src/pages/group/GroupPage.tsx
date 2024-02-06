@@ -32,7 +32,7 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
   const { getGroupDetails, deleteUserFromGroup } = useGroupServiceApi()
 
   const handleAdd = async () => {
-    const details = await getGroupDetails(props.groupDetailsDTO.id)
+    const details = await getGroupDetails(props.groupDetailsDTO.groupId)
     setGroupDetailDTO(details)
     setIsOpenAddUserModal(false)
   }
@@ -43,8 +43,8 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
   }
 
   const onClickDeleteUser = async (userGroupRightDTO: UserGroupRightDTO) => {
-    await deleteUserFromGroup(props.groupDetailsDTO.id, userGroupRightDTO.user.id)
-    const details = await getGroupDetails(props.groupDetailsDTO.id)
+    await deleteUserFromGroup(props.groupDetailsDTO.groupId, userGroupRightDTO.user.id)
+    const details = await getGroupDetails(props.groupDetailsDTO.groupId)
     setGroupDetailDTO(details)
   }
 
@@ -55,7 +55,7 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
   return (
     <div>
       <h1>{groupDetailDTO.groupName}</h1>
-      <h3>Groupd Id : {groupDetailDTO.id}</h3>
+      <h3>Groupd Id : {groupDetailDTO.groupId}</h3>
       <Grid container direction={'row'} justifyContent={'space-between'}>
         <Grid item>
           <Button onClick={() => setIsOpenAddUserModal(true)}>Add user</Button>
@@ -67,9 +67,9 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
         </Grid>
       </Grid>
 
-      <AddUserGroupDialog groupId={groupDetailDTO.id} handleCancel={() => setIsOpenAddUserModal(false)} handleAdd={handleAdd} open={isOpenAddUserModal} />
+      <AddUserGroupDialog groupId={groupDetailDTO.groupId} handleCancel={() => setIsOpenAddUserModal(false)} handleAdd={handleAdd} open={isOpenAddUserModal} />
       <DeleteGroupDialog
-        groupId={groupDetailDTO.id}
+        groupId={groupDetailDTO.groupId}
         handleCancel={() => setIsOpenDeleteGroupModal(false)}
         handleDelete={handleDelete}
         open={isOpenDeleteGroupModal}
@@ -87,9 +87,9 @@ const GroupBasePage = (props: IGroupBasePageProps) => {
           <TableBody>
             {groupDetailDTO.usersRights.map(userRight => {
               return (
-                <TableRow key={userRight.id} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableRow key={userRight.groupRightId} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
                   <TableCell component="th" scope="row">
-                    {userRight.id}
+                    {userRight.groupRightId}
                   </TableCell>
                   <TableCell align="center">{userRight.user.email}</TableCell>
                   <TableCell align="center">{userRight.right}</TableCell>
