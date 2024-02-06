@@ -67,8 +67,8 @@ export function BankAccountTransactionsDTOFromJSONTyped(json: any, ignoreDiscrim
     }
     return {
         
-        'bankAccountIndex': BankAccountIndexDTOFromJSON(json['BankAccountIndex']),
-        'transactions': ((json['Transactions'] as Array<any>).map(TransactionIndexDTOFromJSON)),
+        'bankAccountIndex': BankAccountIndexDTOFromJSON(json['bankAccountIndex']),
+        'transactions': ((json['transactions'] as Array<any>).map(TransactionIndexDTOFromJSON)),
     };
 }
 
@@ -81,8 +81,8 @@ export function BankAccountTransactionsDTOToJSON(value?: BankAccountTransactions
     }
     return {
         
-        'BankAccountIndex': BankAccountIndexDTOToJSON(value.bankAccountIndex),
-        'Transactions': ((value.transactions as Array<any>).map(TransactionIndexDTOToJSON)),
+        'bankAccountIndex': BankAccountIndexDTOToJSON(value.bankAccountIndex),
+        'transactions': ((value.transactions as Array<any>).map(TransactionIndexDTOToJSON)),
     };
 }
 

@@ -100,7 +100,7 @@ export class TransactionServiceApi extends runtime.BaseAPI implements Transactio
         }
 
         const response = await this.request({
-            path: `/transactions`,
+            path: `/transaction`,
             method: 'PUT',
             headers: headerParameters,
             query: queryParameters,
@@ -136,7 +136,7 @@ export class TransactionServiceApi extends runtime.BaseAPI implements Transactio
         }
 
         const response = await this.request({
-            path: `/transactions/bankaccount/{bankaccountId}`.replace(`{${"bankaccountId"}}`, encodeURIComponent(String(requestParameters.bankaccountId))),
+            path: `/transaction/bankaccount/{bankaccountId}`.replace(`{${"bankaccountId"}}`, encodeURIComponent(String(requestParameters.bankaccountId))),
             method: 'GET',
             headers: headerParameters,
             query: queryParameters,
