@@ -37,7 +37,7 @@ export interface UserGroupRightDTO {
      * @type {string}
      * @memberof UserGroupRightDTO
      */
-    id: string;
+    groupRightId: string;
     /**
      * 
      * @type {UserDTO}
@@ -57,7 +57,7 @@ export interface UserGroupRightDTO {
  */
 export function instanceOfUserGroupRightDTO(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "groupRightId" in value;
     isInstance = isInstance && "user" in value;
     isInstance = isInstance && "right" in value;
 
@@ -74,7 +74,7 @@ export function UserGroupRightDTOFromJSONTyped(json: any, ignoreDiscriminator: b
     }
     return {
         
-        'id': json['id'],
+        'groupRightId': json['groupRightId'],
         'user': UserDTOFromJSON(json['user']),
         'right': UserGroupRightEnumFromJSON(json['right']),
     };
@@ -89,7 +89,7 @@ export function UserGroupRightDTOToJSON(value?: UserGroupRightDTO | null): any {
     }
     return {
         
-        'id': value.id,
+        'groupRightId': value.groupRightId,
         'user': UserDTOToJSON(value.user),
         'right': UserGroupRightEnumToJSON(value.right),
     };

@@ -67,10 +67,10 @@ export function TransactionDTOFromJSONTyped(json: any, ignoreDiscriminator: bool
     }
     return {
         
-        'transactionId': json['TransactionId'],
-        'bankAccountId': json['BankAccountId'],
-        'decimalAmount': json['DecimalAmount'],
-        'comment': !exists(json, 'Comment') ? undefined : json['Comment'],
+        'transactionId': json['transactionId'],
+        'bankAccountId': json['bankAccountId'],
+        'decimalAmount': json['decimalAmount'],
+        'comment': !exists(json, 'comment') ? undefined : json['comment'],
     };
 }
 
@@ -83,10 +83,10 @@ export function TransactionDTOToJSON(value?: TransactionDTO | null): any {
     }
     return {
         
-        'TransactionId': value.transactionId,
-        'BankAccountId': value.bankAccountId,
-        'DecimalAmount': value.decimalAmount,
-        'Comment': value.comment,
+        'transactionId': value.transactionId,
+        'bankAccountId': value.bankAccountId,
+        'decimalAmount': value.decimalAmount,
+        'comment': value.comment,
     };
 }
 

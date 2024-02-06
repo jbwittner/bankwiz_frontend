@@ -31,7 +31,7 @@ export interface GroupDetailsDTO {
      * @type {string}
      * @memberof GroupDetailsDTO
      */
-    id: string;
+    groupId: string;
     /**
      * 
      * @type {string}
@@ -51,7 +51,7 @@ export interface GroupDetailsDTO {
  */
 export function instanceOfGroupDetailsDTO(value: object): boolean {
     let isInstance = true;
-    isInstance = isInstance && "id" in value;
+    isInstance = isInstance && "groupId" in value;
     isInstance = isInstance && "groupName" in value;
     isInstance = isInstance && "usersRights" in value;
 
@@ -68,7 +68,7 @@ export function GroupDetailsDTOFromJSONTyped(json: any, ignoreDiscriminator: boo
     }
     return {
         
-        'id': json['id'],
+        'groupId': json['groupId'],
         'groupName': json['groupName'],
         'usersRights': ((json['usersRights'] as Array<any>).map(UserGroupRightDTOFromJSON)),
     };
@@ -83,7 +83,7 @@ export function GroupDetailsDTOToJSON(value?: GroupDetailsDTO | null): any {
     }
     return {
         
-        'id': value.id,
+        'groupId': value.groupId,
         'groupName': value.groupName,
         'usersRights': ((value.usersRights as Array<any>).map(UserGroupRightDTOToJSON)),
     };

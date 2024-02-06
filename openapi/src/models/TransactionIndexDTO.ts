@@ -60,9 +60,9 @@ export function TransactionIndexDTOFromJSONTyped(json: any, ignoreDiscriminator:
     }
     return {
         
-        'transactionId': json['TransactionId'],
-        'decimalAmount': json['DecimalAmount'],
-        'comment': !exists(json, 'Comment') ? undefined : json['Comment'],
+        'transactionId': json['transactionId'],
+        'decimalAmount': json['decimalAmount'],
+        'comment': !exists(json, 'comment') ? undefined : json['comment'],
     };
 }
 
@@ -75,9 +75,9 @@ export function TransactionIndexDTOToJSON(value?: TransactionIndexDTO | null): a
     }
     return {
         
-        'TransactionId': value.transactionId,
-        'DecimalAmount': value.decimalAmount,
-        'Comment': value.comment,
+        'transactionId': value.transactionId,
+        'decimalAmount': value.decimalAmount,
+        'comment': value.comment,
     };
 }
 
