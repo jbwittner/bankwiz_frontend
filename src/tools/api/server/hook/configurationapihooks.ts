@@ -6,6 +6,7 @@ import {
   GroupServiceApi,
   Middleware,
   ResponseContext,
+  TransactionServiceApi,
   UserServiceApi
 } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { toast } from 'react-toastify'
@@ -20,13 +21,14 @@ const useApiConfiguration = () => {
   const bankAccountServiceApi: BankAccountServiceApi = new BankAccountServiceApi(configuration)
   const groupServiceApi: GroupServiceApi = new GroupServiceApi(configuration)
   const userServiceApi: UserServiceApi = new UserServiceApi(configuration)
+  const transactionServiceApi: TransactionServiceApi = new TransactionServiceApi(configuration)
 
   const getAuthorizationJsonHeader = async (): Promise<HeadersInit> => {
     const token = await getAccessTokenSilently()
     return { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }
   }
 
-  return { bankAccountServiceApi, groupServiceApi, userServiceApi, getAuthorizationJsonHeader }
+  return { bankAccountServiceApi, groupServiceApi, userServiceApi,transactionServiceApi, getAuthorizationJsonHeader }
 }
 
 const customMiddleware: Middleware = {
