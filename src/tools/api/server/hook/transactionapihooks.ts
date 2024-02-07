@@ -6,12 +6,12 @@ const useTransactionServiceApi = () => {
 
   const getAllTransactionOfBankAccount = async (bankaccountId: string) => {
     const headers = await getAuthorizationJsonHeader()
-    return transactionServiceApi.getAllTransactionOfBankAccount({bankaccountId},{ headers })
+    return transactionServiceApi.getAllTransactionOfBankAccount({ bankaccountId }, { headers })
   }
 
   const createTransaction = async (createTransactionRequest: CreateTransactionRequest) => {
     const headers = await getAuthorizationJsonHeader()
-    return transactionServiceApi.createTransaction({createTransactionRequest}, { headers })
+    return transactionServiceApi.createTransaction({ createTransactionRequest }, { headers })
   }
 
   return {

@@ -28,7 +28,7 @@ const useApiConfiguration = () => {
     return { Authorization: 'Bearer ' + token, 'Content-Type': 'application/json' }
   }
 
-  return { bankAccountServiceApi, groupServiceApi, userServiceApi,transactionServiceApi, getAuthorizationJsonHeader }
+  return { bankAccountServiceApi, groupServiceApi, userServiceApi, transactionServiceApi, getAuthorizationJsonHeader }
 }
 
 const customMiddleware: Middleware = {

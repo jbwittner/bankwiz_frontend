@@ -11,14 +11,13 @@ interface ITransactionsBasePageProps {
 }
 
 const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
-
-  const {getAllTransactionOfBankAccount} = useTransactionServiceApi()
+  const { getAllTransactionOfBankAccount } = useTransactionServiceApi()
 
   const [age, setAge] = useState('')
   const [bankAccountTransactions, setBankAccountTransactions] = useState<TransactionIndexDTO[]>([])
 
   const transactionElements = bankAccountTransactions.map(transaction => {
-    return(
+    return (
       <div key={transaction.transactionId}>
         {transaction.transactionId} - {transaction.decimalAmount} - {transaction.comment}
       </div>
@@ -50,9 +49,7 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
           {items}
         </Select>
       </FormControl>
-      <div>
-          {transactionElements}
-      </div>
+      <div>{transactionElements}</div>
       <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 16, right: 16 }} onClick={() => console.log(true)}>
         <AddIcon />
       </Fab>
