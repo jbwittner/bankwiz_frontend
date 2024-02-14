@@ -1,35 +1,72 @@
 import PageWrapper from '@/tools/router/pagewrapper'
-import { Fab, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
+import { Button, Fab, FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material'
 import { useEffect, useState } from 'react'
 import { useBankAccountServiceApi } from '@/tools/api/server/hook/bankaccountapihooks'
 import { GroupBankAccountIndexDTO, TransactionIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useTransactionServiceApi } from '@/tools/api/server/hook/transactionapihooks'
 import AddIcon from '@mui/icons-material/Add'
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid'
+import { DeleteTransactionDialog } from './components/DeleteTransactionDialog'
+import { set } from 'react-hook-form'
+import { AddTransansactionDialog } from './components/AddTransansactionDialog'
 
 interface ITransactionsBasePageProps {
   groupBankAccountIndexDTOs: GroupBankAccountIndexDTO[]
 }
 
-const columns: GridColDef[] = [
-  { field: 'id', headerName: 'ID', width: 300 },
-  {
-    field: 'amount',
-    headerName: 'Amount',
-    width: 100
-  },
-  {
-    field: 'comment',
-    headerName: 'Comment',
-    width: 300
-  }
-]
-
 const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
   const { getAllTransactionOfBankAccount } = useTransactionServiceApi()
+  const [isOpenDeleteTransactionModal, setIsOpenDeleteTransactionModal] = useState(false)
+  const [isOpenCreateTransactionModal, setIsOpenCreateTransactionModal] = useState(false)
+  const [transactionIdToManage, setTransactionIdToManage] = useState('')
+  const [currentBankAccountId, setCurrentBankAccountId] = useState('')
 
   const [age, setAge] = useState('')
   const [bankAccountTransactions, setBankAccountTransactions] = useState<TransactionIndexDTO[]>([])
+
+  const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID', width: 300 },
+    {
+      field: 'amount',
+      headerName: 'Amount',
+      width: 100
+    },
+    {
+      field: 'comment',
+      headerName: 'Comment',
+      width: 300
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      width: 300,
+      renderCell: cellValues => {
+        return (
+          <>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => {
+                console.log(cellValues)
+              }}
+            >
+              Update
+            </Button>
+            <Button
+              variant="contained"
+              color="error"
+              onClick={() => {
+                setTransactionIdToManage(cellValues.row.id)
+                setIsOpenDeleteTransactionModal(true)
+              }}
+            >
+              Delete
+            </Button>
+          </>
+        )
+      }
+    }
+  ]
 
   const rows = bankAccountTransactions.map(transaction => {
     return {
@@ -49,15 +86,36 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
     })
   })
 
+  const addDeleteUpdateTransactionSucessfully = () => {
+    getAllTransactionOfBankAccount(currentBankAccountId).then(values => {
+      setIsOpenCreateTransactionModal(false)
+      setIsOpenDeleteTransactionModal(false)
+      setBankAccountTransactions(values.transactions)
+    })
+  }
+
   const handleChange = (event: SelectChangeEvent) => {
     setAge(event.target.value)
     getAllTransactionOfBankAccount(event.target.value).then(values => {
+      setCurrentBankAccountId(values.bankAccountIndex.bankAccountId)
       setBankAccountTransactions(values.transactions)
     })
   }
 
   return (
     <div>
+      <DeleteTransactionDialog
+        transactionId={transactionIdToManage}
+        handleCancel={() => setIsOpenDeleteTransactionModal(false)}
+        handleDelete={addDeleteUpdateTransactionSucessfully}
+        open={isOpenDeleteTransactionModal}
+      />
+      <AddTransansactionDialog
+        bankAccountId={currentBankAccountId}
+        open={isOpenCreateTransactionModal}
+        handleCancel={() => setIsOpenCreateTransactionModal(false)}
+        handleAdd={addDeleteUpdateTransactionSucessfully}
+      />
       <FormControl fullWidth sx={{ marginTop: '10px', marginBottom: '10px' }}>
         <InputLabel id="demo-simple-select-label">Bank account</InputLabel>
         <Select labelId="demo-simple-select-label" id="demo-simple-select" value={age} label="Bank account" onChange={handleChange}>
@@ -88,7 +146,7 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
         checkboxSelection
         disableRowSelectionOnClick
       />
-      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 16, right: 16 }} onClick={() => console.log(true)}>
+      <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 16, right: 16 }} onClick={() => setIsOpenCreateTransactionModal(true)}>
         <AddIcon />
       </Fab>
     </div>
