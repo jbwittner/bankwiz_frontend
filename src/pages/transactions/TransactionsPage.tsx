@@ -7,8 +7,8 @@ import { useTransactionServiceApi } from '@/tools/api/server/hook/transactionapi
 import AddIcon from '@mui/icons-material/Add'
 import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid'
 import { DeleteTransactionDialog } from './components/DeleteTransactionDialog'
-import { set } from 'react-hook-form'
 import { AddTransansactionDialog } from './components/AddTransansactionDialog'
+import { UpdateTransansactionDialog } from './components/UpdateTransansactionDialog'
 
 interface ITransactionsBasePageProps {
   groupBankAccountIndexDTOs: GroupBankAccountIndexDTO[]
@@ -18,7 +18,8 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
   const { getAllTransactionOfBankAccount } = useTransactionServiceApi()
   const [isOpenDeleteTransactionModal, setIsOpenDeleteTransactionModal] = useState(false)
   const [isOpenCreateTransactionModal, setIsOpenCreateTransactionModal] = useState(false)
-  const [transactionIdToManage, setTransactionIdToManage] = useState('')
+  const [isOpenUpdateTransactionModal, setIsOpenUpdateTransactionModal] = useState(false)
+  const [transactionToManage, setTransactionToManage] = useState<TransactionIndexDTO>({ transactionId: '', decimalAmount: 0 })
   const [currentBankAccountId, setCurrentBankAccountId] = useState('')
 
   const [age, setAge] = useState('')
@@ -47,7 +48,11 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
               variant="contained"
               color="primary"
               onClick={() => {
-                console.log(cellValues)
+                const result = bankAccountTransactions.find(transaction => transaction.transactionId === cellValues.row.id)
+                if (result) {
+                  setTransactionToManage(result)
+                  setIsOpenUpdateTransactionModal(true)
+                }
               }}
             >
               Update
@@ -56,8 +61,11 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
               variant="contained"
               color="error"
               onClick={() => {
-                setTransactionIdToManage(cellValues.row.id)
-                setIsOpenDeleteTransactionModal(true)
+                const result = bankAccountTransactions.find(transaction => transaction.transactionId === cellValues.row.id)
+                if (result) {
+                  setTransactionToManage(result)
+                  setIsOpenDeleteTransactionModal(true)
+                }
               }}
             >
               Delete
@@ -90,6 +98,7 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
     getAllTransactionOfBankAccount(currentBankAccountId).then(values => {
       setIsOpenCreateTransactionModal(false)
       setIsOpenDeleteTransactionModal(false)
+      setIsOpenUpdateTransactionModal(false)
       setBankAccountTransactions(values.transactions)
     })
   }
@@ -105,7 +114,7 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
   return (
     <div>
       <DeleteTransactionDialog
-        transactionId={transactionIdToManage}
+        transactionId={transactionToManage.transactionId}
         handleCancel={() => setIsOpenDeleteTransactionModal(false)}
         handleDelete={addDeleteUpdateTransactionSucessfully}
         open={isOpenDeleteTransactionModal}
@@ -115,6 +124,12 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
         open={isOpenCreateTransactionModal}
         handleCancel={() => setIsOpenCreateTransactionModal(false)}
         handleAdd={addDeleteUpdateTransactionSucessfully}
+      />
+      <UpdateTransansactionDialog
+        transaction={transactionToManage}
+        open={isOpenUpdateTransactionModal}
+        handleCancel={() => setIsOpenUpdateTransactionModal(false)}
+        handleUpdate={addDeleteUpdateTransactionSucessfully}
       />
       <FormControl fullWidth sx={{ marginTop: '10px', marginBottom: '10px' }}>
         <InputLabel id="demo-simple-select-label">Bank account</InputLabel>
@@ -132,7 +147,7 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
         initialState={{
           columns: {
             columnVisibilityModel: {
-              id: false
+              transactionId: false
             }
           },
           pagination: {

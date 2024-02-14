@@ -1,23 +1,24 @@
 import { TextFieldForm } from '@/components/FormFields'
 import { useTransactionServiceApi } from '@/tools/api/server/hook/transactionapihooks'
+import { TransactionDTO, TransactionIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
-interface IAddTransansactionDialogProps {
-  bankAccountId: string
+interface IUpdateTransansactionDialogProps {
+  transaction: TransactionIndexDTO
   open: boolean
   handleCancel: () => void
-  handleAdd: () => void
+  handleUpdate: () => void
 }
 
-interface IFormAddTransaction {
+interface IFormUpdateTransaction {
   amount: number
   comment: string
 }
 
-export const AddTransansactionDialog = (props: IAddTransansactionDialogProps) => {
-  const { createTransaction } = useTransactionServiceApi()
-
+export const UpdateTransansactionDialog = (props: IUpdateTransansactionDialogProps) => {
+  const { updateTransaction } = useTransactionServiceApi()
+  console.log(props)
   const {
     control,
     handleSubmit,
@@ -25,21 +26,21 @@ export const AddTransansactionDialog = (props: IAddTransansactionDialogProps) =>
     formState: { errors }
   } = useForm({
     defaultValues: {
-      amount: 0,
-      comment: ''
+      amount: props.transaction.decimalAmount * 100,
+      comment: props.transaction.comment ?? ''
     }
   })
 
-  const onSubmit: SubmitHandler<IFormAddTransaction> = async data => {
+  const onSubmit: SubmitHandler<IFormUpdateTransaction> = async data => {
     const decimalAmount = data.amount * 100
-    await createTransaction({ bankAccountId: props.bankAccountId, decimalAmount: decimalAmount, comment: data.comment })
-    props.handleAdd()
+    await updateTransaction(props.transaction.transactionId, { decimalAmount: decimalAmount, comment: data.comment })
+    props.handleUpdate()
     reset()
   }
 
   return (
     <Dialog open={props.open} onClose={props.handleCancel}>
-      <DialogTitle>Add transaction to bank account</DialogTitle>
+      <DialogTitle>Update transaction to bank account</DialogTitle>
       <form onSubmit={handleSubmit(onSubmit)}>
         <DialogContent>
           <DialogContentText>Enter a amount and comment</DialogContentText>
@@ -59,7 +60,7 @@ export const AddTransansactionDialog = (props: IAddTransansactionDialogProps) =>
         </DialogContent>
         <DialogActions>
           <Button onClick={props.handleCancel}>Cancel</Button>
-          <Button type="submit">Add transaction</Button>
+          <Button type="submit">Update transaction</Button>
         </DialogActions>
       </form>
     </Dialog>
