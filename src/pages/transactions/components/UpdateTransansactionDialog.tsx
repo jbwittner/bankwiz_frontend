@@ -1,6 +1,6 @@
 import { TextFieldForm } from '@/components/FormFields'
 import { useTransactionServiceApi } from '@/tools/api/server/hook/transactionapihooks'
-import { TransactionDTO, TransactionIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
+import { TransactionIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from '@mui/material'
 import { SubmitHandler, useForm } from 'react-hook-form'
 
