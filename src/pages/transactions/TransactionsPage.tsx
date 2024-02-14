@@ -38,8 +38,8 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
       width: 300
     },
     {
-      field: 'action',
-      headerName: 'Action',
+      field: 'actions',
+      headerName: 'Actions',
       width: 300,
       renderCell: cellValues => {
         return (
