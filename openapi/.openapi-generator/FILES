@@ -23,6 +23,7 @@ src/models/GroupIndexDTO.ts
 src/models/MethodArgumentNotValidExceptionDTO.ts
 src/models/TransactionDTO.ts
 src/models/TransactionIndexDTO.ts
+src/models/UpdateTransactionRequest.ts
 src/models/UserDTO.ts
 src/models/UserGroupRightDTO.ts
 src/models/UserGroupRightEnum.ts

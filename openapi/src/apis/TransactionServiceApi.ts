@@ -18,6 +18,7 @@ import type {
   BankAccountTransactionsDTO,
   CreateTransactionRequest,
   TransactionDTO,
+  UpdateTransactionRequest,
 } from '../models/index';
 import {
     BankAccountTransactionsDTOFromJSON,
@@ -26,14 +27,25 @@ import {
     CreateTransactionRequestToJSON,
     TransactionDTOFromJSON,
     TransactionDTOToJSON,
+    UpdateTransactionRequestFromJSON,
+    UpdateTransactionRequestToJSON,
 } from '../models/index';
 
 export interface CreateTransactionOperationRequest {
     createTransactionRequest: CreateTransactionRequest;
 }
 
+export interface DeleteTransactionRequest {
+    transactionId: string;
+}
+
 export interface GetAllTransactionOfBankAccountRequest {
     bankaccountId: string;
+}
+
+export interface UpdateTransactionOperationRequest {
+    transactionId: string;
+    updateTransactionRequest: UpdateTransactionRequest;
 }
 
 /**
@@ -60,6 +72,21 @@ export interface TransactionServiceApiInterface {
 
     /**
      * 
+     * @summary Delete transaction
+     * @param {string} transactionId Transaction ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionServiceApiInterface
+     */
+    deleteTransactionRaw(requestParameters: DeleteTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>>;
+
+    /**
+     * Delete transaction
+     */
+    deleteTransaction(requestParameters: DeleteTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void>;
+
+    /**
+     * 
      * @summary Get all transaction of bank account
      * @param {string} bankaccountId Bank account ID
      * @param {*} [options] Override http request option.
@@ -72,6 +99,22 @@ export interface TransactionServiceApiInterface {
      * Get all transaction of bank account
      */
     getAllTransactionOfBankAccount(requestParameters: GetAllTransactionOfBankAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BankAccountTransactionsDTO>;
+
+    /**
+     * 
+     * @summary Update transaction
+     * @param {string} transactionId Transaction ID
+     * @param {UpdateTransactionRequest} updateTransactionRequest 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof TransactionServiceApiInterface
+     */
+    updateTransactionRaw(requestParameters: UpdateTransactionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TransactionDTO>>;
+
+    /**
+     * Update transaction
+     */
+    updateTransaction(requestParameters: UpdateTransactionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransactionDTO>;
 
 }
 
@@ -101,7 +144,7 @@ export class TransactionServiceApi extends runtime.BaseAPI implements Transactio
 
         const response = await this.request({
             path: `/transaction`,
-            method: 'PUT',
+            method: 'POST',
             headers: headerParameters,
             query: queryParameters,
             body: CreateTransactionRequestToJSON(requestParameters.createTransactionRequest),
@@ -116,6 +159,40 @@ export class TransactionServiceApi extends runtime.BaseAPI implements Transactio
     async createTransaction(requestParameters: CreateTransactionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransactionDTO> {
         const response = await this.createTransactionRaw(requestParameters, initOverrides);
         return await response.value();
+    }
+
+    /**
+     * Delete transaction
+     */
+    async deleteTransactionRaw(requestParameters: DeleteTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<void>> {
+        if (requestParameters.transactionId === null || requestParameters.transactionId === undefined) {
+            throw new runtime.RequiredError('transactionId','Required parameter requestParameters.transactionId was null or undefined when calling deleteTransaction.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["openid", "profile", "email"]);
+        }
+
+        const response = await this.request({
+            path: `/transaction/{transactionId}`.replace(`{${"transactionId"}}`, encodeURIComponent(String(requestParameters.transactionId))),
+            method: 'DELETE',
+            headers: headerParameters,
+            query: queryParameters,
+        }, initOverrides);
+
+        return new runtime.VoidApiResponse(response);
+    }
+
+    /**
+     * Delete transaction
+     */
+    async deleteTransaction(requestParameters: DeleteTransactionRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<void> {
+        await this.deleteTransactionRaw(requestParameters, initOverrides);
     }
 
     /**
@@ -150,6 +227,48 @@ export class TransactionServiceApi extends runtime.BaseAPI implements Transactio
      */
     async getAllTransactionOfBankAccount(requestParameters: GetAllTransactionOfBankAccountRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<BankAccountTransactionsDTO> {
         const response = await this.getAllTransactionOfBankAccountRaw(requestParameters, initOverrides);
+        return await response.value();
+    }
+
+    /**
+     * Update transaction
+     */
+    async updateTransactionRaw(requestParameters: UpdateTransactionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<TransactionDTO>> {
+        if (requestParameters.transactionId === null || requestParameters.transactionId === undefined) {
+            throw new runtime.RequiredError('transactionId','Required parameter requestParameters.transactionId was null or undefined when calling updateTransaction.');
+        }
+
+        if (requestParameters.updateTransactionRequest === null || requestParameters.updateTransactionRequest === undefined) {
+            throw new runtime.RequiredError('updateTransactionRequest','Required parameter requestParameters.updateTransactionRequest was null or undefined when calling updateTransaction.');
+        }
+
+        const queryParameters: any = {};
+
+        const headerParameters: runtime.HTTPHeaders = {};
+
+        headerParameters['Content-Type'] = 'application/json';
+
+        if (this.configuration && this.configuration.accessToken) {
+            // oauth required
+            headerParameters["Authorization"] = await this.configuration.accessToken("oauth2", ["openid", "profile", "email"]);
+        }
+
+        const response = await this.request({
+            path: `/transaction/{transactionId}`.replace(`{${"transactionId"}}`, encodeURIComponent(String(requestParameters.transactionId))),
+            method: 'PUT',
+            headers: headerParameters,
+            query: queryParameters,
+            body: UpdateTransactionRequestToJSON(requestParameters.updateTransactionRequest),
+        }, initOverrides);
+
+        return new runtime.JSONApiResponse(response, (jsonValue) => TransactionDTOFromJSON(jsonValue));
+    }
+
+    /**
+     * Update transaction
+     */
+    async updateTransaction(requestParameters: UpdateTransactionOperationRequest, initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<TransactionDTO> {
+        const response = await this.updateTransactionRaw(requestParameters, initOverrides);
         return await response.value();
     }
 

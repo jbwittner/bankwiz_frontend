@@ -5,7 +5,7 @@ import { useBankAccountServiceApi } from '@/tools/api/server/hook/bankaccountapi
 import { GroupBankAccountIndexDTO, TransactionIndexDTO } from '@jbwittner/bankwiz_openapi-client-fetch'
 import { useTransactionServiceApi } from '@/tools/api/server/hook/transactionapihooks'
 import AddIcon from '@mui/icons-material/Add'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
+import { DataGrid, GridColDef, GridToolbar } from '@mui/x-data-grid'
 
 interface ITransactionsBasePageProps {
   groupBankAccountIndexDTOs: GroupBankAccountIndexDTO[]
@@ -58,27 +58,36 @@ const TransactionsBasePage = (props: ITransactionsBasePageProps) => {
 
   return (
     <div>
-      <FormControl fullWidth>
+      <FormControl fullWidth sx={{ marginTop: '10px', marginBottom: '10px' }}>
         <InputLabel id="demo-simple-select-label">Bank account</InputLabel>
         <Select labelId="demo-simple-select-label" id="demo-simple-select" value={age} label="Bank account" onChange={handleChange}>
           {items}
         </Select>
       </FormControl>
       <DataGrid
-        rowHeight={25}
+        sx={{ height: '70vh', width: '100%' }}
         rows={rows}
         columns={columns}
+        slots={{
+          toolbar: GridToolbar
+        }}
         initialState={{
+          columns: {
+            columnVisibilityModel: {
+              id: false
+            }
+          },
           pagination: {
             paginationModel: {
-              pageSize: 5
+              pageSize: 25
             }
           }
         }}
-        pageSizeOptions={[5]}
+        density="compact"
+        pageSizeOptions={[5, 10, 25, 50]}
         checkboxSelection
         disableRowSelectionOnClick
-      />{' '}
+      />
       <Fab color="primary" aria-label="add" sx={{ position: 'fixed', bottom: 16, right: 16 }} onClick={() => console.log(true)}>
         <AddIcon />
       </Fab>
@@ -99,7 +108,7 @@ const TransactionsPage = () => {
   }, [])
 
   return (
-    <PageWrapper loading={loading} xs={8}>
+    <PageWrapper loading={loading} xs={11}>
       <TransactionsBasePage groupBankAccountIndexDTOs={groupBankAccountIndex} />
     </PageWrapper>
   )
