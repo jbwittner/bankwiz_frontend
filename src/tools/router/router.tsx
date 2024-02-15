@@ -4,6 +4,7 @@ import { GroupsPage } from '@/pages/groups/GroupsPage'
 import { HomePage } from '@/pages/home/HomePage'
 import LoginPage from '@/pages/login/LoginPage'
 import { RootPage } from '@/pages/root/RootPage'
+import { TransactionsPage } from '@/pages/transactions/TransactionsPage'
 import { withAuthenticationRequired } from '@auth0/auth0-react'
 import React from 'react'
 import { createBrowserRouter, useLocation } from 'react-router-dom'
@@ -19,6 +20,8 @@ const useAppPath = () => {
       return 'Groups'
     case '/app/bankaccounts':
       return 'Bank accounts'
+    case '/app/transactions':
+      return 'Transactions'
     default:
       if (groupPathRegex.test(location.pathname)) {
         return 'Group'
@@ -68,6 +71,10 @@ const router = createBrowserRouter([
       {
         path: 'bankaccounts',
         element: <BankAccountsPage />
+      },
+      {
+        path: 'transactions',
+        element: <TransactionsPage />
       }
     ]
   }

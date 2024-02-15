@@ -8,6 +8,7 @@ import ListItemText from '@mui/material/ListItemText'
 import HomeIcon from '@mui/icons-material/Home'
 import GroupsIcon from '@mui/icons-material/Groups'
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance'
+import PaidIcon from '@mui/icons-material/Paid'
 import { PropsWithChildren } from 'react'
 import { useNavigate } from 'react-router-dom'
 
@@ -36,6 +37,9 @@ export const ApplicationDrawer = () => {
           </ItemDrawer>
           <ItemDrawer text={'Bank Accounts'} onClick={() => navigate('/app/bankaccounts')}>
             <AccountBalanceIcon />
+          </ItemDrawer>
+          <ItemDrawer text={'Transactions'} onClick={() => navigate('/app/transactions')}>
+            <PaidIcon />
           </ItemDrawer>
         </List>
       </Box>

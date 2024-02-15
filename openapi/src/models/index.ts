@@ -14,6 +14,7 @@ export * from './GroupIndexDTO';
 export * from './MethodArgumentNotValidExceptionDTO';
 export * from './TransactionDTO';
 export * from './TransactionIndexDTO';
+export * from './UpdateTransactionRequest';
 export * from './UserDTO';
 export * from './UserGroupRightDTO';
 export * from './UserGroupRightEnum';
