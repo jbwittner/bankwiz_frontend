@@ -10,7 +10,7 @@
 </template>
 <script setup lang="ts">
 import { useAuth0 } from '@auth0/auth0-vue'
-import { StatusServiceApi } from '@/generated/server'
+import { Configuration, StatusServiceApi } from '@/generated/server'
 const { loginWithRedirect, user, getAccessTokenSilently } = useAuth0()
 const login = () => {
   loginWithRedirect()
@@ -21,7 +21,11 @@ const toto = async () => {
   console.log(result)
 }
 
-const statusService: StatusServiceApi = new StatusServiceApi();
+const configuration:Configuration = new Configuration({
+  basePath: import.meta.env.VITE_SERVER_URL
+})
+
+const statusService: StatusServiceApi = new StatusServiceApi(configuration);
 
 const call_public = async () => {
   const result = await statusService.getPublicStatus()
