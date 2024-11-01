@@ -5,16 +5,17 @@ import App from './App.vue'
 import router from './router'
 import { createAuth0 } from '@auth0/auth0-vue'
 
+
 const app = createApp(App)
 
 app.use(router)
 
 app.use(
   createAuth0({
-    domain: 'bankwiz-development.eu.auth0.com',
-    clientId: 'SXP4oUqfpIIdLBqsJ6SFxIqyuZqhgReU',
+    domain: import.meta.env.VITE_DOMAIN_AUTH0,
+    clientId: import.meta.env.VITE_CLIENT_ID_AUTH0,
     authorizationParams: {
-      audience: 'bankwiz_server',
+      audience: import.meta.env.VITE_AUDIENCE_AUTH0,
       redirect_uri: window.location.origin,
     },
   }),
