@@ -13,16 +13,21 @@
     "build-only": "vite build",
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
-    "format": "prettier --write src/"
+    "format": "prettier --write src/",
+    "clean:generated": "rm -rf src/generated/server",
+    "generate:api": "openapi-generator-cli generate -i http://localhost:9595/v3/api-docs.yaml -g typescript-fetch -o ./src/generated/server",
+    "generate": "run-s clean:generated generate:api"
   },
   "dependencies": {
+    "@auth0/auth0-vue": "^2.3.3",
     "vue": "^3.5.12",
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.15.3",
     "@tsconfig/node20": "^20.1.4",
     "@types/jsdom": "^21.1.7",
-    "@types/node": "^20.17.0",
+    "@types/node": "^20.17.5",
     "@vitejs/plugin-vue": "^5.1.4",
     "@vitest/eslint-plugin": "1.1.7",
     "@vue/eslint-config-prettier": "^10.0.0",

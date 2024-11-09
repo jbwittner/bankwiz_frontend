@@ -12,6 +12,6 @@
     }
   ],
   "compilerOptions": {
-    "module": "NodeNext"
+    "types": ["node", "NodeNext"]
   }
 }
