@@ -3,7 +3,9 @@
     <LoginButton />
     <TestChart />
     <TestTable />
+    <!--
     <TheWelcome />
+    -->
   </main>
 </template>
 
