@@ -38,5 +38,9 @@ const items = ref([
 <style scoped>
 .toto {
   width: 100%;          /* Prend toute la largeur */
+  height: 75px;
+  border: solid red;
+  border-width: 0 0 2px 0;
+  border-radius: 0;
 }
 </style>

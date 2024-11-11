@@ -6,10 +6,7 @@ import BasicToolBar from '@/components/BasicToolBar.vue'
 
 <template>
   <div class="header">
-aaaz
-  <!--
   <BasicToolBar />
-  -->
 
   </div>
 
@@ -39,19 +36,16 @@ body {
 
 .header {
   width: 100%;          /* Prend toute la largeur */
-  height: 50px;         /* Hauteur fixe de 50px */
-  //position: fixed;      /* Reste fixe en haut de la page */
-  //top: 0;               /* Aligné tout en haut */
-  //left: 0;              /* Commence depuis le côté gauche */
-  //display: flex;
-  //align-items: center;   /* Centrage vertical du contenu */
-  //justify-content: center; /* Centrage horizontal du contenu */
-  //z-index: 1000;        /* Pour qu'il passe au-dessus des autres éléments */
+  position: fixed;      /* Reste fixe en haut de la page */
+  top: 0;               /* Aligné tout en haut */
+  left: 0;              /* Commence depuis le côté gauche */
+  display: flex;
+  align-items: center;   /* Centrage vertical du contenu */
+  justify-content: center; /* Centrage horizontal du contenu */
+  z-index: 1000;        /* Pour qu'il passe au-dessus des autres éléments */
   background-color: #0d47a1;
-  border-bottom-color: red;
-  border-bottom: 10px;
-  padding:  0;
 }
+
 .main {
   padding-top: 50px; /* Compense la hauteur du header fixe */
 }
