@@ -1,5 +1,3 @@
-import './assets/main.css'
-
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -10,7 +8,6 @@ import Aura from '@primevue/themes/aura'
 import { definePreset } from '@primevue/themes'
 
 import 'primeicons/primeicons.css'
-
 
 const app = createApp(App)
 

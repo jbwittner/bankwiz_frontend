@@ -12,7 +12,6 @@ declare module 'vue' {
     Chart: typeof import('primevue/chart')['default']
     Column: typeof import('primevue/column')['default']
     DataTable: typeof import('primevue/datatable')['default']
-    HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
     IconCommunity: typeof import('./src/components/icons/IconCommunity.vue')['default']
     IconDocumentation: typeof import('./src/components/icons/IconDocumentation.vue')['default']
     IconEcosystem: typeof import('./src/components/icons/IconEcosystem.vue')['default']
@@ -22,14 +21,11 @@ declare module 'vue' {
     InputIcon: typeof import('primevue/inputicon')['default']
     InputText: typeof import('primevue/inputtext')['default']
     LoginButton: typeof import('./src/components/LoginButton.vue')['default']
-    Menubar: typeof import('primevue/menubar')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SplitButton: typeof import('primevue/splitbutton')['default']
     TestChart: typeof import('./src/components/TestChart.vue')['default']
     TestTable: typeof import('./src/components/TestTable.vue')['default']
-    TheWelcome: typeof import('./src/components/TheWelcome.vue')['default']
     Toolbar: typeof import('primevue/toolbar')['default']
-    WelcomeItem: typeof import('./src/components/WelcomeItem.vue')['default']
   }
 }
