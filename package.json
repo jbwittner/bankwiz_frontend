@@ -14,6 +14,7 @@
     "type-check": "vue-tsc --build --force",
     "lint": "eslint . --fix",
     "format": "prettier --write src/",
+    "allformat": "run-s format lint",
     "clean:generated": "rm -rf src/generated/server",
     "generate:api": "openapi-generator-cli generate -i http://localhost:9595/v3/api-docs.yaml -g typescript-fetch -o ./src/generated/server",
     "generate": "run-s clean:generated generate:api"

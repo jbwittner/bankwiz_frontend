@@ -12,52 +12,56 @@
  * Do not edit the class manually.
  */
 
-
-import * as runtime from '../runtime';
-import type {
-  UserDTO,
-} from '../models/index';
-import {
-    UserDTOFromJSON,
-    UserDTOToJSON,
-} from '../models/index';
+import * as runtime from '../runtime'
+import type { UserDTO } from '../models/index'
+import { UserDTOFromJSON, UserDTOToJSON } from '../models/index'
 
 /**
- * 
+ *
  */
 export class UserServiceApi extends runtime.BaseAPI {
+  /**
+   * Authenticate user to the service
+   * Authenticate user
+   */
+  async authenticationUserRaw(
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<runtime.ApiResponse<UserDTO>> {
+    const queryParameters: any = {}
 
-    /**
-     * Authenticate user to the service
-     * Authenticate user
-     */
-    async authenticationUserRaw(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<runtime.ApiResponse<UserDTO>> {
-        const queryParameters: any = {};
+    const headerParameters: runtime.HTTPHeaders = {}
 
-        const headerParameters: runtime.HTTPHeaders = {};
-
-        if (this.configuration && this.configuration.accessToken) {
-            // oauth required
-            headerParameters["Authorization"] = await this.configuration.accessToken("security_auth", []);
-        }
-
-        const response = await this.request({
-            path: `/user/authenticate`,
-            method: 'GET',
-            headers: headerParameters,
-            query: queryParameters,
-        }, initOverrides);
-
-        return new runtime.JSONApiResponse(response, (jsonValue) => UserDTOFromJSON(jsonValue));
+    if (this.configuration && this.configuration.accessToken) {
+      // oauth required
+      headerParameters['Authorization'] = await this.configuration.accessToken(
+        'security_auth',
+        [],
+      )
     }
 
-    /**
-     * Authenticate user to the service
-     * Authenticate user
-     */
-    async authenticationUser(initOverrides?: RequestInit | runtime.InitOverrideFunction): Promise<UserDTO> {
-        const response = await this.authenticationUserRaw(initOverrides);
-        return await response.value();
-    }
+    const response = await this.request(
+      {
+        path: `/user/authenticate`,
+        method: 'GET',
+        headers: headerParameters,
+        query: queryParameters,
+      },
+      initOverrides,
+    )
 
+    return new runtime.JSONApiResponse(response, jsonValue =>
+      UserDTOFromJSON(jsonValue),
+    )
+  }
+
+  /**
+   * Authenticate user to the service
+   * Authenticate user
+   */
+  async authenticationUser(
+    initOverrides?: RequestInit | runtime.InitOverrideFunction,
+  ): Promise<UserDTO> {
+    const response = await this.authenticationUserRaw(initOverrides)
+    return await response.value()
+  }
 }
