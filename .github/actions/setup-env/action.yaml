@@ -14,4 +14,5 @@ runs:
         node-version: 22
         cache: 'pnpm'
     - name: PNPM Clean install
+      shell: bash
       run: pnpm install
