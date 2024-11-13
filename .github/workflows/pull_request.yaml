@@ -73,8 +73,8 @@ jobs:
           fetch-depth: 0
       - name: Setup action
         uses: ./.github/actions/setup-env
-      - name: PNPM Run test:e2e
-        run: pnpm run test:e2e
+      - name: PNPM Run test:component
+        run: pnpm run test:component
   e2e-test:
     runs-on: ubuntu-22.04
     name: Test e2e
@@ -93,7 +93,9 @@ jobs:
     runs-on: ubuntu-22.04
     name: Sonar
     needs:
-      - build
+      - e2e-test
+      - component-test
+      - unit-test
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
