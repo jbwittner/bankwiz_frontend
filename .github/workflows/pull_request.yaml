@@ -49,7 +49,7 @@ jobs:
         run: pnpm run build
   unit-test:
     runs-on: ubuntu-22.04
-    name: Unit test
+    name: Units tests
     needs:
       - build
     steps:
@@ -63,7 +63,7 @@ jobs:
         run: pnpm run test:unit
   component-test:
     runs-on: ubuntu-22.04
-    name: Test e2e
+    name: Components tests
     needs:
       - build
     steps:
@@ -73,11 +73,13 @@ jobs:
           fetch-depth: 0
       - name: Setup action
         uses: ./.github/actions/setup-env
+      - name: PNPM Run build
+        run: pnpm run build
       - name: PNPM Run test:component
         run: pnpm run test:component
   e2e-test:
     runs-on: ubuntu-22.04
-    name: Test e2e
+    name: E2e tests
     needs:
       - build
     steps:
@@ -87,6 +89,8 @@ jobs:
           fetch-depth: 0
       - name: Setup action
         uses: ./.github/actions/setup-env
+      - name: PNPM Run build
+        run: pnpm run build
       - name: PNPM Run test:e2e
         run: pnpm run test:e2e
   sonar:
