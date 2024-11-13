@@ -1,7 +1,7 @@
 <template>
   <div>
     <h2>User Profile</h2>
-    <Button class="button__login" @click="login">Log In</Button>
+    <Button test_button_id class="button__login" @click="login">Log In</Button>
     <button class="button__login" @click="toto">toto</button>
     <button class="button__login" @click="call_public">call_public</button>
     <button class="button__login" @click="call_private">call_private</button>
