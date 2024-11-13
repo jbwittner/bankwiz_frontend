@@ -75,6 +75,8 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: PNPM Run build
         run: pnpm run build
+      - name: Install Cypress
+        run: npx cypress install
       - name: PNPM Run test:component
         run: pnpm run test:component
   e2e-test:
@@ -91,6 +93,8 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: PNPM Run build
         run: pnpm run build
+      - name: Install Cypress
+        run: npx cypress install
       - name: PNPM Run test:e2e
         run: pnpm run test:e2e
   sonar:
