@@ -22,7 +22,7 @@ jobs:
         run: pnpm run lint:check
   check-prettier:
     runs-on: ubuntu-22.04
-    name: Check eslint
+    name: Check prettier
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
