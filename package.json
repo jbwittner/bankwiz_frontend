@@ -11,7 +11,6 @@
     "test:unit": "vitest",
     "test:e2e": "start-server-and-test preview http://localhost:4173 'cypress run --e2e --config-file cypress.config.mts'",
     "test:component": "start-server-and-test preview http://localhost:4173 'cypress run --component --config-file cypress.config.mts'",
-    "test:e2e:dev": "start-server-and-test 'vite dev --port 4173' http://localhost:4173 'cypress open --e2e --config-file cypress.config.mts'",
     "cy:open": "cypress open --config-file cypress.dev.config.mts",
     "build-only:dev": "vite build --mode development",
     "build-only": "vite build",
