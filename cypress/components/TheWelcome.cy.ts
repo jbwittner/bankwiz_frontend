@@ -1,4 +1,4 @@
-import HelloWorld from "../HelloWorld.vue"
+import HelloWorld from "../../src/components/HelloWorld.vue";
 
 describe('TheWelcome.cy.ts', () => {
   it('playground', () => {
