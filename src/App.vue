@@ -2,6 +2,7 @@
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
 import ToggleTheme from '@/components/ToggleTheme.vue'
+import TestApiAuth from '@/components/TestApiAuth.vue'
 
 const desserts = [
   {
@@ -61,6 +62,8 @@ const desserts = [
       </nav>
     </div>
   </header>
+
+  <test-api-auth></test-api-auth>
 
   <toggle-theme></toggle-theme>
 
