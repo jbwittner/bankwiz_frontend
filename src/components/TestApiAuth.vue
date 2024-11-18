@@ -9,6 +9,7 @@
     <p>{{ user }}</p>
   </div>
 </template>
+
 <script setup lang="ts">
 import { type LogoutOptions, useAuth0 } from '@auth0/auth0-vue'
 import { Configuration, StatusServiceApi } from '@/generated/server'

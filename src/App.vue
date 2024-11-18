@@ -1,3 +1,55 @@
+<template>
+  <header>
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <v-app>
+    <v-container>
+      <v-app-bar :elevation="2">
+        <template v-slot:prepend>
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        </template>
+
+        <v-app-bar-title>Application Bar</v-app-bar-title>
+      </v-app-bar>
+    </v-container>
+  </v-app>
+
+  <test-api-auth></test-api-auth>
+
+  <toggle-theme></toggle-theme>
+
+  <v-btn variant="outlined"> Button </v-btn>
+
+  <v-slider direction="vertical"></v-slider>
+
+  <v-table>
+    <thead>
+    <tr>
+      <th scope="row" class="text-left">Name</th>
+      <th scope="row" class="text-left">Calories</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="item in desserts" :key="item.name">
+      <td>{{ item.name }}</td>
+      <td>{{ item.calories }}</td>
+    </tr>
+    </tbody>
+  </v-table>
+
+  <RouterView />
+</template>
+
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
@@ -48,57 +100,7 @@ const desserts = [
 ]
 </script>
 
-<template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <v-app>
-    <v-container>
-      <v-app-bar :elevation="0">
-        <template v-slot:prepend>
-          <v-app-bar-nav-icon></v-app-bar-nav-icon>
-        </template>
-
-        <v-app-bar-title>Application Bar</v-app-bar-title>
-      </v-app-bar>
-    </v-container>
-  </v-app>
-
-  <test-api-auth></test-api-auth>
-
-  <toggle-theme></toggle-theme>
-
-  <v-btn variant="outlined"> Button </v-btn>
-
-  <v-slider direction="vertical"></v-slider>
-
-  <v-table>
-    <thead>
-      <tr>
-        <th scope="row" class="text-left">Name</th>
-        <th scope="row" class="text-left">Calories</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="item in desserts" :key="item.name">
-        <td>{{ item.name }}</td>
-        <td>{{ item.calories }}</td>
-      </tr>
-    </tbody>
-  </v-table>
-
-  <RouterView />
-</template>
 
 <style scoped>
 header {

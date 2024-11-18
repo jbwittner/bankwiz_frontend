@@ -1,3 +1,4 @@
+
 <template>
   <v-app>
     <v-btn @click="toggleTheme">toggle theme</v-btn>
@@ -13,3 +14,5 @@ function toggleTheme() {
   theme.global.name.value = theme.global.current.value.dark ? 'light' : 'dark'
 }
 </script>
+
+
