@@ -5,16 +5,19 @@
     <v-btn variant="outlined" @click="toto"> toto </v-btn>
     <v-btn variant="outlined" @click="call_public"> call_public </v-btn>
     <v-btn variant="outlined" @click="call_private"> call_private </v-btn>
+    <v-btn variant="outlined" @click="logoutApp">logout</v-btn>
     <p>{{ user }}</p>
   </div>
 </template>
 <script setup lang="ts">
-import { useAuth0 } from '@auth0/auth0-vue'
+import { type LogoutOptions, useAuth0 } from '@auth0/auth0-vue'
 import { Configuration, StatusServiceApi } from '@/generated/server'
-const { loginWithRedirect, user, getAccessTokenSilently } = useAuth0()
+const { loginWithRedirect, user, getAccessTokenSilently, logout } = useAuth0()
 const login = () => {
   loginWithRedirect()
 }
+
+console.log(import.meta.env.BASE_URL)
 
 const toto = async () => {
   const result = await getAccessTokenSilently()
@@ -39,5 +42,12 @@ const call_private = async () => {
     },
   })
   console.log(result)
+}
+
+const logoutApp = () => {
+  const logoutOptions: LogoutOptions = {
+    openUrl: window.location.replace,
+  }
+  logout(logoutOptions)
 }
 </script>
