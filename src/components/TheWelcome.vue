@@ -1,4 +1,3 @@
-
 <template>
   <WelcomeItem>
     <template #icon>

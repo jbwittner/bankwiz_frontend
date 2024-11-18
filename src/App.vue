@@ -34,16 +34,16 @@
 
   <v-table>
     <thead>
-    <tr>
-      <th scope="row" class="text-left">Name</th>
-      <th scope="row" class="text-left">Calories</th>
-    </tr>
+      <tr>
+        <th scope="row" class="text-left">Name</th>
+        <th scope="row" class="text-left">Calories</th>
+      </tr>
     </thead>
     <tbody>
-    <tr v-for="item in desserts" :key="item.name">
-      <td>{{ item.name }}</td>
-      <td>{{ item.calories }}</td>
-    </tr>
+      <tr v-for="item in desserts" :key="item.name">
+        <td>{{ item.name }}</td>
+        <td>{{ item.calories }}</td>
+      </tr>
     </tbody>
   </v-table>
 
@@ -99,8 +99,6 @@ const desserts = [
   },
 ]
 </script>
-
-
 
 <style scoped>
 header {
