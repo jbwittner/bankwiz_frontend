@@ -13,5 +13,3 @@ defineProps<{
   msg: string
 }>()
 </script>
-
-<style scoped></style>
