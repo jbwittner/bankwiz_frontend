@@ -20,7 +20,6 @@ const myCustomLightTheme: ThemeDefinition = {
   },
 }
 
-
 const vuetify = createVuetify({
   components,
   directives,
@@ -32,4 +31,4 @@ const vuetify = createVuetify({
   },
 })
 
-export default vuetify;
+export default vuetify

@@ -1,18 +1,10 @@
 <template>
   <div>
     <h2>User Profile</h2>
-    <v-btn variant="outlined" @click="login">
-      Log In
-    </v-btn>
-    <v-btn variant="outlined" @click="toto">
-      toto
-    </v-btn>
-    <v-btn variant="outlined" @click="call_public">
-      call_public
-    </v-btn>
-    <v-btn variant="outlined" @click="call_private">
-      call_private
-    </v-btn>
+    <v-btn variant="outlined" @click="login"> Log In </v-btn>
+    <v-btn variant="outlined" @click="toto"> toto </v-btn>
+    <v-btn variant="outlined" @click="call_public"> call_public </v-btn>
+    <v-btn variant="outlined" @click="call_private"> call_private </v-btn>
     <p>{{ user }}</p>
   </div>
 </template>
@@ -29,11 +21,11 @@ const toto = async () => {
   console.log(result)
 }
 
-const configuration:Configuration = new Configuration({
-  basePath: import.meta.env.VITE_SERVER_URL
+const configuration: Configuration = new Configuration({
+  basePath: import.meta.env.VITE_SERVER_URL,
 })
 
-const statusService: StatusServiceApi = new StatusServiceApi(configuration);
+const statusService: StatusServiceApi = new StatusServiceApi(configuration)
 
 const call_public = async () => {
   const result = await statusService.getPublicStatus()
@@ -43,10 +35,9 @@ const call_public = async () => {
 const call_private = async () => {
   const result = await statusService.getPrivateStatus({
     headers: {
-      Authorization: `Bearer ${await getAccessTokenSilently()}`
-    }
+      Authorization: `Bearer ${await getAccessTokenSilently()}`,
+    },
   })
   console.log(result)
 }
-
 </script>
