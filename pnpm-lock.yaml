@@ -20,6 +20,9 @@ importers:
       vue-router:
         specifier: 4.4.5
         version: 4.4.5(vue@3.5.13(typescript@5.6.3))
+      vuetify:
+        specifier: ^3.7.4
+        version: 3.7.4(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3))
     devDependencies:
       '@openapitools/openapi-generator-cli':
         specifier: 2.15.3
@@ -2824,6 +2827,22 @@ packages:
       typescript: '*'
     peerDependenciesMeta:
       typescript:
+        optional: true
+
+  vuetify@3.7.4:
+    resolution: {integrity: sha512-Y8UU5wUDQXC3oz2uumPb8IOdvB4XMCxtxnmqdOc+LihNuPlkSgxIwf92ndRzbOtJFKHsggFUxpyLqpQp+A+5kg==}
+    engines: {node: ^12.20 || >=14.13}
+    peerDependencies:
+      typescript: '>=4.7'
+      vite-plugin-vuetify: '>=1.0.0'
+      vue: ^3.3.0
+      webpack-plugin-vuetify: '>=2.0.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
+      vite-plugin-vuetify:
+        optional: true
+      webpack-plugin-vuetify:
         optional: true
 
   w3c-xmlserializer@5.0.0:
@@ -5786,6 +5805,12 @@ snapshots:
       '@vue/runtime-dom': 3.5.13
       '@vue/server-renderer': 3.5.13(vue@3.5.13(typescript@5.6.3))
       '@vue/shared': 3.5.13
+    optionalDependencies:
+      typescript: 5.6.3
+
+  vuetify@3.7.4(typescript@5.6.3)(vue@3.5.13(typescript@5.6.3)):
+    dependencies:
+      vue: 3.5.13(typescript@5.6.3)
     optionalDependencies:
       typescript: 5.6.3
 
