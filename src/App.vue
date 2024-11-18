@@ -49,6 +49,7 @@ const desserts = [
 </script>
 
 <template>
+
   <header>
     <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
 
@@ -62,6 +63,18 @@ const desserts = [
     </div>
   </header>
 
+  <v-app>
+    <v-container>
+      <v-app-bar :elevation="0">
+        <template v-slot:prepend>
+          <v-app-bar-nav-icon></v-app-bar-nav-icon>
+        </template>
+
+        <v-app-bar-title>Application Bar</v-app-bar-title>
+      </v-app-bar>
+    </v-container>
+  </v-app>
+
   <test-api-auth></test-api-auth>
 
   <toggle-theme></toggle-theme>
@@ -73,8 +86,8 @@ const desserts = [
   <v-table>
     <thead>
       <tr>
-        <th class="text-left">Name</th>
-        <th class="text-left">Calories</th>
+        <th scope="row" class="text-left">Name</th>
+        <th scope="row" class="text-left">Calories</th>
       </tr>
     </thead>
     <tbody>
