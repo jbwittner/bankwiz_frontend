@@ -26,9 +26,11 @@
   },
   "dependencies": {
     "@auth0/auth0-vue": "2.3.3",
+    "@mdi/font": "^7.4.47",
     "pinia": "2.2.6",
     "vue": "3.5.13",
-    "vue-router": "4.4.5"
+    "vue-router": "4.4.5",
+    "vuetify": "^3.7.4"
   },
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "2.15.3",
@@ -54,5 +56,8 @@
     "vite-plugin-vue-devtools": "7.6.4",
     "vitest": "2.1.5",
     "vue-tsc": "2.1.10"
+  },
+  "volta": {
+    "node": "22.11.0"
   }
 }

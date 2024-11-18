@@ -19,6 +19,14 @@ export default [
   ...vueTsEslintConfig(),
 
   {
+    rules: {
+      'vue/component-tags-order': ['error', {
+        order: [ 'template', 'script', 'style' ]
+      }],
+    }
+  },
+
+  {
     ...pluginVitest.configs.recommended,
     files: ['src/**/__tests__/*'],
   },
