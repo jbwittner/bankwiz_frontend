@@ -1,3 +1,3 @@
 /* tslint:disable */
-
-export * from './UserDTO'
+/* eslint-disable */
+export * from './UserDTO';

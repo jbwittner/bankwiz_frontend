@@ -12,7 +12,6 @@
     }
   ],
   "compilerOptions": {
-    "types": ["node", "NodeNext"]
-  },
-  "exclude": ["cypress", "dist", "node_modules"]
+    "module": "NodeNext"
+  }
 }
