@@ -46,7 +46,7 @@ const call_private = async () => {
 
 const logoutApp = () => {
   const logoutOptions: LogoutOptions = {
-    openUrl: window.location.replace,
+    logoutParams: { returnTo: window.location.origin }
   }
   logout(logoutOptions)
 }
