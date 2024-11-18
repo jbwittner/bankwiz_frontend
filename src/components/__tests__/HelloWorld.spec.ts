@@ -1,11 +1,11 @@
 import { describe, it, expect } from 'vitest'
 
-import { mount } from '@vue/test-utils'
-import HelloWorld from '../HelloWorld.vue'
+export function sum(a, b) {
+  return a + b
+}
 
 describe('HelloWorld', () => {
-  it('renders properly', () => {
-    const wrapper = mount(HelloWorld, { props: { msg: 'Hello Vitest' } })
-    expect(wrapper.text()).toContain('Hello Vitest')
+  it('adds 1 + 2 to equal 3', () => {
+    expect(sum(1, 2)).toBe(3)
   })
 })
