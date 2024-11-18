@@ -1,4 +1,5 @@
 // Vuetify
+import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 import { createVuetify, type ThemeDefinition } from 'vuetify'
 import * as components from 'vuetify/components'
@@ -24,7 +25,7 @@ const vuetify = createVuetify({
   components,
   directives,
   theme: {
-    defaultTheme: 'myCustomLightTheme',
+    defaultTheme: 'light',
     themes: {
       myCustomLightTheme,
     },
