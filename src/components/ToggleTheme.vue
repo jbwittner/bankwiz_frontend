@@ -1,7 +1,5 @@
 <template>
-  <v-app>
-    <v-btn @click="toggleTheme">toggle theme</v-btn>
-  </v-app>
+  <v-btn @click="toggleTheme">toggle theme</v-btn>
 </template>
 
 <script setup lang="ts">
