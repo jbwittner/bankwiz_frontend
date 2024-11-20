@@ -1,11 +1,6 @@
 <template>
   <v-layout>
-    <v-app-bar color="primary" density="compact">
-      <template v-slot:prepend>
-        <v-app-bar-nav-icon prepend-icon="mdi-chevron-left" text="test"></v-app-bar-nav-icon>
-      </template>
-      <v-app-bar-title>Application Bar</v-app-bar-title>
-    </v-app-bar>
+    <ApplicationBar :showAppBar="plotAppBar" />
     <v-main>
       <RouterView />
     </v-main>
@@ -13,5 +8,27 @@
 </template>
 
 <script setup lang="ts">
-import { RouterView } from 'vue-router'
+import { RouterView, useRoute } from 'vue-router'
+import ApplicationBar from '@/components/ApplicationBar.vue'
+
+const route = useRoute()
+
+console.log("App route", route)
+console.log("App route.fullPath", route.fullPath)
+
+let plotAppBar: boolean;
+
+if (window.location.pathname === "/") {
+  plotAppBar = false;
+} else {
+  plotAppBar = true;
+}
+
+
+console.log("App route.hash", route.hash)
+console.log("App route.matched", route.matched)
+console.log("App route.query", route.query)
+console.log("App route.name", route.name)
+console.log("App route.params", route.params)
+
 </script>
