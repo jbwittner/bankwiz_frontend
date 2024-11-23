@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest'
 
-export function sum(a, b) {
+export function sum(a: number, b: number) {
+  console.log('sum')
   return a + b
 }
 

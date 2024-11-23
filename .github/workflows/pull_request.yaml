@@ -47,11 +47,25 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: PNPM Run build
         run: pnpm run build
+  unit-test:
+    runs-on: ubuntu-22.04
+    name: Units tests
+    needs:
+      - build
+    steps:
+      - name: Checkout Git repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup action
+        uses: ./.github/actions/setup-env
+      - name: PNPM Run test:unit
+        run: pnpm run test:unit
   sonar:
     runs-on: ubuntu-22.04
     name: Sonar
     needs:
-      - build
+      - unit-test
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4

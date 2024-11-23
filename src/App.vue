@@ -10,25 +10,24 @@
 <script setup lang="ts">
 import { RouterView, useRoute } from 'vue-router'
 import ApplicationBar from '@/components/ApplicationBar.vue'
+import { isAuthenticatedRoute } from '@/plugins/router.ts'
 
 const route = useRoute()
 
-console.log("App route", route)
-console.log("App route.fullPath", route.fullPath)
+console.log('App route', route)
+console.log('App route.fullPath', route.fullPath)
 
-let plotAppBar: boolean;
+let plotAppBar: boolean
 
-if (window.location.pathname === "/") {
-  plotAppBar = false;
+if (isAuthenticatedRoute(window.location.pathname)) {
+  plotAppBar = false
 } else {
-  plotAppBar = true;
+  plotAppBar = true
 }
 
-
-console.log("App route.hash", route.hash)
-console.log("App route.matched", route.matched)
-console.log("App route.query", route.query)
-console.log("App route.name", route.name)
-console.log("App route.params", route.params)
-
+console.log('App route.hash', route.hash)
+console.log('App route.matched', route.matched)
+console.log('App route.query', route.query)
+console.log('App route.name', route.name)
+console.log('App route.params', route.params)
 </script>

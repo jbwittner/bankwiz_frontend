@@ -8,6 +8,6 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps({'showAppBar': Boolean})
-console.log("ApplicationBar props", props)
+const props = defineProps({ showAppBar: Boolean })
+console.log('ApplicationBar props', props)
 </script>
