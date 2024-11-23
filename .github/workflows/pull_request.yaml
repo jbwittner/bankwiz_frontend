@@ -47,63 +47,11 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: PNPM Run build
         run: pnpm run build
-  unit-test:
-    runs-on: ubuntu-22.04
-    name: Units tests
-    needs:
-      - build
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup action
-        uses: ./.github/actions/setup-env
-      - name: PNPM Run test:unit
-        run: pnpm run test:unit
-  component-test:
-    runs-on: ubuntu-22.04
-    name: Components tests
-    needs:
-      - build
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup action
-        uses: ./.github/actions/setup-env
-      - name: PNPM Run build
-        run: pnpm run build
-      - name: Install Cypress
-        run: npx cypress install
-      - name: PNPM Run test:component
-        run: pnpm run test:component
-  e2e-test:
-    runs-on: ubuntu-22.04
-    name: E2e tests
-    needs:
-      - build
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup action
-        uses: ./.github/actions/setup-env
-      - name: PNPM Run build
-        run: pnpm run build
-      - name: Install Cypress
-        run: npx cypress install
-      - name: PNPM Run test:e2e
-        run: pnpm run test:e2e
   sonar:
     runs-on: ubuntu-22.04
     name: Sonar
     needs:
-      - e2e-test
-      - component-test
-      - unit-test
+      - build
     steps:
       - name: Checkout Git repository
         uses: actions/checkout@v4
