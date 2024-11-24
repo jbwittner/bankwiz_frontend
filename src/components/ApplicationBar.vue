@@ -2,6 +2,9 @@
   <v-app-bar v-if="props.showAppBar" color="primary" density="compact">
     <v-app-bar-nav-icon prepend-icon="mdi-chevron-left" text="test"></v-app-bar-nav-icon>
     <v-app-bar-title>Application Bar</v-app-bar-title>
+    <div>
+      {{userName}}
+    </div>
     <v-btn icon="mdi-theme-light-dark" @click="toggleTheme"></v-btn>
     <v-tooltip text="Logout">
       <template v-slot:activator="{ props }">
@@ -14,7 +17,7 @@
 <script setup lang="ts">
 import { useTheme } from 'vuetify'
 
-const props = defineProps({ showAppBar: Boolean, logoutOnClick: Function })
+const props = defineProps({ showAppBar: Boolean, logoutOnClick: Function, userName: String })
 
 const theme = useTheme()
 

@@ -1,7 +1,7 @@
 import { ApiHelper } from '@/tools/ApiHelper.ts'
 import { UserServiceApi } from '@/generated/server'
 
-class UserApiHelper extends ApiHelper {
+export class UserApiHelper extends ApiHelper {
 
   private userServiceApi = new UserServiceApi(this.configuration)
 
@@ -10,5 +10,3 @@ class UserApiHelper extends ApiHelper {
     return await this.userServiceApi.authenticationUser(headers);
   }
 }
-
-export const userApiHelper = new UserApiHelper()
