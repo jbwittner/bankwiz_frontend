@@ -1,9 +1,17 @@
-import { createRouter, createWebHistory } from 'vue-router'
+import { createRouter, createWebHistory, type RouteRecordNameGeneric } from 'vue-router'
 import LoginView from '@/views/LoginView.vue'
 
-export const authenticatedRoutes = ['/home']
+export const authenticatedRoutes = ['home']
 
-export const isAuthenticatedRoute = (route: string) => authenticatedRoutes.includes(route)
+export const isAuthenticatedRoute = (route: RouteRecordNameGeneric) => {
+  const routeValue = route?.toString()
+  if (typeof routeValue === 'string') {
+    console.log(routeValue)
+    return authenticatedRoutes.includes(routeValue)
+  } else {
+    return false
+  }
+}
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),

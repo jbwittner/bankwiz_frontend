@@ -4,20 +4,24 @@
 <script setup lang="ts">
 import { useAuth0 } from '@auth0/auth0-vue'
 
-const { loginWithRedirect, user, getAccessTokenSilently, logout } = useAuth0()
-const login = () => {
-  loginWithRedirect()
+const auth0 = useAuth0()
+import { useRouter } from 'vue-router'
+import { onMounted } from 'vue'
+
+const router = useRouter()
+
+const pushToHome = async () => {
+  await router.push({ name: 'home' })
 }
 
-import { useRoute } from 'vue-router'
+onMounted(async () => {
+  if (auth0.isAuthenticated.value) {
+    await pushToHome()
+  }
+})
 
-const route = useRoute()
-
-console.log('route', route)
-console.log('route.fullPath', route.fullPath)
-console.log('route.hash', route.hash)
-console.log('route.matched', route.matched)
-console.log('route.query', route.query)
-console.log('route.name', route.name)
-console.log('route.params', route.params)
+const login = async () => {
+  await auth0.loginWithPopup()
+  await pushToHome()
+}
 </script>

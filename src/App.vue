@@ -1,6 +1,6 @@
 <template>
   <v-layout>
-    <ApplicationBar :showAppBar="plotAppBar" />
+    <ApplicationBar :showAppBar="plotAppBar" :logout-on-click="logoutOnClick" />
     <v-main>
       <RouterView />
     </v-main>
@@ -11,23 +11,27 @@
 import { RouterView, useRoute } from 'vue-router'
 import ApplicationBar from '@/components/ApplicationBar.vue'
 import { isAuthenticatedRoute } from '@/plugins/router.ts'
+import { ref, watch } from 'vue'
+import { useAuth0 } from '@auth0/auth0-vue'
+
+const auth0 = useAuth0()
+
+const plotAppBar = ref(false)
 
 const route = useRoute()
 
-console.log('App route', route)
-console.log('App route.fullPath', route.fullPath)
+watch(
+  () => route.name,
+  () => {
+    plotAppBar.value = isAuthenticatedRoute(route.name)
+  },
+)
 
-let plotAppBar: boolean
-
-if (isAuthenticatedRoute(window.location.pathname)) {
-  plotAppBar = false
-} else {
-  plotAppBar = true
+const logoutOnClick = async () => {
+  await auth0.logout({
+    openUrl(url) {
+      window.location.replace(url)
+    },
+  })
 }
-
-console.log('App route.hash', route.hash)
-console.log('App route.matched', route.matched)
-console.log('App route.query', route.query)
-console.log('App route.name', route.name)
-console.log('App route.params', route.params)
 </script>
