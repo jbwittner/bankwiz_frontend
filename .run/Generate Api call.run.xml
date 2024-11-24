@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="allformat" type="js.build_tools.npm" nameIsGenerated="true">
+  <configuration default="false" name="Generate Api call" type="js.build_tools.npm">
     <package-json value="$PROJECT_DIR$/package.json" />
     <command value="run" />
     <scripts>
-      <script value="allformat" />
+      <script value="generate" />
     </scripts>
     <node-interpreter value="project" />
     <envs />
