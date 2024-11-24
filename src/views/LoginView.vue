@@ -1,27 +1,14 @@
 <template>
-  <v-btn variant="outlined" @click="login"> Log In </v-btn>
+  <v-btn variant="outlined" @click="authStore.login()"> Log In </v-btn>
 </template>
 <script setup lang="ts">
-import { useAuth0 } from '@auth0/auth0-vue'
-
-const auth0 = useAuth0()
-import { useRouter } from 'vue-router'
 import { onMounted } from 'vue'
+import { useAuthStore } from '@/stores/authStore.ts'
 
-const router = useRouter()
-
-const pushToHome = async () => {
-  await router.push({ name: 'home' })
-}
+const authStore = useAuthStore();
 
 onMounted(async () => {
-  if (auth0.isAuthenticated.value) {
-    await pushToHome()
-  }
+  await authStore.checkIsAuthenticated()
 })
 
-const login = async () => {
-  await auth0.loginWithPopup()
-  await pushToHome()
-}
 </script>
