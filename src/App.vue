@@ -12,12 +12,10 @@ import { RouterView, useRoute } from 'vue-router'
 import ApplicationBar from '@/components/ApplicationBar.vue'
 import { isAuthenticatedRoute } from '@/plugins/router.ts'
 import { ref, watch } from 'vue'
-import { useAuth0 } from '@auth0/auth0-vue'
+import { useAuthStore } from '@/stores/authStore.ts'
 
-const auth0 = useAuth0()
-
+const authStore = useAuthStore()
 const plotAppBar = ref(false)
-
 const route = useRoute()
 
 watch(
@@ -28,10 +26,6 @@ watch(
 )
 
 const logoutOnClick = async () => {
-  await auth0.logout({
-    openUrl(url) {
-      window.location.replace(url)
-    },
-  })
+  await authStore.logout()
 }
 </script>

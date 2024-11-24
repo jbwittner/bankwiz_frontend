@@ -1,14 +1,22 @@
 <template>
-  <v-btn variant="outlined" @click="authStore.login()"> Log In </v-btn>
+  <main>
+    <v-btn variant="outlined" @click="authStore.login()"> Log In </v-btn>
+  </main>
 </template>
 <script setup lang="ts">
-import { onMounted } from 'vue'
+import { watch } from 'vue'
 import { useAuthStore } from '@/stores/authStore.ts'
+import { useRouter } from 'vue-router'
 
-const authStore = useAuthStore();
+const router = useRouter()
+const authStore = useAuthStore()
 
-onMounted(async () => {
-  await authStore.checkIsAuthenticated()
-})
-
+watch(
+  () => authStore.isAuthenticated,
+  async () => {
+    if (authStore.isAuthenticated === true) {
+      await router.push({ name: 'home' })
+    }
+  },
+)
 </script>
