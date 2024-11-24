@@ -12,7 +12,7 @@
 
 <script setup lang="ts">
 import { type LogoutOptions, useAuth0 } from '@auth0/auth0-vue'
-import { Configuration, StatusServiceApi } from '@/generated/server'
+import { Configuration, StatusServiceApi, UserServiceApi } from '@/generated/server'
 const { loginWithRedirect, user, getAccessTokenSilently, logout } = useAuth0()
 const login = () => {
   loginWithRedirect()
@@ -30,6 +30,8 @@ const configuration: Configuration = new Configuration({
 })
 
 const statusService: StatusServiceApi = new StatusServiceApi(configuration)
+
+UserServiceApi
 
 const call_public = async () => {
   const result = await statusService.getPublicStatus()

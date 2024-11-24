@@ -6,6 +6,10 @@ export const useAuthStore = defineStore('auth', () => {
   const auth0 = useAuth0()
   const isAuthenticated = ref(auth0.isAuthenticated.value)
 
+  watch(auth0.isAuthenticated, async (value) => {
+    isAuthenticated.value = value
+  })
+
   const login = () => {
     return auth0.loginWithPopup()
   }
@@ -14,12 +18,13 @@ export const useAuthStore = defineStore('auth', () => {
     return auth0.logout()
   }
 
-  watch(auth0.isAuthenticated, (value) => {
-    isAuthenticated.value = value
-  })
+  const getAccessToken = async () => {
+    return await auth0.getAccessTokenSilently();
+  }
 
   return {
     isAuthenticated,
+    getAccessToken,
     login,
     logout,
   }
