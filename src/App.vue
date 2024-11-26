@@ -1,6 +1,10 @@
 <template>
   <v-layout>
-    <ApplicationBar :showAppBar="plotAppBar" :logout-on-click="logoutOnClick" :user-name="user.fullName" />
+    <ApplicationBar
+      :showAppBar="plotAppBar"
+      :logout-on-click="logoutOnClick"
+      :user-name="user.fullName"
+    />
     <v-main>
       <RouterView />
     </v-main>
@@ -19,7 +23,7 @@ import { UserApiHelper } from '@/tools/UserApiHelper.ts'
 const authStore = useAuthStore()
 const plotAppBar = ref(false)
 const route = useRoute()
-const user:Ref<UserDTO> = ref({} as UserDTO)
+const user: Ref<UserDTO> = ref({} as UserDTO)
 const userApiHelper = new UserApiHelper()
 
 onBeforeMount(async () => {

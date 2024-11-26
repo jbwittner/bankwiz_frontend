@@ -19,7 +19,7 @@ export const useAuthStore = defineStore('auth', () => {
   }
 
   const getAccessToken = async () => {
-    return await auth0.getAccessTokenSilently();
+    return await auth0.getAccessTokenSilently()
   }
 
   return {
