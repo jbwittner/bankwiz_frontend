@@ -6,7 +6,6 @@ export const authenticatedRoutes = ['home']
 export const isAuthenticatedRoute = (route: RouteRecordNameGeneric) => {
   const routeValue = route?.toString()
   if (typeof routeValue === 'string') {
-    console.log(routeValue)
     return authenticatedRoutes.includes(routeValue)
   } else {
     return false
