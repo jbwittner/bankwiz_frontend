@@ -61,18 +61,6 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: PNPM Run test:unit
         run: pnpm run test:unit
-  sonar:
-    runs-on: ubuntu-22.04
-    name: Sonar
-    needs:
-      - unit-test
-    steps:
-      - name: Checkout Git repository
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: Setup action
-        uses: ./.github/actions/setup-env
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
