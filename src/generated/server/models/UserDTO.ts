@@ -30,12 +30,6 @@ export interface UserDTO {
      * @type {string}
      * @memberof UserDTO
      */
-    email: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof UserDTO
-     */
     authId: string;
     /**
      * 
@@ -43,6 +37,12 @@ export interface UserDTO {
      * @memberof UserDTO
      */
     nickName: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof UserDTO
+     */
+    email: string;
     /**
      * 
      * @type {string}
@@ -56,9 +56,9 @@ export interface UserDTO {
  */
 export function instanceOfUserDTO(value: object): value is UserDTO {
     if (!('id' in value) || value['id'] === undefined) return false;
-    if (!('email' in value) || value['email'] === undefined) return false;
     if (!('authId' in value) || value['authId'] === undefined) return false;
     if (!('nickName' in value) || value['nickName'] === undefined) return false;
+    if (!('email' in value) || value['email'] === undefined) return false;
     if (!('fullName' in value) || value['fullName'] === undefined) return false;
     return true;
 }
@@ -74,9 +74,9 @@ export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
     return {
         
         'id': json['id'],
-        'email': json['email'],
         'authId': json['auth_id'],
         'nickName': json['nick_name'],
+        'email': json['email'],
         'fullName': json['full_name'],
     };
 }
@@ -93,9 +93,9 @@ export function UserDTOFromJSONTyped(json: any, ignoreDiscriminator: boolean): U
     return {
         
         'id': value['id'],
-        'email': value['email'],
         'auth_id': value['authId'],
         'nick_name': value['nickName'],
+        'email': value['email'],
         'full_name': value['fullName'],
     };
 }
