@@ -3,9 +3,6 @@ import { http, HttpResponse } from 'msw'
 import { setupServer } from 'msw/node'
 
 describe('authStore tests suite', () => {
-
-  const pathString = import.meta.env.VITE_SERVER_URL + '/auth/login'
-
   const handlers = [
     // Intercept "GET https://example.com/user" requests...
     http.get('https://example.com/user', () => {

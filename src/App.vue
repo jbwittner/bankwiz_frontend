@@ -27,7 +27,7 @@ const user: Ref<UserDTO> = ref({} as UserDTO)
 const userApiHelper = new UserApiHelper()
 
 onBeforeMount(async () => {
-  user.value = await userApiHelper.getUserData()
+  user.value = await userApiHelper.authenticationUser()
 })
 
 watch(
