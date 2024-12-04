@@ -14,8 +14,12 @@ export const useAuthStore = defineStore('auth', () => {
     return auth0.loginWithPopup()
   }
 
-  const logout = () => {
-    return auth0.logout()
+  const logout = async () => {
+    return auth0.logout({
+      logoutParams: {
+        returnTo: window.location.origin,
+      },
+    })
   }
 
   const getAccessToken = async () => {
