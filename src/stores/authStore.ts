@@ -14,11 +14,11 @@ export const useAuthStore = defineStore('auth', () => {
     return auth0.loginWithPopup()
   }
 
-  const logout = () => {
+  const logout = async () => {
     return auth0.logout({
-      openUrl(url) {
-        window.location.replace(url)
-      },
+      logoutParams: {
+        returnTo: window.location.origin,
+      }
     })
   }
 
