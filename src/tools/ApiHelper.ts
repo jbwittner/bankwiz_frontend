@@ -8,7 +8,7 @@ const configuration: Configuration = new Configuration({
 export const userServiceApi = new UserServiceApi(configuration)
 
 export abstract class ApiHelper {
-  private authStore = useAuthStore()
+  private readonly authStore = useAuthStore()
 
   protected async getHeaders(): Promise<RequestInit> {
     const token = await this.authStore.getAccessToken()
