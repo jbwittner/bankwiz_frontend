@@ -18,7 +18,7 @@ export const useAuthStore = defineStore('auth', () => {
     return auth0.logout({
       logoutParams: {
         returnTo: window.location.origin,
-      }
+      },
     })
   }
 
