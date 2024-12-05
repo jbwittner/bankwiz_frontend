@@ -52,6 +52,11 @@ jobs:
         uses: ./.github/actions/setup-env
       - name: PNPM Run build
         run: pnpm run build
+        env:
+          VITE_AUDIENCE_AUTH0: ${{ vars.VITE_AUDIENCE_AUTH0 }}
+          VITE_DOMAIN_AUTH0: ${{ vars.VITE_DOMAIN_AUTH0 }}
+          VITE_SERVER_URL: ${{ vars.VITE_SERVER_URL }}
+          VITE_CLIENT_ID_AUTH0: ${{ secrets.VITE_CLIENT_ID_AUTH0 }}
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
