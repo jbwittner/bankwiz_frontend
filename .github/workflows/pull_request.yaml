@@ -89,5 +89,7 @@ jobs:
           directory: dist
           # Optional: Enable this if you want to have GitHub Deployments triggered
           gitHubToken: ${{ secrets.GITHUB_TOKEN }}
+          # Optional: Switch what branch you are publishing to.
+          branch: ${{ github.ref_name }}
           # Optional: Change the Wrangler version, allows you to point to a specific version or a tag such as `beta`
-          wranglerPagesDeploy: '3'
+          wranglerVersion: '3'
