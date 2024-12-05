@@ -70,6 +70,8 @@ jobs:
     permissions:
       contents: read
       deployments: write
+    needs:
+      - unit-test
     name: Publish to Cloudflare Pages
     steps:
       - name: Checkout Git repository
