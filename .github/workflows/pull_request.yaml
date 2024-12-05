@@ -83,9 +83,9 @@ jobs:
       - name: PNPM Run build
         run: pnpm run build
         env:
-          VITE_AUDIENCE_AUTH0: ${{ secrets.VITE_AUDIENCE_AUTH0 }}
-          VITE_DOMAIN_AUTH0: ${{ secrets.VITE_DOMAIN_AUTH0 }}
-          VITE_SERVER_URL: ${{ secrets.VITE_SERVER_URL }}
+          VITE_AUDIENCE_AUTH0: ${{ env.VITE_AUDIENCE_AUTH0 }}
+          VITE_DOMAIN_AUTH0: ${{ env.VITE_DOMAIN_AUTH0 }}
+          VITE_SERVER_URL: ${{ env.VITE_SERVER_URL }}
           VITE_CLIENT_ID_AUTH0: ${{ secrets.VITE_CLIENT_ID_AUTH0 }}
       - name: Publish to Cloudflare Pages
         uses: cloudflare/pages-action@v1
