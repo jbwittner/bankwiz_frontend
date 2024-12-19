@@ -26,8 +26,12 @@ const route = useRoute()
 const user: Ref<UserDTO> = ref({} as UserDTO)
 const userApiHelper = new UserApiHelper()
 
-onBeforeMount(async () => {
+const fetchData = async () => {
   user.value = await userApiHelper.authenticationUser()
+}
+
+onBeforeMount(async () => {
+  await fetchData()
 })
 
 watch(

@@ -28,7 +28,7 @@ const user = ref<UserDTO>();
 
 onBeforeMount(async () => {
   user.value = userStore.user;
-  console.log(user);
+  console.log(userStore.user);
 })
 
 
